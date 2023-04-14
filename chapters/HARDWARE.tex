@@ -1,0 +1,186 @@
+%!TEX ROOT=main.tex
+\chapter{Hardware}
+Zde bude celkovy popis HW vcetne blokovych schemat
+zde bude poppis Pouziteho MCU
+
+\section{Krevní tlak a oscilometrické pulzace}
+
+\section{Řídící jednotka}
+
+\section{Vzduchové ventily}
+Ventily jsou důležitou součástí pneumatického systému. Starají se o správný průběh terapie a také o bezpečí pacienta. \par
+V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a vypouštějcí regulační. Uzavíraci ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvých pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
+Všechny použité ventily nesmí v uzavřeném stavu propustit vzduch při tlaku $300 \ mmHg$, jinak by hrozilo nepřesné výsledky při měření a tím pádem špatná terapie.
+
+\subsection{Uzavírací ventil}
+Uzavírací ventil je důležitou součástí systému. Pneumatický systém rozdělí na dvě větve, kde jedna je část s manžetou a druhá větěv je jako referenční. \par
+
+\begin{figure}[H]
+\includegraphics[width=0.9\linewidth]{pictures/closing_valve.jpg}
+\caption{Fotka uzavíracího ventilu CJAV08-2B05A1}
+\label{fig:closing_valve}
+\end{figure}
+
+Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napětím, normálně zavřený, vzduchový ventil typu solenoid  o $U = 5 \ V$ a vstupní proud o $I = 204 \ mA \pm 10\% $
+
+\begin{figure}[H]
+\includegraphics[width=0.9\linewidth]{pictures/closing_valve_driver.jpg}
+\caption{Schéma zapojení uzavíracího ventilu}
+\label{fig:closing_valve_driver}
+\end{figure}
+
+Pro řízení ventilu z výstupního pinu MCU je použitý NMOS tranzistor BSS138. BSS138 má spínací práh napětí $U_{GS} = 3.3 \ V$ což je přímo výstupní napětí z GPIO a maximální proud přes drain je $I_D = 0.22 \ A$. Resistor přes Gate a Source zajisti známé napětí, pokud bude vstup na Gate plovoucí. Tím se zamezí neznámé chovaní tranzistoru.
+
+\subsection{Regulační ventil}
+Regulační ventily slouží k regulaci tlaku v systému při terapii a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každe větvy pneumatického systému. Během terapie je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvých podle potřeby terapie. \par 
+
+Regulační ventily jsou použité JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil. Maximální povolený tlak je $350mmHg$, řízený napětím $U = 6 \ V$ DC a proudový odběr je $I = 0.107 \ A$.\par
+
+Napětí na ventilech je $5V$ i přes to, že ventily požadují napětí $6 \ V$. Sadou testů zjístilo, že momentální napětí vyhovuje naším požadavkům a únik tlaku při plném sevření nijak neovlivňuje terapii a přidáním $6 \ V$ by se akorát zvýšila komplexita systému. 
+
+
+
+\begin{figure}[H]
+\includegraphics[width=1\linewidth]{pictures/var_valves.jpg}
+\caption{Schéma zapojení regulačních ventilů}
+\label{fig:variable_valve_driver}
+\end{figure}
+
+\subsubsection{Zdroj proudu}
+Regulační ventily jsou řízené napěťově řízeným zdrojem proudu jak je na obrázku \ref{fig:variable_valve_driver}.\par
+Ventily jsou napojené na drain NMOS tranzistoru, přes který jde konstatní napětí požadované ventilem. Proud se řídí operačním zesilovačem, který má na neinvertujícím vstupu $U_+$ napojené řídící napětí $U_i$. Výstup operačního zesilovače je spojen s gate tranzistoru. Source tranzistoru je spojen s invertujícím vstupem $U_-$ operačního zesilovače a také paralelně k zemi jsou zapojené resistory $R_{||}$, které určují maximální možný proud na regulačních ventilech. Výsledný proud je:
+\begin{equation}
+    \label{eq:current_source}
+    I = \frac{U_i}{R_{||}}
+\end{equation}
+ V případě na obrázku \ref{fig:variable_valve_driver} paralelní resistory $R_1 = R_2 = 51 \ \Omega$ mají výslednou hodnotu:  
+\begin{align*}
+    R_{||} = \frac{R_1 R_2}{R_1 + R_2} = \frac{51}{2} = 25.5 \ \Omega
+\end{align*}
+Maximálním napětí, které umožní MCU z GPIO pinu je $3.3V$ proto maximální možný proud na regulačních ventilech je:
+\begin{align*}
+    I = \frac{U_i}{R_{||}} = \frac{3.3}{25.5} \approx 129 \ mA
+\end{align*}
+
+Pokud budeme brát v úvahu ideální OZ, tak do invertujícího $U_-$ a neinvertujícího $U_+$ vstupu jde nulový proud, kde $U_+ = U_-$ a výstup z OZ je 
+\begin{align}
+    U_o = A(U_+ - U_-)
+\end{align}
+kde $A [-] $ je zesilovační činitel, který se blíží k nekonečnu. Pokud bude na výstupu OZ nulové napětí, tranzistor je uzavřen a napětí na source je také nulové. Pokud ale například dáme řídící napětí třeba na $U_i = 1V$, poté se OZ bude snažit, aby rozdíl $U_+ - U_- = 0$, tak na výstupu OZ se bude zvyšovat napětí dokud napětí na source nebude $U_- = U_i$. To znamená, že přes regulační ventily právě bude procházet proud z rovnice \ref{eq:current_source}. 
+
+Použitý NMOS tranzistor je BSS138, který má minimální práhové napětí $U_{GS(th)} = 0.5 \ V$, to je napětí, při kterém začne protékat proud. To znamená, že minimální řídící napětí musí být $U_{i} = 0.5 \ V$
+
+
+\subsubsection{Řídící signál}
+Řídící signál je čtvercový pro řízení proudového zdroje. PWM signál z MCU o frekvenci $f_{PWM} = 25 kHz$ je filtrován pomocí RC článku o zlomové frekvenci $f_c = 159 Hz$, který slouží pro modulaci řídícího PWM signálu na konstatní napětí. 
+\par
+Pulse Width Modulated(PWM) signál je periodický čtvercový signál s fixní periodou a měnící se poměrem času v log.1 a log.0, také nazývané jako střída(Duty Cycle). Průměrné napětí PWM signálu je
+\begin{equation}
+    U_{out} = U_{max} \cdot Duty Cycle
+\end{equation}
+kde $U_{max}$ je maximální amplituda PWM signálu. \par
+
+
+Pomocí fourierovy analýzy PWM signálu můžeme vidět, že PWM signál se neskládá pouze z jedné frekvence, ale z mnoha (Obrázek \ref{fig:pwm_spectrum}). 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/pwm_spectrum_microchip90003250A.jpg}
+    \caption{Spektrum PWM signálu převzatého od Microchip TB3250 kde $f_{PWM}$ je frekvence PWM signálu a $T$ je jeho perioda.}
+    \label{fig:pwm_spectrum}
+\end{figure}
+
+Největší amplitudu typyckého PWM signálu má na její nastavené frekvenci $f_{PWM}$ a ostatní harmonické frekvence jsou její celočíselné násobky. Tyto frekvence přidávají nechtěný šum a můžou být potlačeny pomocí filtru typu dolní propust. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/rc_pwm_spectrum_microchip90003250A.jpg}
+    \caption{Požadované odstraněné frekvence ve spektru PWM signálu převzatého od Microchip TB3250 kde $f_{PWM}$ je frekvence PWM signálu a $T$ je jeho perioda, $f_{c}$ je zlomová frekvence filtru.}
+    \label{fig:unwanted_pwm_spectrum}
+\end{figure}
+
+Použitá dolní propust je RC filtr. Podle obrázku \ref{fig:variable_valve_driver} RC filtr je složený z odporu $R = 10 \ k\Omega$ a kondenzátoru $C = 100 \ nF$ kde výstupní napětí je napětí na kondenzátoru. 
+\begin{equation}
+    U_C(j\omega) = U_{in}(j\omega) \frac{1}{1 + j\frac{\omega}{\omega_0}}
+\end{equation}
+\begin{equation}
+    \omega_0 = \frac{1}{RC} \Rightarrow f_c = \frac{\omega_0}{2\pi} = \frac{1}{2\pi RC} 
+\end{equation}
+Kde $f_c = 159 \ Hz$ je zlomová frekvence filtru.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/var_rc_filter.png}
+    \caption{Frekveční charakteristika použitého RC filtru. Obrázek je poskytnut z webové stránky \url{http://sim.okawa-denshi.jp/en/CRtool.php}}
+    \label{fig:var_rc_filter_char}
+\end{figure}
+
+Na obrázku \ref{fig:var_rc_filter_char} můžeme vidět, že signál se začne atenuovat na zlomové frekvenci a fáze signálu se začne posouvat na frekvenci $\frac{f_c}{10}$.  \par
+
+Aby výstupní řídící signál byl co nejvíce konstatní musíme zvolit vstupní frekvenci PWM signálu co nejvyšší, aby harmonické složky byly co nejvíce utlumeny. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/filtered_pwm.jpg}
+    \caption{Simulace RC filtru při vstupním PWM signálu o střídě $50\%$ a frekvencí $f_{PWM} = 1000 \ Hz $ (zelená) a $f_{PWM} = 25000  \ Hz $ (modrá). Simulace byla provedena v programu LTspice XVII.}
+    \label{fig:filtered_pwm}
+\end{figure}
+Rušení výstupního signálu ovlivní chování regulačního ventilu. Toto rušení způsobí periodickou změnu amplitudy výstupního signálu a regulační ventil se podle této amplitudy bude periodicky otevírat a zavírat. Při zvolené frekvenci PWM $f_{PWM} = 25000 \ Hz $ je změna napětí $\approx 30 \ mV$. To způsobý změnu proudu $I = \frac{0.030}{25.5} = 11 \ mA $. \par
+
+Volba velikosti prvků RC článku ovlivní schopnost reakce na změnu vstupního napětí. Výstupní napětí RC článku je 
+\begin{equation}
+    U_{C}(t) = U_{in}(t)(1 - e^{-\frac{t}{RC}}) = U_{in}(t)(1 - e^{-\frac{t}{\tau}})
+\end{equation}
+Časová konstanta $\tau = RC = 10 \times 10^{3} \cdot 100 \times 10^{-9}= 1\ ms$ definuje čas, který potrvá aby napětí na kondenzátoru dosáhlo $U_{C}(\tau) = U_{in}(\tau)(1 - e^{-1})$, což je $\approx 63 \ \% $ vstupního napětí $U_{in}$. 
+
+
+
+
+
+\section{Digitalizace analogových signálů}
+
+
+
+\section{Napájení}
+Vstupní napájení je použito pro napájení celého přistroje. Vstupní napětí je $U_{in} = 5V DC$, které poskytuje napájení pro všechny součástky na přístroji. Vstupní napětí je poté pomocí regulátoru napětí s nízkým úbytkem usměrněno na $3.3 V$ pro napájení MCU, sensorů a ostatních komponentů.
+
+\begin{figure}[H]
+\includegraphics[width=0.9\linewidth]{pictures/power.jpg}
+\caption{Schéma zapojení vstupního napájení}
+\label{fig:power_input}
+\end{figure}
+
+Celkový proudový odběr přístroje je ..... 
+
+Přístroj je opatřen $4 [A]$ pojistkou a ochranou proti opačné polaritě.
+Ochrana proti opačné polaritě zajistí při špatném zapojení, aby proud neprotékal přístrojem, ale musí se zajistit, aby ztrátový výkon 
+\begin{align*}
+  W = I^2 R  
+\end{align*}
+
+byl co nejmešní při správném zapojení. Proto je použit PMOS tranzistor jako ochrana obvodu, který . Gate tranzistoru je připojena k zemi a mezi Drain a Source protéká proud při správném zapojení napájecího zdroje. Protože $ U_G = 0 [V]$ a $U_S = U_{in}$, tak 
+\begin{align*}
+U_{GS} = U_G - U_S
+\end{align*}
+$U_{GS} = -U_{in} $, proto je potřeba, aby 
+\begin{align*}
+ U_{GS(ON)} > -U_{in}   
+\end{align*}
+Při opačném zapojení napájení $U_S = -U_{in}$ a $ U_G = 0 V$, tak  $U_{GS} = U_{in}$ tranzistor je vypnut a přes obvod neprotéká proud.
+V návrhu je použit tranzistor TPM9305PS3, který má  $U_{GS(ON)} = -2.5V $,  $I_D = -4.1A$ a $R_{DS(ON)} = 52m \Omega$ při $U_{GS} = -4.5V$. 
+Ztrátový výkon bude 
+\begin{align*}
+  W_{loss} = I^2 R \approx (3)^2 (0.053) =  159 mW
+\end{align*}
+
+Na obrázku \ref{fig:power_input} je ještě připojena mezi $U_G$ a $U_S$ zenerova dioda, která zamezí maximální napětí, pro ochranu tranzistoru. Pokud napájecí zdroj bude mít větší napětí něž maximální povolené napětí na $U_{GS}$, zenerova dioda upne $U_{GS}$ na její maximální napětí.
+\par
+Pro maximální zamezení rušivých jevů a braní ohledu na EMC jsou připojeny paralelně dva blokovací kondenzátory.
+
+\begin{figure}[H]
+\includegraphics[width=0.9\linewidth]{pictures/ldo_3v3.jpg}
+\caption{Schéma zapojení regulátoru napětí z 5V na 3.3V}
+\label{fig:stepdown}
+\end{figure}
+Na obrázku \ref{fig:stepdown} je schéma zapojení lineárního regulátoru napětí s nízkým úbytkem AZ1083-3.3. Vstupní napětí je v rozmezí $1.5V \leq U_{in} \leq 12V $. Výstup regulátoru je fixní na $U_{out} = 3.3V$ a maximální výstupní proud je $I_{out(MAX)} = 5A$. Zapojení regulátoru je podle doporučeného zapojení v datasheet.
