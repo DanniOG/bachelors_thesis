@@ -7,6 +7,140 @@ zde bude poppis Pouziteho MCU
 
 \section{Řídící jednotka}
 
+
+
+\section{Senzory}
+Tato sekce se zaměří na popis a použití senzorů a to zejména tlakových. Tlakové senzory tvoří nezbytnou část celkového přistroje a rozhodují o celkovém konfortu pacienta a také o přesnost výsledné terapie. \par
+Parametry senzorů tlaku vychází z parametrů terapie. Pneumatický systém může být pod tlakem až $300 \ mmHg = 40 \ kPa$, tento požadavek musí splňovat všechny senzory napojené do pneumatického systému.
+
+\subsection{Senzor tlaku}
+Senzor tlaku se používá na snímání tlaku v jednotlivých větvý pneumatického systému. \par
+
+
+Použité sensory tlaku jsou NPX MP3V5050GC6U. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/nxp_sensor.jpg}
+    \caption{Senzor tlaku NPX MP3V5050GC6U}
+    \label{fig:nxp}
+\end{figure}
+
+Je to analogový sensor tlaku od firmy NXP ze série peizorezistivních převodníků. Parametry jsou následovné: 
+\begin{center}
+\begin{tabular}{lllllll}
+\toprule
+Charakteristika                        & Symbol &  Min  & Typ & Max   & Jednotka &  \\ \midrule
+Rozsah tlaku                           & $P$    &  0    &   -   & 50   & $kPa$ & \\
+Vstupní napětí                         & $U_{s}$& - & 3.3 &  -  & $V$ &  \\
+Vstupní proud                          & $I_{s}$ & - & 10  &  -  & $mA$ &  \\
+Napěťový offset($0^{\circ}$ až $ 85^{\circ} $) & $U_{off}$& - & 0.188& -  & $V$ &  \\ 
+Full Scale Output (\ref{enum:nxp_fso})                  & $U_{FSO}$ & &2.77& & $V$ & \\
+Přesnost($0^{\circ}$ až $ 85^{\circ}$) & - & - & - & $\pm 2.5 $  &  $\%$ &\\
+Citlivost                              & $\frac{U}{P}$ & - & 54 & - & $\frac{mV}{kPa}$ & \\
+\bottomrule
+\end{tabular}
+
+\end{center}
+\raggedbottom	
+\begin{enumerate}
+	\item \label{enum:nxp_fso} Maximální napětí při největším hodnoceném tlaku.
+\end{enumerate}
+Zapojení senzoru je na separátní DPS podle doporučeného schématu \ref{fig:nxp_recommended} z datasheetu. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/nxp_recommended.jpg}
+    \caption{Doporučené schéma zapojení senzoru tlaku NPX MP3V5050GC6U. Kde $V_S$ je vstupní napájecí napětí a $V_{out}$ je výstupní napětí.}
+    \label{fig:nxp_recommended}
+\end{figure}
+
+Analogový výstup ze sensoru je připojen na interní AD převodník MCU. 
+
+\subsubsection{Převodní charakteristika}
+Převodní charakteristika výstupního napětí $U_{o} \ V$ na tlak $P \ kPa$je 
+\begin{equation}
+    P = \frac{U_o \pm ERROR}{0.018 \cdot U_s} - \frac{0.04}{0.018}
+    \label{eq:nxp_transfer}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/nxp_transfer.jpg}
+    \caption{}
+    \label{fig:nxp_transfer}
+\end{figure}
+
+
+
+
+\subsection{Diferenční sensor tlaku}
+Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Porovnává tlak mezí první a druhou (referenční) větvý systému. Po natlakování pneumatického systému až na $300 \ mmHg$ uzavírací ventil oddělí systém na dvě větve. Rozdíl tlaků ve větvy může být $300 \ mmHg$ neboli $40 \ kPa$. \par
+
+Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analogový senzor tlaku určený na snímání ultra nízkých tlaků. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/amphenol.jpg}
+    \caption{Diferenční sensor tlaku Amphenol ELVH-L02D-HRRD-C-NAA4}
+    \label{fig:amphenol}
+\end{figure}
+Tato série umožňuje snímat rozdíl tlaků v rozsahu $\pm 0.5 \ kPa$ a na každý vzduchový port je možno aplikovat tlak o maximální hodnotě $67 \ kPa$. \par 
+Přesnosti snímaného tlaku je  $0.25 \ \% FSS$, kde FSS(Full Scale Span) je  $FSS = \pm 1.32 \ V $. Napěťový offset je $U_{offset} = 1.65 V$. Z toho vyplývá, že výstupní napěťový rozsah je $0.33 \ V \leq U_o \leq 2.97 \ V$. 
+Sensor je napájen ze $3.3 \ V $ a jeho proudový odběr je $2.8 \ mA $.
+
+\begin{center}
+	\begin{tabular}{lllllll}
+	\toprule
+	Charakteristika                        & Symbol   & Min & Typ & Max   & Jednotka &  \\ \midrule
+	Rozsah tlaku                           & $P$      &  -497.68  &   -   &  497.68  & $Pa$ & \\
+	Proof pressure (\ref{enum:amp_proof_pressure})                      & $P_{pp}$ &  -  &   67   &  -  & $kPa$ & \\
+	Průrazný tlak (\ref{enum:amp_burst_pressure})                       & $P_{bp}$ &  -  &   103   &  -  & $kPa$ & \\
+	Common mode pressure (\ref{enum:amp_common_pressure})                & $P_{cm}$ &  -  &   103   &  -  & $kPa$ & \\
+	Vstupní napětí                         & $U_{s}$  &  -  & 3.3  &  -  & $V$ &  \\
+	Vstupní proud                          & $I_{s}$  &  -  & 2.1  &  2.8  & $mA$ &  \\
+	Napěťový offset						   & $U_{off}$&  -  & 1.65 & -  & $V$ &  \\ 
+	Full Scale Span (\ref{enum:amp_fss})                    & $U_{FSS}$&     &$\pm 1.32$& & $V$ & \\
+	Přesnost							   & - 		  &  -  & - & $\pm 0.25 $  &  $\%$ &\\
+	Citlivost                              & - & - & 0.2 & - & $\%$ & \\
+	\bottomrule
+\end{tabular}    
+\end{center}
+\raggedbottom		
+\begin{enumerate}
+		\item \label{enum:amp_proof_pressure} Maximální tlak, který může být aplikován na jeden z portů senzoru a zachoval původní specifickace.
+		\item \label{enum:amp_burst_pressure} Maximální tlak, který může být aplikován na jeden z portů senzoru, bez způsobení úniku tlaku.
+		\item \label{enum:amp_common_pressure} Maximální tlak, který může být aplikován na oba porty zároveň, bez způsobení úniku tlaku.
+		\item \label{enum:amp_fss} Algebraický rozdíl napětí při nejmenším možném specifikovaném tlaku a při maximálním specifikovaném tlaku.
+\end{enumerate}
+
+Analogový signál ze senzoru je připojen k 24 bit AD převodníku přes RC článek. Schéma zapojení k AD převodníu je \ref{fig:amphenol_circuit}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/diff_sen_circuit.jpg}
+    \caption{Schéma zapojení diferenčního sensoru tlaku Amphenol ELVH-L02D-HRRD-C-NAA4 k AD převodníku.}
+    \label{fig:amphenol_circuit}
+\end{figure}
+
+Zlomová frekvence RC článku $f_0 = \frac{1}{2 \pi RC} = 1591 \ Hz $ byla spočítána podle maximální frekvence tlakové vlny. 
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/rc_1k_100n_1591.png}
+    \caption{Bodeho aproximace RC článku pro Amphenol ELVH-L02D-HRRD-C-NAA4}
+    \label{fig:amphenol_filter}
+\end{figure}
+
+Podle Bodeho fázové aproximace RC článku na obrázku \ref{fig:amphenol_filter} můžeme vidět, že fáze se začne měnit před $\frac{f_0}{10}$. 
+Změna fáze snímaného signálu způsobí zkreslení výsledných hodnot a nepřesnou terapii.
+
+
+
+
+
 \section{Vzduchové ventily}
 Ventily jsou důležitou součástí pneumatického systému. Starají se o správný průběh terapie a také o bezpečí pacienta. \par
 V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a vypouštějcí regulační. Uzavíraci ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvých pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par

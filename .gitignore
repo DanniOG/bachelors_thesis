@@ -10,4 +10,6 @@
 *.synctex.gz
 *.sh
 *.toc
-ctuman-*.pdf
+*.fls
+*.fdb_latexmk
+*.ind
