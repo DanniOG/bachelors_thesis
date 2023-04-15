@@ -1,0 +1,25 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{WEB09}
+
+\bibitem[FV19]{cite:2}
+DOBIAS M. ( CTU in Prague~) FABIAN~V., KREMEN~V., \emph{Method for an accurate
+  automated non-invasive measurement of blood pressure waveform and apparatus
+  to carry out the same}, United States Patent and Trademark Office, US Patent
+  US10251567 (2019).
+
+\bibitem[Ví10]{cite:3}
+Záhlava Vít, \emph{Návrh a konstrukce desek plošných spojů principy a
+  pravidla praktického návrhu}, BEN - technická literatura \textbf{1}
+  (2010).
+
+\bibitem[WEB09]{cite:1}
+John G.~(ed.) WEBSTER, \emph{Medical instrumentation: application and design},
+  John Wiley \& Sons Inc. \textbf{4} (2009).
+
+\end{thebibliography}
