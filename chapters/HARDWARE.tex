@@ -3,10 +3,76 @@
 Zde bude celkovy popis HW vcetne blokovych schemat
 zde bude poppis Pouziteho MCU
 
-\section{Krevní tlak a oscilometrické pulzace}
 
 \section{Řídící jednotka}
 
+Řídící jednotka působí jako centrum řízení a sběru dat. Má na starosti řízení ventilů, natlakování pneumatického systémum, sběr a vyhodnocení
+dat ze senzorů a komunikaci s nadřazeným systémem. \par
+
+
+
+Jako řídící jednotka byl vybrán mikroprocesor SMT32F407ZG (dále jenom MCU). Je to MCU od firmy ST Microelectronics, které je 
+s jádrem posteveným na architektuře Arm® Cortex®-M4 32bit, jehož časovací frekvence může být až $168 MHz$. Jádro Cortex-M4 je vhodné pro zpracování signálu díky zabudovanému výpočetnímu modulu Floating Point Unit(FPU) určené na 
+počítání s desetinými čísly a také řadou instrukcí určené specificky na zpracování signálu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{pictures/stm32f407.jpg}
+    \caption{Model stm32f407 \url{https://www.distrelec.cz/cs/mikroradic-32bit-512kb-lqfp-st-stm32f407zet6/p/30170736}}
+    \label{fig:stm32}
+\end{figure}
+
+
+Celkové zapojení MCU je na obrázku \ref{fig:stm32_conection}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/stm_connection.jpg}
+    \caption{Schéma zapojení SMT32F407ZG}
+    \label{fig:stm32_conection}
+\end{figure}
+
+Zapojení MCU je podle doporučeného zapojení. Jedná se hlavně o umístění a typy blokovacích kondenzátorů, reset signál, boot z interní nebo externí flash paměti a zvolení externích nízko a vysoko kmitočtových hodin. \par
+
+\subsection{Externí hodiny}
+
+MCU obsahuje interní vysokorychlostní RC oscilátor, ale pro maximální přesnost a spolehlivost byl zvolen externí vysokorychlotní oscilátor Abracon ABM3 o frekvenci  $8 \ MHz$. Externí oscilátor slouží jako hlavní časovací hodiny pro 
+jádro. Jádro může být na frekvenci až $168 \ MHz$ a to pomocí vnitřní násobičky frekvence Phase Locked Loop (dále pouze PLL) můžeme dosánout z $8 \ MHz$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{pictures/stm32_hse.jpg}
+    \caption{Schéma zapojení vysokorychlostního externího oscilátoru pro STM32}
+    \label{fig:stm32_hse}
+\end{figure}
+
+Snížení frekvence externích hodin omezíme vysoko frekvečního rušení, případného přeslechu na vodičích a celkové signálové integritě.
+
+
+\subsection{Napěťová reference pro analogové periferie}
+Pro dosáhnutí nejpřesnějšího měření, je třeba, aby analogová čast byla co nejméně zarušena. Díky vysokým kmitočtům digitální čast MCU může zarušit analogové periférie a proto jsou v MCU digitální a analogové obvody oddělené. 
+Jako refereční napětí je použito zapojení na obrázku \ref{fig:stm32_vref}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/stm_analog_reference.jpg}
+    \caption{Schéma zapojení referečního napětí pro analogové periférie STM32}
+    \label{fig:stm32_vref}
+\end{figure}
+
+Tento filtr začne potlačovat na frekvenci $f = 138 \ kHz$. Ale mezi $\approx 50 \ kHz$ a $ \approx 115 \ kHz$ filtr zesiluje, kde největší zesílení o $19 \ dB$ je na frekvenci $88.8 \ kHz$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/cardi_vref_filter_response.jpg}
+    \caption{Aproximace frekveční odezvy filtru analogového napětí.}
+    \label{fig:stm32_vref_response}
+\end{figure}
+
+Feritový korálek je pasivní součástka, který se používá pro filtraci vysokofrekvenčního rušení přes širokou část frekvenčního rozsahu. Největší impedanci má okolo určené frekvence a disipuje energii rušení ve formě tepla.
+
+
+\section{Modul měření krevního tlaku}
 
 
 \section{Senzory}
@@ -27,7 +93,9 @@ Použité sensory tlaku jsou NPX MP3V5050GC6U.
 \end{figure}
 
 Je to analogový sensor tlaku od firmy NXP ze série peizorezistivních převodníků. Parametry jsou následovné: 
-\begin{center}
+\begin{table}[H]
+    \label{tab:nxp_properties}
+    \caption{Properties of nxp sensor}
 \begin{tabular}{lllllll}
 \toprule
 Charakteristika                        & Symbol &  Min  & Typ & Max   & Jednotka &  \\ \midrule
@@ -39,13 +107,15 @@ Full Scale Output (\ref{enum:nxp_fso})                  & $U_{FSO}$ & &2.77& & $
 Přesnost($0^{\circ}$ až $ 85^{\circ}$) & - & - & - & $\pm 2.5 $  &  $\%$ &\\
 Citlivost                              & $\frac{U}{P}$ & - & 54 & - & $\frac{mV}{kPa}$ & \\
 \bottomrule
-\end{tabular}
 
-\end{center}
-\raggedbottom	
+\end{tabular}
 \begin{enumerate}
 	\item \label{enum:nxp_fso} Maximální napětí při největším hodnoceném tlaku.
 \end{enumerate}
+\end{table}
+
+
+
 Zapojení senzoru je na separátní DPS podle doporučeného schématu \ref{fig:nxp_recommended} z datasheetu. 
 
 
@@ -91,8 +161,10 @@ Tato série umožňuje snímat rozdíl tlaků v rozsahu $\pm 0.5 \ kPa$ a na ka�
 Přesnosti snímaného tlaku je  $0.25 \ \% FSS$, kde FSS(Full Scale Span) je  $FSS = \pm 1.32 \ V $. Napěťový offset je $U_{offset} = 1.65 V$. Z toho vyplývá, že výstupní napěťový rozsah je $0.33 \ V \leq U_o \leq 2.97 \ V$. 
 Sensor je napájen ze $3.3 \ V $ a jeho proudový odběr je $2.8 \ mA $.
 
-\begin{center}
-	\begin{tabular}{lllllll}
+\begin{table}
+    \label{tab:amphenol_properies}
+    \caption{properties of an amphenol}
+    \begin{tabular}{lllllll}
 	\toprule
 	Charakteristika                        & Symbol   & Min & Typ & Max   & Jednotka &  \\ \midrule
 	Rozsah tlaku                           & $P$      &  -497.68  &   -   &  497.68  & $Pa$ & \\
@@ -107,14 +179,13 @@ Sensor je napájen ze $3.3 \ V $ a jeho proudový odběr je $2.8 \ mA $.
 	Citlivost                              & - & - & 0.2 & - & $\%$ & \\
 	\bottomrule
 \end{tabular}    
-\end{center}
-\raggedbottom		
 \begin{enumerate}
 		\item \label{enum:amp_proof_pressure} Maximální tlak, který může být aplikován na jeden z portů senzoru a zachoval původní specifickace.
 		\item \label{enum:amp_burst_pressure} Maximální tlak, který může být aplikován na jeden z portů senzoru, bez způsobení úniku tlaku.
 		\item \label{enum:amp_common_pressure} Maximální tlak, který může být aplikován na oba porty zároveň, bez způsobení úniku tlaku.
 		\item \label{enum:amp_fss} Algebraický rozdíl napětí při nejmenším možném specifikovaném tlaku a při maximálním specifikovaném tlaku.
 \end{enumerate}
+\end{table}
 
 Analogový signál ze senzoru je připojen k 24 bit AD převodníku přes RC článek. Schéma zapojení k AD převodníu je \ref{fig:amphenol_circuit}
 
