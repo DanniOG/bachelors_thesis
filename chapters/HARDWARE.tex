@@ -50,7 +50,7 @@ jádro. Jádro může být na frekvenci až $168 \ MHz$ a to pomocí vnitřní n
 Snížení frekvence externích hodin omezíme vysoko frekvečního rušení, případného přeslechu na vodičích a celkové signálové integritě.
 
 
-\subsection{Napěťová reference pro analogové periferie}
+\subsection{Napěťová reference pro analogové periferie} \label{section:vref}
 Pro dosáhnutí nejpřesnějšího měření, je třeba, aby analogová čast byla co nejméně zarušena. Díky vysokým kmitočtům digitální čast MCU může zarušit analogové periférie a proto jsou v MCU digitální a analogové obvody oddělené.
 Jako refereční napětí je použito zapojení na obrázku \ref{fig:stm32_vref}.
 
@@ -118,7 +118,7 @@ Použité sensory tlaku jsou NPX MP3V5050GC6U.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{pictures/nxp_sensor.jpg}
+    \includegraphics[width=0.5\linewidth]{pictures/nxp_sensor.jpg}
     \caption{Senzor tlaku NPX MP3V5050GC6U}
     \label{fig:nxp}
 \end{figure}
@@ -130,14 +130,14 @@ Je to analogový sensor tlaku od firmy NXP ze série peizorezistivních převodn
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
-            Charakteristika                                & Symbol        & Min & Typ   & Max        & Jednotka         & \\ \midrule
-            Rozsah tlaku                                   & $P$           & 0   & -     & 50         & $kPa$            & \\
-            Vstupní napětí                                 & $U_{s}$       & -   & 3.3   & -          & $V$              & \\
-            Vstupní proud                                  & $I_{s}$       & -   & 10    & -          & $mA$             & \\
-            Napěťový offset($0^{\circ}$ až $ 85^{\circ} $) & $U_{off}$     & -   & 0.188 & -          & $V$              & \\
-            Full Scale Output (\ref{enum:nxp_fso})         & $U_{FSO}$     &     & 2.77  &            & $V$              & \\
-            Přesnost($0^{\circ}$ až $ 85^{\circ}$)         & -             & -   & -     & $\pm 2.5 $ & $\%$             & \\
-            Citlivost                                      & $\frac{U}{P}$ & -   & 54    & -          & $\frac{mV}{kPa}$ & \\
+            Charakteristika                                         & Symbol        & Min & Typ   & Max        & Jednotka         & \\ \midrule
+            Rozsah tlaku                                            & $P$           & 0   & -     & 50         & $kPa$            & \\
+            Vstupní napětí                                          & $U_{s}$       & -   & 3.3   & -          & $V$              & \\
+            Vstupní proud                                           & $I_{s}$       & -   & 10    & -          & $mA$             & \\
+            Napěťový offset($0^{\circ}$ až $ 85^{\circ}  C $)       & $U_{off}$     & -   & 0.188 & -          & $V$              & \\
+            $\textnormal{Full Scale Output}^{(\ref{enum:nxp_fso})}$ & $U_{FSO}$     &     & 2.77  &            & $V$              & \\
+            Přesnost($0^{\circ}$ až $ 85^{\circ} C$)                & -             & -   & -     & $\pm 2.5 $ & $\%$             & \\
+            Citlivost                                               & $\frac{U}{P}$ & -   & 54    & -          & $\frac{mV}{kPa}$ & \\
             \bottomrule
         \end{tabular}
     \end{ctucolortab}
@@ -187,17 +187,17 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
-            Charakteristika                                       & Symbol    & Min     & Typ        & Max         & Jednotka & \\ \midrule
-            Rozsah tlaku                                          & $P$       & -497.68 & -          & 497.68      & $Pa$     & \\
-            Proof pressure (\ref{enum:amp_proof_pressure})        & $P_{pp}$  & -       & 67         & -           & $kPa$    & \\
-            Průrazný tlak (\ref{enum:amp_burst_pressure})         & $P_{bp}$  & -       & 103        & -           & $kPa$    & \\
-            Common mode pressure (\ref{enum:amp_common_pressure}) & $P_{cm}$  & -       & 103        & -           & $kPa$    & \\
-            Vstupní napětí                                        & $U_{s}$   & -       & 3.3        & -           & $V$      & \\
-            Vstupní proud                                         & $I_{s}$   & -       & 2.1        & 2.8         & $mA$     & \\
-            Napěťový offset                                       & $U_{off}$ & -       & 1.65       & -           & $V$      & \\
-            Full Scale Span (\ref{enum:amp_fss})                  & $U_{FSS}$ &         & $\pm 1.32$ &             & $V$      & \\
-            Přesnost                                              & -         & -       & -          & $\pm 0.25 $ & $\%$     & \\
-            Citlivost                                             & -         & -       & 0.2        & -           & $\%$     & \\
+            Charakteristika                                                         & Symbol    & Min     & Typ        & Max         & Jednotka & \\ \midrule
+            Rozsah tlaku                                                            & $P$       & -497.68 & -          & 497.68      & $Pa$     & \\
+            $\textnormal{Proof pressure}^{(\ref{enum:amp_proof_pressure})}$         & $P_{pp}$  & -       & 67         & -           & $kPa$    & \\
+            $\textnormal{Průrazný tlak}^{(\ref{enum:amp_burst_pressure}) }$         & $P_{bp}$  & -       & 103        & -           & $kPa$    & \\
+            $\textnormal{Common mode pressure}^{(\ref{enum:amp_common_pressure})} $ & $P_{cm}$  & -       & 103        & -           & $kPa$    & \\
+            Vstupní napětí                                                          & $U_{s}$   & -       & 3.3        & -           & $V$      & \\
+            Vstupní proud                                                           & $I_{s}$   & -       & 2.1        & 2.8         & $mA$     & \\
+            Napěťový offset                                                         & $U_{off}$ & -       & 1.65       & -           & $V$      & \\
+            $\textnormal{Full Scale Span}^{(\ref{enum:amp_fss})} $                  & $U_{FSS}$ &         & $\pm 1.32$ &             & $V$      & \\
+            Přesnost                                                                & -         & -       & -          & $\pm 0.25 $ & $\%$     & \\
+            Citlivost                                                               & -         & -       & 0.2        & -           & $\%$     & \\
             \bottomrule
         \end{tabular}
     \end{ctucolortab}
@@ -349,13 +349,49 @@ Tato sekce popisuje typy použitých analogově digitálních převodníků, kte
 Další je 24 bit sigma-delta AD převodník Microchip MCP3561 pro snímání napětí z diferenčního tlakového sensoru popsaný v sekci \ref{section:diff_pressure_sen}.
 
 \subsection{Snímání signálů z tlakových senzorů větvý pneumatíckého systému}
+Je použit AD převodník součástí periférii rodiny MCU STM32F4xx. Jedná se o 12 bitový AD převodník s postunout aproximací a maximální vzorkovací frekvencí $f_{sample} = 2.4 \ MSPS$. Pro každý kanál se může aplikovat jiná vzorkovací frekvence. \par
+Díky měření pouze absolutní hodnoty tlaku ze senzorů vzorkovací frekvence nemusí být vysoká. Vzorkovací frekvence je:
+\begin{equation}
+    f_{sample}=\frac{f_{ADCCKL}}{vzorkovací \, čas + 15 \, cyklů } = \frac{20.5 \! MHz}{480 + 15} \approx 41.5 \; kHz
+\end{equation}
+Vzorkovací frekvence závisí na vstupní frekvenci AD převodníku $f_{ADCCKL} = 20.5 \ MHz$, minimální počet $f_{ADCCKL} $ cyklů pro převod je $15$ a vzorkovacím časem, které jsou předem dané výrobcem. Minimální vzorkovací čas je $3$ a maximální je $480$.
+\par
+Přesnost AD převodníku je $1 LSB = \frac{U_{ref}}{2^N} = \frac{3.3}{2^{12}} = 0.000805 \ \frac{V}{ADC \ krok}$ závisí na referečním napětí diskutovaném v sekci \ref{section:vref}.
 
+\begin{equation} \label{eq:max_adc_R}
+    R_{AIN} = \frac{k - 0.5}{f_{ADCCLK} \cdot C_{ADC} \cdot ln(2^{N+2})} - R_{ADC}
+\end{equation}
+Rovnice \ref{eq:max_adc_R} slouží pro určení maximální vstupní externí impedance pro chybu pod $\frac{1}{4} \ LSB$. $N = 12$ je rozlišení AD převodníku, $k = 480$ je vzorkovací čas, $R_{ADC} = 6 \ k\Omega$ je vnitřní impedance vstupního kanálu AD převodníku a
+$C_{ADC} = 4 \ pF$ je interní kapacita obvodu Sample and Hold. Výsledná maximální vstupní impedance je $R_{AIN} = 1.75 \ M\Omega$, ale podle katalogového listu je maximální externí impedance AD převodníku $R_{AIN} = 50 \ k\Omega$.
+\par
+K dalším chybám AD převodníku patří
 
-
+\begin{table}[H]
+    \label{tab:stm_adc_error}
+    \caption{Přesnost ADC při $f_{ADC} = 30 \ MHz$}
+    \begin{ctucolortab}
+        \begin{tabular}{ccccccc}
+            \toprule
+            Charakteristika               & Symbol & Testovací podmínky       & Typ       & $\textnormal{Max}^{(\ref{enum:stm_adc_max_ref})}$ & Jednotka & \\ \midrule
+            Celková neupravená chyba      & $ET$   &                          & $\pm$ 2   & $\pm$ 5                                           &          & \\
+            Napěťová nesymetrie           & $EO$   & $f_{ADC} = 30 \ MHz$     & $\pm$ 1.5 & $\pm$ 2.5                                         &          & \\
+            Napěťový zisk                 & $EG$   & $R_{AIN} < 10 \ k\Omega$ & $\pm$ 1.5 & $\pm$ 3                                           & LSB      & \\
+            Difereciální  chyba linearity & $ED$   &                          & $\pm$ 1   & $\pm$ 2                                           &          & \\
+            Integrální chyba linearity    & $EL$   &                          & $\pm$ 1.5 & $\pm$ 3                                           &          & \\
+            \bottomrule
+        \end{tabular}
+    \end{ctucolortab}
+    \begin{enumerate}
+        \item \label{enum:stm_adc_max_ref} Maximální tlak, který může být aplikován na jeden z portů senzoru a zachoval původní specifickace.
+    \end{enumerate}
+\end{table}
 
 \subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému}
-
-
+Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Tlaková vlna má frekvenci $f = x \ Hz$ XXXXX SEM DOPLNIT. Aby byla tlaková vlna správně převedena, musí být dodržen nyquistův teorém.
+\begin{equation} \label{eq:nyquist}
+    f_s \geq 2f
+\end{equation}
+Rovnice \ref{eq:nyquist} říká, že vzorkovací frekvence musí být alespoň dvojnásobek snímaného signálu.
 
 
 \section{Napájení}
