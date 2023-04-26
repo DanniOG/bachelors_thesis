@@ -344,6 +344,18 @@ Aby výstupní řídící signál byl co nejvíce konstatní musíme zvolit vstu
 Rušení výstupního signálu ovlivní chování regulačního ventilu. Toto rušení způsobí periodickou změnu amplitudy výstupního signálu a regulační ventil se podle této amplitudy bude periodicky otevírat a zavírat. Při zvolené frekvenci PWM $f_{PWM} = 168000 \ Hz $ je změna napětí $\approx 2 \ mV$. To způsobý změnu proudu $I = \frac{0.030}{25.5} = 11 \ mA $. \par
 Volba velikosti prvků RC článku ovlivní schopnost reakce na změnu vstupního napětí.
 Časová konstanta $\tau = RC = 10 \times 10^{3} \cdot 100 \times 10^{-9}= 1\ ms$ definuje čas, který potrvá aby napětí na kondenzátoru dosáhlo $U_{C}(\tau) = U_{in}(\tau)(1 - e^{-1})$, což je $\approx 63 \ \% $ vstupního napětí $U_{in}$.
+
+\par
+Díky rovnici
+\begin{equation} \label{eq:pwm_accuracy}
+    2^N = \frac{f_{TIMCLK}}{f_{PWM}}
+\end{equation}
+můžeme získat přesnost střídy PWM signálu. $f_{TIMCLK} = 168 \ MHz$ je obnovovací frekvence periferie TIMER, který generuje PWM signál. Pokud rovnici \ref{eq:pwm_accuracy} vyřešme pro $N$ získáme rovnici pro počet bitů a přesnosti střídy PWM signálu.
+\begin{equation}
+    N = \frac{\log_{2} (\frac{f_{TIMCLK}}{f_{PWM}})}{\log_{2}(2)} = \frac{ARR}{\log_{2}(2)}
+\end{equation}
+$ARR$ je Auto-Reload-Register MCU pro daný TIMER. Podle nastavené hodnoty v $ARR$ je možné nastavit frekvenci PWM signálu. Pro tento připad $N \doteq 9.96 $ bit.
+
 \section{Digitalizace analogových signálů}
 Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze senzorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU SMT32F407ZG6 pro snímání napětí tlakových sezorů na větvých pneumatického systému popsaných v sekci \ref{section:pressure_sen}.
 Další je 24 bit sigma-delta AD převodník Microchip MCP3561 pro snímání napětí z diferenčního tlakového sensoru popsaný v sekci \ref{section:diff_pressure_sen}.
@@ -369,6 +381,7 @@ K dalším chybám AD převodníku patří
 \begin{table}[H]
     \label{tab:stm_adc_error}
     \caption{Přesnost ADC při $f_{ADC} = 30 \ MHz$}
+    \hspace*{-1.3cm}
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
@@ -387,12 +400,40 @@ K dalším chybám AD převodníku patří
 \end{table}
 
 \subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému}
-Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Tlaková vlna má frekvenci $f = x \ Hz$ XXXXX SEM DOPLNIT. Aby byla tlaková vlna správně převedena, musí být dodržen nyquistův teorém.
+Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Tlaková vlna má frekvenci $f = x \ Hz$ XXXXX SEM DOPLNIT. Aby byla tlaková vlna správně převedena do digitálního signálu, musí být dodržen Nyquistův teorém.
 \begin{equation} \label{eq:nyquist}
     f_s \geq 2f
 \end{equation}
 Rovnice \ref{eq:nyquist} říká, že vzorkovací frekvence musí být alespoň dvojnásobek snímaného signálu.
+\par
+Byl vybrán 24 bit sigma-delta AD převodník MCP3561 od firmy Microchip s maximální vzorkovací frekvencí $153.6 \ kHz$. Je to AD převodník s velmi nízkým šumem, s jedním diferečním vstupem nebo dvěmi jednotlivými vstupy analogových signálu.
+Obsahuje interní oscilátor, teplotní sensor, obvody pro detekci zkratu či odpojeného sensoru, programovatelné zesílení od $0.33 \times$ až $64 \times$ a další.
+\par
+MCP3561 komunikuje s MCU pomocí komunikačního rozhraní Serial Peripheral Interface (SPI) až s maximální rychlostí $20 \ MHz$. Komunikace probíha po 8 bitových slovech, kde odpovědi z AD převodníku můžou mít délku 8,24 a nebo podle kofigurace i 32 bit.
+\begin{figure}[H]
+    \centering
+    \caption{Zapojení AD převodníku MCP3561}
+    \label{fig:mcp3561_connection}
+    \includegraphics[width=1\linewidth]{pictures/mcp3561_connection.jpg}
+\end{figure}
+Na obrázku \ref{fig:mcp3561_connection} je schéma zapojení MCP3561 podle doporučeného zapojení výrobce.
+\subsubsection{Napájení a napěťové reference}
+Zapojení obsahuje oddělené filtrování analogového a digitálního napajecího vstupu.
+Referenční napájení AD převodníku obsahuje operační zesilovač v zapojení napěťového sledovače, protože vstupní reference AD převodníku není impedančně oddělená. Operační zesilovač je MCP6V91T od firmy Microchip. Má nízkou teplotně závislou napětovou nesymetrii $U_{OS \ Drift} = \pm 17  \ \frac{nV}{^\circ C}$
+a také nízkou napěťovou nesymetrii $U_{OS} = 9 \ \mu V$, nízký šum a je optimalizovaný pro použití v prostředí s vysokým elektromagnetickým prostředí.
 
+\subsubsection{Externí oscilátor}
+Místo interního oscilátoru AD převodníku je použit externí oscilátor ECS-2520MVLC od firmy ECS Inc. s frekvencí $f_{CLK} = 4.9152 \ MHz$. Externí oscilátor zaručí stabilní funkčnost AD převodníku, protože přesnost interního oscilátoru není výrobcem zaručena, rozdíly až $\pm 30  \ \%$, může se lišit čip od čipu, mohou způsobit vadnou komunikaci a další nepredikovatelné chování.
+Podporované frekvence externího oscilátoru jsou v rozmezí $ 1 \ MHz \leq  f_{CLK} \leq 20 \ MHz $. Frekvence $f_{CLK} = 4.9152 \ MHz$ byla zvolena díky naměřených parametrů AD převodníku v katalogovém listu právě při použití této frekvence.
+\par
+Maximální možná vzorkovací frekvence pro tuto frekvenci oscilátoru je $f_s = 38400 \ Hz$.
+
+\subsubsection{Přesnost a rušení}
+Nejmenší možné snímané napětí ideálního $N = 24$ bit AD převodníku při referečním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N}} \doteq  196,695  \ nV$.
+Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí jakou vzrokovací frekvenci můžeme mít. Rovnice pro výpočet vzorkovací frekvence je
+\begin{equation}
+    f_s = \frac{f_{CLK}}{4 \times OSR \times Prescale}
+\end{equation}
 
 \section{Napájení}
 Vstupní napájení je použito pro napájení celého přistroje. Vstupní napětí je $U_{in} = 5V DC$, které poskytuje napájení pro všechny součástky na přístroji. Vstupní napětí je poté pomocí regulátoru napětí s nízkým úbytkem usměrněno na $3.3 V$ pro napájení MCU, sensorů a ostatních komponentů.
