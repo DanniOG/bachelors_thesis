@@ -1,24 +1,27 @@
 %!TEX ROOT=main.tex
 \chapter{Hardware}
-Zde bude celkovy popis HW vcetne blokovych schemat
-zde bude poppis Pouziteho MCU
+V této sekci je popsáná elektro-mechanická čast systému pro měření hemodynamických parametrů krevního řečiště pacienta.
 
-
+\begin{figure}[H]
+    \label{fig:block_cardi}
+    \includegraphics[width=1\textwidth]{pictures/blokove_schema_cele_zarizeni.jpg}
+    \caption{Blokové schéma zařízení}
+\end{figure}
+Součástí pneumatické časti je uzavírací ventil, regulační ventily na obou částí uzavíracího ventilu, rezervoáru a klinicky validovaného modulu pro měření tlaku.
+K elektrické části patří obvody pro ovládání regulačních a uzavíracího ventilu, komunikace s modulem pro měření tlaku, sběr dat ze senzorů tlaku na obou částí uzavíracího ventilu, komunikace a sběr dat z 24 bitového analogově digitálního převodníku a
+uložení a čtení dat do přidané FLASH paměti.
 \section{Řídící jednotka}
 
 Řídící jednotka působí jako centrum řízení a sběru dat. Má na starosti řízení ventilů, natlakování pneumatického systémum, sběr a vyhodnocení
 dat ze senzorů a komunikaci s nadřazeným systémem. \par
 
-
 Jako řídící jednotka byl vybrán mikroprocesor SMT32F407ZG (dále jenom MCU) od firmy ST Microelectronics.
 Jádro je Arm® Cortex®-M4 32bit, jehož časovací frekvence může být až $168 \ MHz$. Jádro Cortex-M4 je vhodné pro zpracování signálu díky zabudovanému výpočetnímu modulu Floating Point Unit(FPU) určené na
 počítání s desetinými čísly a také řadou instrukcí určené specificky na zpracování signálu.
-
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{pictures/stm32f407.jpg}
-    \caption{Model stm32f407 \\ \url{https://www.distrelec.cz/cs/mikroradic-32bit-512kb-lqfp-st-stm32f407zet6/p/30170736}}
+    \caption{Model stm32f407}
     \label{fig:stm32}
 \end{figure}
 MCU je v obalu se 144 piny se 114 vstupně/výstupními piny, 1 MByte FLASH paměti, 256 KByte paměti SRAM, 3x 12 bit AD převodníky s až 24 kanály s maximální vzorkovací frekvencí 2.4 MHz,
@@ -441,34 +444,38 @@ K dalším parametrům AD převodníku MCP3561 patří
 \begin{table}[H]
     \label{tab:mcp_adc_error}
     \caption{Charakteristika AD převodníku MCP3561. }
-    \hspace*{-3.1cm}
+    % \centering
+    \begin{itemize}
+        \item $f_{CLK} = 4.9152 \ MHz$, $DU_{DD} = AU_{DD} = U_{REF} = 3.3 \ V$, $T = 25 ^\circ C$
+    \end{itemize}
+    \hspace*{-2cm}
     \begin{ctucolortab}
-        \begin{tabular}{cccccccc}
+        \begin{tabular}{ccccccc}
             \toprule
-            Charakteristika                           & Symbol           & Min                 & Typ               & $\textnormal{Max}$ & Jednotka                                          & Testovací podmínky & \\ \midrule
-            Impedance analogového vstupu              & $Z_{in}$         & -                   & 260               & -                  & $k \Omega$                                        & Gain = 1           & \\
-            Rozlišení zavislé na OSR                  & Rozlišení        & 24                  & -                 & -                  & bit                                               & OSR $\geq$ 256     & \\
-            Napěťová nesymetrie                       & $U_{OS}$         & $\frac{-900}{GAIN}$ & -                 & $\frac{900}{GAIN}$ & $\mu V$                                           & -                  & \\
-            Napěťová nesymetrie závislá na teplotě    & $U_{OS \ DRIFT}$ & -                   & $\frac{70}{GAIN}$ & $\frac{300}{GAIN}$ & $\frac{nV}{^\circ C}$                             & -                  & \\
-            Chyba zesílení                            & $G_E$            & -3                  & -                 & +3                 & \%                                                & -                  & \\
-            Chyba zesílení závislé na teplotě         & $G_{E \ DRIFT}$  & -                   & 0.5               & 2                  & $\frac{ppm}{^\circ C}$                            & Gain = 1,2,4       & \\
-            Integrální nelinearita                    & $INL$            & -7                  & -                 & +7                 & ppm $\textnormal{FSR}^{(\ref{enum:mcp_adc_fsr})}$ & Gain = 1           & \\
-            Stejnosměrné potlačení souhlasného rušení & $DC \ CMRR$      & -                   & -126              & -                  & dB                                                & -                  & \\
-            Střídavé potlačení souhlasného rušení     & $AC \ CMRR$      & -                   & 122               & -                  & dB                                                & -                  & \\
-            Poměr signálu k šumu a zkreslení          & $SINAD$          & 105.8               & 106.7             & -                  & dB                                                & -                  & \\
-            Poměr signálu k šumu                      & $SNR$            & 106.7               & 107.2             & -                  & dB                                                & -                  & \\
-            Celkové harmonické zkreslení              & $THD$            & -                   & -116              & -111               & dB                                                & -                  & \\
-            Dynamický rozsah bez parazitních složek   & $SFDR$           & 110                 & 120               & -                  & dB                                                & -                  & \\
-            Přeslech vstupních kanálů                 & $CTALK$          & -                   & -130              & -                  & dB                                                & -                  & \\
+            Charakteristika                           & Symbol                                   & Min                 & Typ               & $\textnormal{Max}$ & Jednotka                                          & \\ \midrule
+            Impedance analogového vstupu              & $Z_{in}^{(\ref{enum:mcp_gain_one})}$     & -                   & 260               & -                  & $k \Omega$                                        & \\
+            Rozlišení zavislé na OSR                  & $Rozlišení^{(\ref{enum:mcp_accuracy})}$  & 24                  & -                 & -                  & bit                                               & \\
+            Napěťová nesymetrie                       & $U_{OS}$                                 & $\frac{-900}{GAIN}$ & -                 & $\frac{900}{GAIN}$ & $\mu V$                                           & \\
+            Napěťová nesymetrie závislá na teplotě    & $U_{OS \ DRIFT}$                         & -                   & $\frac{70}{GAIN}$ & $\frac{300}{GAIN}$ & $\frac{nV}{^\circ C}$                             & \\
+            Chyba zesílení                            & $G_E$                                    & -3                  & -                 & +3                 & \%                                                & \\
+            Chyba zesílení závislé na teplotě         & $G_{E \ DRIFT}^{(\ref{enum:mcp_drift})}$ & -                   & 0.5               & 2                  & $\frac{ppm}{^\circ C}$                            & \\
+            Integrální nelinearita                    & $INL^{(\ref{enum:mcp_gain_one})}$        & -7                  & -                 & +7                 & ppm $\textnormal{FSR}^{(\ref{enum:mcp_adc_fsr})}$ & \\
+            Stejnosměrné potlačení souhlasného rušení & $DC \ CMRR$                              & -                   & -126              & -                  & dB                                                & \\
+            Střídavé potlačení souhlasného rušení     & $AC \ CMRR$                              & -                   & 122               & -                  & dB                                                & \\
+            Poměr signálu k šumu a zkreslení          & $SINAD$                                  & 105.8               & 106.7             & -                  & dB                                                & \\
+            Poměr signálu k šumu                      & $SNR$                                    & 106.7               & 107.2             & -                  & dB                                                & \\
+            Celkové harmonické zkreslení              & $THD$                                    & -                   & -116              & -111               & dB                                                & \\
+            Dynamický rozsah bez parazitních složek   & $SFDR$                                   & 110                 & 120               & -                  & dB                                                & \\
+            Přeslech vstupních kanálů                 & $CTALK$                                  & -                   & -130              & -                  & dB                                                & \\
             \bottomrule
         \end{tabular}
     \end{ctucolortab}
     \begin{enumerate}
+        \item Gain = 1 \label{enum:mcp_gain_one}
+        \item OSR $\geq$ 256 \label{enum:mcp_accuracy}
+        \item Gain = 1,2,4 \label{enum:mcp_drift}
         \item Full-Scale-Range(FSR) = $2 \times U_{REF}/GAIN$ \label{enum:mcp_adc_fsr}
     \end{enumerate}
-    \begin{itemize}
-        \item $f_{CLK} = 4.9152 \ MHz$, $DU_{DD} = AU_{DD} = U_{REF} = 3.3 \ V$, $T = 25 ^\circ C$
-    \end{itemize}
 \end{table}
 
 

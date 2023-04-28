@@ -1,7 +1,88 @@
 %!TEX ROOT=main.tex
 \chapter{Implementace}
+V této kapitole je popsaná realizace systému CarDi a naměřené hodnoty pneumatického systému.
 
+\section{Deska plošného spoje}
+Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty systému. DPS a schéma je navržena v otevřeném freeware KiCad EDA.
+\begin{figure}[H]
+    \includegraphics[width=1\linewidth]{pictures/pcb_full.jpg}
+    \caption{Realizovaná deska plošného spoje.}
+    \label{fig:pcb_full}
+\end{figure}
 
+DPS je čtyřvsrtvá deska s dvěma signálovými vrstvy a dvěma silovýma vrstvama. Kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty. Druhá je společná zem, třetí je napájencí 3.3 V a poslední spodní vrtva je také signálová.
+Základní materiál je FR-4 a povrchová úprava je ENIG(Electroless nickel immersion gold).
+\par
+DPS je vyrobena a z části osazena firmou JLCPCB.
+\begin{figure}[H]
+    \includegraphics[width=1\linewidth]{pictures/pcb_from_production.jpg}
+    \caption{Deska plošného spoje z výroby.}
+    \label{fig:pcb_production}
+\end{figure}
+\begin{figure}[H]
+    \includegraphics[width=1\linewidth]{pictures/pcb_production_bottom.jpg}
+    \caption{Deska plošného spoje z výroby. Spodní vrstva.}
+    \label{fig:pcb_production_bottom}
+\end{figure}
+
+Celkovká cena desky a potřebné materiály jsou:
+
+\begin{table}[H]
+    \label{tab:bom}
+    \caption{Celkový počet součástek a výrobní cena }
+    \begin{ctucolortab}
+        \begin{tabular}{ccccccc}
+            \toprule
+            Typ                   & Název                  & Hodnota       & Počet & Cena     & Jednotky & \\ \midrule
+            Kondenzátor           &                        & 100 nF        & 10    & 0.022    &          & \\
+            Kondenzátor           &                        & 22 pF         & 2     & 0.0174   &          & \\
+            Kondenzátor           &                        & 1 uF          & 4     & 0.018    &          & \\
+            Kondenzátor           &                        & 2.2 uF        & 2     & 0.0096   &          & \\
+            Kondenzátor           &                        & 4.7 uF        & 1     & 0.0091   &          & \\
+            Kondenzátor           &                        & 10 uF         & 1     & 0.006    &          & \\
+            Kondenzátor           &                        & 22 uF         & 3     & 0.015    &          & \\
+            Resistor              &                        & 51 $\Omega$   & 4     & 0.5688   &          & \\
+            Resistor              &                        & 10 $\Omega$   & 2     & 0.0032   &          & \\
+            Resistor              &                        & 20 $k\Omega$  & 5     & 0.005    &          & \\
+            Resistor              &                        & 10 $k\Omega$  & 7     & 0.0056   &          & \\
+            Resistor              &                        & 0 $\Omega$    & 1     & 0.001    &          & \\
+            Resistor              &                        & 1 $k\Omega$   & 10    & 0.005    &          & \\
+            Resistor              &                        & 100 $k\Omega$ & 2     & 0.002    & €        & \\
+            Dioda                 & BZX84C10VLT116         &               & 1     & 0.2264   &          & \\
+            Dioda                 & D5V0F1U2S9-7           &               & 19    & 3.0837   &          & \\
+            Dioda                 & SM6T6V8AY              &               & 1     & 0.1372   &          & \\
+            Dioda                 & LED Green              &               & 3     & 0.0717   &          & \\
+            IO                    & AZ1084CD-3.3TRG1       &               & 1     & 0.2395   &          & \\
+            IO                    & MCP3561-E/ST           &               & 1     & 5.5941   &          & \\
+            IO                    & MCP6001RT-I/OT         &               & 2     & 0.486    &          & \\
+            IO                    & MCP6V91T-E/OT          &               & 1     & 1.81     &          & \\
+            IO                    & MX25R3235FM2IL0        &               & 1     & 0.88     &          & \\
+            IO                    & STM32F407ZGT6          &               & 1     & 1.02     &          & \\
+            MOSFET                & TPM9305PS3-1           &               & 1     & 0.0958   &          & \\
+            MOSFET                & BSS138                 &               & 4     & 0.09     &          & \\
+            Ferritový korálek     & MPZ1608S102ATA00       &               & 1     & 0.0196   &          & \\
+            Oscilátor             & ABM3-8.000MHZ-D2Y-T    & 8 MHz         & 1     & 0.5783   &          & \\
+            Oscilátor             & ECS-2520MVLC-049       & 4.9152 MHz    & 1     & 1.23     &          & \\
+            Pojistka              & F0603FF4000V032TM      & 4 A           & 1     & 0.0762   &          & \\
+            \bottomrule
+            $\Sigma$              &                        &               & 94    & 16.3262  & €        & \\
+            \bottomrule
+            Služba                & Výroba PCB od JLCPCB   &               & 1     & 5        & €        & \\
+            Služba                & Osazení PCB            &               & 1     & 16       & €        & \\
+            \bottomrule
+            $\Sigma$              &                        &               & 2     & 21       & €        & \\
+            \bottomrule
+            Programátor           & ST-LINK/V2-ISOL        &               & 1     & 76.99    & €        & \\
+            Kabel na programování & Tag Connect TC2030 IDC &               & 1     & 40.37    & €        & \\
+            \bottomrule
+            $\Sigma$              &                        &               & 2     & 117.36   & €        & \\
+            \bottomrule
+            \bottomrule
+            $\Sigma$              & Bez DPH                &               &       & 154.6862 & €        & \\
+            \bottomrule
+        \end{tabular}
+    \end{ctucolortab}
+\end{table}
 \section{Pneumatická část}
 
 Pneumatická čast systému je část ve které probíhá měření měření hemodynamických parametrů srdce pacienta. Je to jediná čast systému, která přichází v přímý kontakt s pacientem.
@@ -17,26 +98,28 @@ Pneumatická čast musí být co nejlépe těsná, aby po dobu terapie byl co ne
 Test těsnosti probíhal pomocí přístroje FLUKE Biomedical BP pump 2, který natlakoval pneumatickou část na hodnotu 200 mmHg a následně sledoval úbytek tlaku v systému po dobu 60 s.
 Měření bylo opakováno 10 krát po sobě.
 
-\begin{table}
+\begin{table}[H]
     \label{tab:pressure_test_pneu}
     \caption{Test těstnosti pneumatického systému}
-    \begin{tabular}{ccc}
-        \toprule
-        Měření & Těsnost & Jednotky           \\ \midrule
-        1      & 0.9     &                    \\
-        2      & 0.8     &                    \\
-        3      & 1.1     &                    \\
-        4      & 1.0     &                    \\
-        5      & 0.9     & $\frac{mmHg}{min}$ \\
-        6      & 0.9     &                    \\
-        7      & 1.1     &                    \\
-        8      & 0.9     &                    \\
-        9      & 0.8     &                    \\
-        10     & 1.0     &                    \\
-        \bottomrule
-    \end{tabular}
+    \begin{ctucolortab}
+        \begin{tabular}{ccc}
+            \toprule
+            Měření & Těsnost & Jednotky           \\ \midrule
+            1      & 0.9     &                    \\
+            2      & 0.8     &                    \\
+            3      & 1.1     &                    \\
+            4      & 1.0     &                    \\
+            5      & 0.9     & $\frac{mmHg}{min}$ \\
+            6      & 0.9     &                    \\
+            7      & 1.1     &                    \\
+            8      & 0.9     &                    \\
+            9      & 0.8     &                    \\
+            10     & 1.0     &                    \\
+            \bottomrule
+        \end{tabular}
+    \end{ctucolortab}
 \end{table}
-
+Průměrný pokles tlaku v důsledku úniku vzduchu z pneumatického obvodu je $0.94 \ \frac{mmHg}{min}$ se směrodatnou odchylkou $0.10  \ \frac{mmHg}{min}$. Dle normy je maximální úbytek tlaku v systému $4 \ \frac{mmHg}{min}$.
 \subsection{Zkreslení signálu pneumatickým systémem}
 Přenosová funkce systému byla identifikována měřením impulzní odezvy systému. Systém byl natlakovám na průměrnou hodnotu suprasystolického tlaku 230 mmHg a poté
 byl aplikován jednotkový impuls pomocí mechanického kyvadla.
