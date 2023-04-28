@@ -380,27 +380,24 @@ K dalším chybám AD převodníku patří
 
 \begin{table}[H]
     \label{tab:stm_adc_error}
-    \caption{Přesnost ADC při $f_{ADC} = 30 \ MHz$}
+    \caption{Charakteristika vestavěného AD převodníku v SMT32F407ZG6}
     \hspace*{-1.3cm}
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
-            Charakteristika               & Symbol & Testovací podmínky       & Typ       & $\textnormal{Max}^{(\ref{enum:stm_adc_max_ref})}$ & Jednotka & \\ \midrule
-            Celková neupravená chyba      & $ET$   &                          & $\pm$ 2   & $\pm$ 5                                           &          & \\
-            Napěťová nesymetrie           & $EO$   & $f_{ADC} = 30 \ MHz$     & $\pm$ 1.5 & $\pm$ 2.5                                         &          & \\
-            Napěťový zisk                 & $EG$   & $R_{AIN} < 10 \ k\Omega$ & $\pm$ 1.5 & $\pm$ 3                                           & LSB      & \\
-            Difereciální  chyba linearity & $ED$   &                          & $\pm$ 1   & $\pm$ 2                                           &          & \\
-            Integrální chyba linearity    & $EL$   &                          & $\pm$ 1.5 & $\pm$ 3                                           &          & \\
+            Charakteristika               & Symbol & Testovací podmínky       & Typ       & $\textnormal{Max}$ & Jednotka & \\ \midrule
+            Celková neupravená chyba      & $ET$   &                          & $\pm$ 2   & $\pm$ 5            &          & \\
+            Napěťová nesymetrie           & $EO$   & $f_{ADC} = 30 \ MHz$     & $\pm$ 1.5 & $\pm$ 2.5          &          & \\
+            Napěťový zisk                 & $EG$   & $R_{AIN} < 10 \ k\Omega$ & $\pm$ 1.5 & $\pm$ 3            & LSB      & \\
+            Difereciální  chyba linearity & $ED$   &                          & $\pm$ 1   & $\pm$ 2            &          & \\
+            Integrální chyba linearity    & $EL$   &                          & $\pm$ 1.5 & $\pm$ 3            &          & \\
             \bottomrule
         \end{tabular}
     \end{ctucolortab}
-    \begin{enumerate}
-        \item \label{enum:stm_adc_max_ref} Maximální tlak, který může být aplikován na jeden z portů senzoru a zachoval původní specifickace.
-    \end{enumerate}
 \end{table}
 
 \subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému}
-Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Tlaková vlna má frekvenci $f = x \ Hz$ XXXXX SEM DOPLNIT. Aby byla tlaková vlna správně převedena do digitálního signálu, musí být dodržen Nyquistův teorém.
+Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Při srdečním tepu např. 120 tepů/min tj. 2 Hz, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Aby byl tlakový analogový signál správně převeden do digitálního signálu, musí být dodržen Nyquistův teorém.
 \begin{equation} \label{eq:nyquist}
     f_s \geq 2f
 \end{equation}
@@ -418,7 +415,8 @@ MCP3561 komunikuje s MCU pomocí komunikačního rozhraní Serial Peripheral Int
 \end{figure}
 Na obrázku \ref{fig:mcp3561_connection} je schéma zapojení MCP3561 podle doporučeného zapojení výrobce.
 \subsubsection{Napájení a napěťové reference}
-Zapojení obsahuje oddělené filtrování analogového a digitálního napajecího vstupu.
+Zapojení obsahuje oddělené filtrování analogového a digitálního napajecího vstupu. Je použit RC článek typu dolní propusti s parametry resistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$. Zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
+\par
 Referenční napájení AD převodníku obsahuje operační zesilovač v zapojení napěťového sledovače, protože vstupní reference AD převodníku není impedančně oddělená. Operační zesilovač je MCP6V91T od firmy Microchip. Má nízkou teplotně závislou napětovou nesymetrii $U_{OS \ Drift} = \pm 17  \ \frac{nV}{^\circ C}$
 a také nízkou napěťovou nesymetrii $U_{OS} = 9 \ \mu V$, nízký šum a je optimalizovaný pro použití v prostředí s vysokým elektromagnetickým prostředí.
 
@@ -426,14 +424,72 @@ a také nízkou napěťovou nesymetrii $U_{OS} = 9 \ \mu V$, nízký šum a je o
 Místo interního oscilátoru AD převodníku je použit externí oscilátor ECS-2520MVLC od firmy ECS Inc. s frekvencí $f_{CLK} = 4.9152 \ MHz$. Externí oscilátor zaručí stabilní funkčnost AD převodníku, protože přesnost interního oscilátoru není výrobcem zaručena, rozdíly až $\pm 30  \ \%$, může se lišit čip od čipu, mohou způsobit vadnou komunikaci a další nepredikovatelné chování.
 Podporované frekvence externího oscilátoru jsou v rozmezí $ 1 \ MHz \leq  f_{CLK} \leq 20 \ MHz $. Frekvence $f_{CLK} = 4.9152 \ MHz$ byla zvolena díky naměřených parametrů AD převodníku v katalogovém listu právě při použití této frekvence.
 \par
-Maximální možná vzorkovací frekvence pro tuto frekvenci oscilátoru je $f_s = 38400 \ Hz$.
+Maximální možná přenosová rychlost pro tuto frekvenci oscilátoru je $f_s = 38400 \ Hz$.
 
 \subsubsection{Přesnost a rušení}
 Nejmenší možné snímané napětí ideálního $N = 24$ bit AD převodníku při referečním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N}} \doteq  196,695  \ nV$.
-Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí jakou vzrokovací frekvenci můžeme mít. Rovnice pro výpočet vzorkovací frekvence je
+Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí jaká přenosová rychlost bude mít nejlepší počet efektivních bitů. Přenosová rychlost udává počet vzorků odeslané po přenosové lince nadřazenému systému, signalizovaném výstupním digitálním pinem AD převodníku $\overline{IRQ}$.
+Rovnice po výpočet přenosové rychlosti:
 \begin{equation}
-    f_s = \frac{f_{CLK}}{4 \times OSR \times Prescale}
+    f_s = DRCLK = \frac{DMCLK}{OSR} =\frac{f_{CLK}}{4 \times OSR \times Prescale}
 \end{equation}
+Rovnice je převzatá z katalogu AD převodníku. Kde $f_{CLK} = 4.9152 \ MHz$ je frekvence AD převodníku, DMCLK je vzorkovací frekvence AD převodníku, Prescale je hodnota pro decimaci taktovací frekvence AD převodníku s hodnotamy $Prescale = \{1, 2, 4, 8\}$.  OSR (Oversampling Ratio) je poměr vzorkovací frekvence ku přenosové rychlosti. Počet a hodnoty OSR jsou v omezeném množstvý a jsou napsané v katalogu AD převodníku. Podle katalogu závisí počet efektivních bitů a rušení na OSR.
+Čím vyšší OSR, tím větší bude počet použitelných bitů a menší rušení. Pro dosáhnutí přenosové rychlosti $f_s = 5000 \ Hz$ byly vybrány hodnoty $Prescale = 1$, $OSR = 256$ a zesílení $Gain = 1 \times$. Vzorkovací frekvence AD převodníku je $DMCLK = \frac{f_{CLK}}{4 \times Prescale} = 1 \ 228 \ 800 \ Hz$ a výsledná přenosová rychlost je $f_s = DRCLK = 4800 \ Hz$. Výsledná přenosová rychlost vyhovuje požadavkům. Díky vybrání hodnoty OSR je výsledný $ENOB = 19.5 \ bit$ a RMS rušení $U_{noise \ RMS} = 8.94 \ \mu V$.
+Výsledná přesnot AD převodníku se sníží na $ 1 \ LSB = \frac{U_{ref}}{2^{ENOB}} \doteq  4.4 \ \mu V$.
+\par
+K dalším parametrům AD převodníku MCP3561 patří
+\begin{table}[H]
+    \label{tab:mcp_adc_error}
+    \caption{Charakteristika AD převodníku MCP3561. }
+    \hspace*{-3.1cm}
+    \begin{ctucolortab}
+        \begin{tabular}{cccccccc}
+            \toprule
+            Charakteristika                           & Symbol           & Min                 & Typ               & $\textnormal{Max}$ & Jednotka                                          & Testovací podmínky & \\ \midrule
+            Impedance analogového vstupu              & $Z_{in}$         & -                   & 260               & -                  & $k \Omega$                                        & Gain = 1           & \\
+            Rozlišení zavislé na OSR                  & Rozlišení        & 24                  & -                 & -                  & bit                                               & OSR $\geq$ 256     & \\
+            Napěťová nesymetrie                       & $U_{OS}$         & $\frac{-900}{GAIN}$ & -                 & $\frac{900}{GAIN}$ & $\mu V$                                           & -                  & \\
+            Napěťová nesymetrie závislá na teplotě    & $U_{OS \ DRIFT}$ & -                   & $\frac{70}{GAIN}$ & $\frac{300}{GAIN}$ & $\frac{nV}{^\circ C}$                             & -                  & \\
+            Chyba zesílení                            & $G_E$            & -3                  & -                 & +3                 & \%                                                & -                  & \\
+            Chyba zesílení závislé na teplotě         & $G_{E \ DRIFT}$  & -                   & 0.5               & 2                  & $\frac{ppm}{^\circ C}$                            & Gain = 1,2,4       & \\
+            Integrální nelinearita                    & $INL$            & -7                  & -                 & +7                 & ppm $\textnormal{FSR}^{(\ref{enum:mcp_adc_fsr})}$ & Gain = 1           & \\
+            Stejnosměrné potlačení souhlasného rušení & $DC \ CMRR$      & -                   & -126              & -                  & dB                                                & -                  & \\
+            Střídavé potlačení souhlasného rušení     & $AC \ CMRR$      & -                   & 122               & -                  & dB                                                & -                  & \\
+            Poměr signálu k šumu a zkreslení          & $SINAD$          & 105.8               & 106.7             & -                  & dB                                                & -                  & \\
+            Poměr signálu k šumu                      & $SNR$            & 106.7               & 107.2             & -                  & dB                                                & -                  & \\
+            Celkové harmonické zkreslení              & $THD$            & -                   & -116              & -111               & dB                                                & -                  & \\
+            Dynamický rozsah bez parazitních složek   & $SFDR$           & 110                 & 120               & -                  & dB                                                & -                  & \\
+            Přeslech vstupních kanálů                 & $CTALK$          & -                   & -130              & -                  & dB                                                & -                  & \\
+            \bottomrule
+        \end{tabular}
+    \end{ctucolortab}
+    \begin{enumerate}
+        \item Full-Scale-Range(FSR) = $2 \times U_{REF}/GAIN$ \label{enum:mcp_adc_fsr}
+    \end{enumerate}
+    \begin{itemize}
+        \item $f_{CLK} = 4.9152 \ MHz$, $DU_{DD} = AU_{DD} = U_{REF} = 3.3 \ V$, $T = 25 ^\circ C$
+    \end{itemize}
+\end{table}
+
+
+\section{Datové úložiště}
+Přidané datové úložitě slouží jako úložiště dat z AD převodníku MCP3561. MCU příjmá data o velikosti $N = 24 bit$ při přenosové rychlosti $f_s \approx 5000 \ Hz$ po dobu $T = 30 \ s$. Velikost úložiště je potřeba alespoň
+\begin{equation*}
+    M = N \times f_s \times T = 3 \ 600 \ 000 \ bit
+\end{equation*}
+Neboli $\frac{M}{8} = 450 \ kByte$.
+\par
+Interní úložiště MCU SMT32F407ZG6 typu FLASH je 1 MByte, ale toto úložistě slouží jako úložiště programu a také sdílí s periferiemy MCU. Dostupné interního úložistě MCU je menší než potřebné.
+\par
+Jako přidané datové úložiště je vybrána NOR FLASH paměť MX25R3235FM2IH0 od firmy Macronix o velikosti 32 MBit. Komunikace probíhá přes komunikační protokol SPI. NOR FLASH je typ energeticky nezávislou paměť, po odpojení napájení stále drží zapsaný obsah.
+\begin{figure}[H]
+    \label{fig:flash_memory}
+    \caption{Schéma zapojení paměti flash Macronix MX25R3235FM2IH0}
+    \includegraphics[width=1\textwidth]{pictures/flash_memory.jpg}
+\end{figure}
+Paměť je rozdělena do 64 kByte bloků, které jsou poté rozděleny do bloků po 32 kByte, ty do 4 kByte sektorů. Do paměti je nejmenší možný zápis po 256 byte stránkách. Přenosová perioda příchozích 24 bit dat z AD převodníku je $t_s = 208 \ \mu s$ a doba pro zápis celé stránky je $t_{PP} = 850 \ \mu s$. 256 byte příchozích z AD převodníku je za $t_p = 256 \times \frac{t_s}{3} \doteq 17.7 \ ms$.
+Použitá paměť nám umožní bezpečně uložit data s dostatečnou prodlevou před příchozí další 256 byte z AD převodníku.
+
 
 \section{Napájení}
 Vstupní napájení je použito pro napájení celého přistroje. Vstupní napětí je $U_{in} = 5V DC$, které poskytuje napájení pro všechny součástky na přístroji. Vstupní napětí je poté pomocí regulátoru napětí s nízkým úbytkem usměrněno na $3.3 V$ pro napájení MCU, sensorů a ostatních komponentů.
@@ -444,7 +500,29 @@ Vstupní napájení je použito pro napájení celého přistroje. Vstupní nap�
     \label{fig:power_input}
 \end{figure}
 
-Celkový proudový odběr přístroje je .....
+Celkový proudový odběr přístroje je
+\begin{table}[H]
+    \label{tab:sum_of_current}
+    \caption{Celkový proudový odběr přístroje}
+    \hspace*{-1.2cm}
+    \begin{ctucolortab}
+        \begin{tabular}{cccccc}
+            \toprule
+            Komponenta              & Název                 & Symbol & Hodnota & Jednotka \\ \midrule
+            Diferenční sensor tlaku & Amphenol ELVH-L02D    &        & 35      &          \\
+            Sensory tlaku           & NXP MP3V5050GC6U      &        & 20      &          \\
+            Uzavírací ventily       & Conjoin CJAV08-2B05A1 &        & 401     &          \\
+            Regulační ventily       & JQF4-6A/DC6V          & I      & 214     & mA       \\
+            Modul měření BP         & PAR NIBP 2020 UP      &        & 1000    &          \\
+            MCU                     & ST M SMT32F407ZG6     &        & 109     &          \\
+            AD převodník            & Microchip MCP3561     &        & 2.2     &          \\
+            FLASH Paměť             & Macronix MX25R3235F   &        & 2       &          \\
+            \bottomrule
+            $\Sigma$                &                       &        & 1.7922  & A        \\
+            \bottomrule
+        \end{tabular}
+    \end{ctucolortab}
+\end{table}
 
 Přístroj je opatřen $4 [A]$ pojistkou a ochranou proti opačné polaritě.
 Ochrana proti opačné polaritě zajistí při špatném zapojení, aby proud neprotékal přístrojem, ale musí se zajistit, aby ztrátový výkon
@@ -477,3 +555,5 @@ Pro maximální zamezení rušivých jevů a braní ohledu na EMC jsou připojen
     \label{fig:stepdown}
 \end{figure}
 Na obrázku \ref{fig:stepdown} je schéma zapojení lineárního regulátoru napětí s nízkým úbytkem AZ1083-3.3. Vstupní napětí je v rozmezí $1.5V \leq U_{in} \leq 12V $. Výstup regulátoru je fixní na $U_{out} = 3.3V$ a maximální výstupní proud je $I_{out(MAX)} = 5A$. Zapojení regulátoru je podle doporučeného zapojení v datasheet.
+
+
