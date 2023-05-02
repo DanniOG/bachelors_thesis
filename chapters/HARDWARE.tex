@@ -114,7 +114,7 @@ Tato sekce se zaměří na popis a použití senzorů a to zejména tlakových. 
 Parametry senzorů tlaku vychází z parametrů terapie. Pneumatický systém může být pod tlakem až $300 \ mmHg = 40 \ kPa$, tento požadavek musí splňovat všechny senzory napojené do pneumatického systému.
 
 \subsection{Senzor tlaku} \label{section:pressure_sen}
-Senzor tlaku se používá na snímání tlaku v jednotlivých větvý pneumatického systému. \par
+Senzor tlaku se používá na snímání tlaku v jednotlivých větví pneumatického systému. \par
 
 
 Použité sensory tlaku jsou NPX MP3V5050GC6U.
@@ -173,7 +173,7 @@ Převodní charakteristika výstupního napětí $U_{o} \ V$ na tlak $P \ kPa$je
 \end{figure}
 
 \subsection{Diferenční sensor tlaku} \label{section:diff_pressure_sen}
-Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Porovnává tlak mezí první a druhou (referenční) větvý systému. Po natlakování pneumatického systému až na $300 \ mmHg$ uzavírací ventil oddělí systém na dvě větve. Rozdíl tlaků ve větvy může být $300 \ mmHg$ neboli $40 \ kPa$. \par
+Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Porovnává tlak mezí první a druhou (referenční) větví systému. Po natlakování pneumatického systému až na $300 \ mmHg$ uzavírací ventil oddělí systém na dvě větve. Rozdíl tlaků ve větvi může být $300 \ mmHg$ neboli $40 \ kPa$. \par
 Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analogový senzor tlaku určený na snímání ultra nízkých tlaků.
 \begin{figure}[H]
     \centering
@@ -235,7 +235,7 @@ Podle Bodeho fázové aproximace RC článku na obrázku \ref{fig:amphenol_filte
 Změna fáze snímaného signálu způsobí zkreslení výsledných hodnot a nepřesnou terapii.
 \section{Vzduchové ventily}
 Ventily jsou důležitou součástí pneumatického systému. Starají se o správný průběh terapie a také o bezpečí pacienta. \par
-V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a vypouštějcí regulační. Uzavíraci ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvých pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
+V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a vypouštějcí regulační. Uzavíraci ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvích pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
 Všechny použité ventily nesmí v uzavřeném stavu propustit vzduch při tlaku $300 \ mmHg$, jinak by hrozilo nepřesné výsledky při měření a tím pádem špatná terapie.
 
 \subsection{Uzavírací ventil}
@@ -258,7 +258,7 @@ Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napět
 Pro řízení ventilu z výstupního pinu MCU je použitý NMOS tranzistor BSS138. BSS138 má spínací práh napětí $U_{GS} = 3.3 \ V$ což je přímo výstupní napětí z GPIO a maximální proud přes drain je $I_D = 0.22 \ A$. Resistor přes Gate a Source zajisti známé napětí, pokud bude vstup na Gate plovoucí. Tím se zamezí neznámé chovaní tranzistoru.
 
 \subsection{Regulační ventil}
-Regulační ventily slouží k regulaci tlaku v systému při terapii a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každe větvy pneumatického systému. Během terapie je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvých podle potřeby terapie. \par
+Regulační ventily slouží k regulaci tlaku v systému při terapii a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každe větvi pneumatického systému. Během terapie je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvích podle potřeby terapie. \par
 
 Regulační ventily jsou použité JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil. Maximální povolený tlak je $350mmHg$, řízený napětím $U = 6 \ V$ DC a proudový odběr je $I = 0.107 \ A$.\par
 
@@ -360,10 +360,10 @@ můžeme získat přesnost střídy PWM signálu. $f_{TIMCLK} = 168 \ MHz$ je ob
 $ARR$ je Auto-Reload-Register MCU pro daný TIMER. Podle nastavené hodnoty v $ARR$ je možné nastavit frekvenci PWM signálu. Pro tento připad $N \doteq 9.96 $ bit.
 
 \section{Digitalizace analogových signálů}
-Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze senzorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU SMT32F407ZG6 pro snímání napětí tlakových sezorů na větvých pneumatického systému popsaných v sekci \ref{section:pressure_sen}.
+Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze senzorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU SMT32F407ZG6 pro snímání napětí tlakových sezorů na větvích pneumatického systému popsaných v sekci \ref{section:pressure_sen}.
 Další je 24 bit sigma-delta AD převodník Microchip MCP3561 pro snímání napětí z diferenčního tlakového sensoru popsaný v sekci \ref{section:diff_pressure_sen}.
 
-\subsection{Snímání signálů z tlakových senzorů větvý pneumatíckého systému}
+\subsection{Snímání signálů z tlakových senzorů větví pneumatíckého systému}
 Je použit AD převodník součástí periférii rodiny MCU STM32F4xx. Jedná se o 12 bitový AD převodník s postunout aproximací a maximální vzorkovací frekvencí $f_{sample} = 2.4 \ MSPS$. Pro každý kanál se může aplikovat jiná vzorkovací frekvence. \par
 Díky měření pouze absolutní hodnoty tlaku ze senzorů vzorkovací frekvence nemusí být vysoká. Vzorkovací frekvence je:
 \begin{equation}
