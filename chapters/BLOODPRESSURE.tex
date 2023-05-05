@@ -1,12 +1,77 @@
 %!TEX ROOT=main.tex
 \chapter{Hemodynamické parametry}
-\section{Krevní tlak a oscilometrické pulzace}
-\section{Centrální aortární tlak}
-\section{Rychlost šíření pulzní vlny}
-\section{Metody měření krevního tlaku}
+Tato kapitola se zaměří na popis hemodynamických parametrů krevního řečiště.
+\section{Krevní tlak}
+Krevní tlak je veličina, která vyjadřuje velikost síly proudící krve, působící na stěnu cévy. Velikost krevního tlaku závisí na síle kontrakce srdce, množstvý krve uvnitř těla,
+odporu cév a elasticitě stěny cév. Krevní tlak se uvadí ve dvou typech. Systolický tlak, který vyjadřuje působící sílu krve proti stěně artérie, při kontrakci srdce a diastolický tlak vyjadřuje
+tlak, kdy srdce je v klidu mezi jeho činnosti. Krevní tlak se uvádí v jednotkách $mmHg$ milimetrů rtuti, co odpovídá $133.32
+    \  Pa$. Jako normální lidský krevní tlak se považuje méně jak $120 \ mmHg$ systolického a měně jak  $80 \ mmHg$ diastolického tlaku.
+\subsection{Centrální aortální tlak}
+Centrální aortální tlak je tlak v aortě, do které krev putuje při kontrakci srdce. \par
+Centrální aortální tlak je možno měřit neinvazivním způsobem, připevněním manžety na horní část ruky nebo zápěstí. Ze snímané tlakové křivky je
+možné estimovat centrální aortální tlak.
 
-\section{reserse}
-neinvazinvi konkurence 
-Sfigmocore 
-uscom bp +
-popsat jednotlive pristroje, co umi, jaky je postup mereni
+\subsection{Střední arteriální tlak}
+Střední arteriální tlak (MAP) je průměrná hodnota krevního tlaku v jednom srdečním cyklu.
+\begin{figure}[H]
+    \caption{Průběh tlakové křivky pro výpočet středního arteriálního tlaku}
+    \includegraphics[width=1\textwidth]{pictures/map.jpg}
+\end{figure}
+Rovnice pro přesný výpočet je
+\begin{equation}
+    MAP = \frac{1}{T} \int_{t}^{t + T} BP(\tau) d\tau
+\end{equation}
+Rovnice pro aproximaci je
+\begin{equation}
+    MAP = DP + \frac{1}{3}(SP - DP)
+\end{equation}
+Kde $DP$ je diastolický tlak a $SP$ je systolický tlak.
+\section{Metody měření krevního tlaku}
+Metody měření tlaku můžou být invazivní nebo neinvazivní, manuální čí automatizované. Jedním k nejvíce používaných metod pro neinvazivní měření
+krevního tlaku patří auskultační metoda, která používá rtuťového sphygmomanometeru a stetoskopu pro poslouchání krevní vlny. Další nejvíce používaná metoda je oscilometrická metoda.
+\subsection{Oscilometrická metoda}
+Oscilometrická metodu měření tlaku využívá navrhovaný systém CarDi. Metoda spočívá v měření objemové pulzace v tepnách přenášející se přes manžetu do přístroje, ve kterém se vyhodnocují.
+Amplituda těchto pulzací je závislá na rozdílu tlaku uvnitř a vně tepny, tzv. transmurální tlak. Největší amplituda při je při nulovém transmurální tlaku, to je při hodnotě středního arteriální tlaku.
+
+\begin{figure}[H]
+    \caption{Graf oscilometrických pulzací}
+    \includegraphics[width=1\textwidth]{pictures/oscilometricky_tlak.jpg}
+\end{figure}
+\section{Rychlost šíření pulzní vlny}
+Rychlost šíření pulzní vlny (PWV) je rychlost, během systolické kontrakce srdce, při které tlaková vlna krve se progpaguje arterieremi. Parametr PWV je jeden ze základních ukazatelů arteriální
+elasticity. Čím je hodnota PWV vetší, tím jsou cévy měné poddajné a výsledkem je zvětšená tuhost artérií.
+\begin{figure}[H]
+    \caption{Postup odražené krevní tlakové vlny v těle}
+    \includegraphics[width=1\textwidth]{pictures/pwv_body.jpg}
+\end{figure}
+Jeden ze způsobů určení parametru PWV je poměr dvojnásobné vzdálenosti od hrudního zářezu ke stydké kosti $l$ a rozdíl času primární tlakové vlny $t_1$ a odražené tlakové vlny $t_2$.
+\begin{equation}
+    PWV = \frac{2l}{t_2 - t_1}
+\end{equation}
+\begin{figure}[H]
+    \caption{Krevní tlaková vlna s vyznačenými parametry pro výpočet parametru PWV.}
+    \includegraphics[width=1\textwidth]{pictures/pwv_pressure_wave.jpg}
+\end{figure}
+\section{Rešerše přístrojů pro měření hemodynamických parametrů krevního řečiště}
+Tato sekce se zaměří na validované systémy na trhu pro neivazivní měření hemodynamických parametrů krevního řečiště a to zejména na měření parametru PWV.
+
+\subsection{SphygmoCor XCEL PWA/PWV}
+SphygmoCor XCEL PWA/PWV je automatický systém pro analýzu krevní tlakové vlny pomocí pažní manžety.
+
+\begin{figure}[H]
+    \caption{SphygmoCor XCEL PWA/PWV}
+    \includegraphics[width=0.5\textwidth]{pictures/XCEL_System.jpg}
+\end{figure}
+Mezi měřené parametry patří centrální aortální tlak, augmentační index a PWV. Pro měření parametru PWV je potřeba přidaná manžeta na stehno.
+\par
+Ovládání přístroje je pomocí připojeného osobního počítače přes USB s nainstalovaným softwarem. Software spouští terapii a následně dělá i vyhodnocení naměřených hodnot. Samostatný přístroj není schopný provádět terapii bez osobního počítače a dedikovaného softwaru.
+\par
+Systém SphygmoCor XCEL je validován pro použití a prodej v Evropské unii a USA. Patří do třídy II.
+\subsection{Uscom BP+}
+Uscom BP+ je automatizový systém pro měření centrálního krevního tlaku, augmentačního indexu a analýzy křívky krevního tlaku a dalších parametrů.
+\begin{figure}[H]
+    \caption{Uscom BP+}
+    \includegraphics[width=0.7\textwidth]{pictures/uscom_bp.jpg}
+\end{figure}
+Systém BP+ provádí terapii a analýzu naměřených hodnot v jednom systému tj. bez potřeby nadřazeného systému.
+

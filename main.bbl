@@ -7,11 +7,27 @@
 \providecommand{\href}[2]{#2}
 \begin{thebibliography}{WEB09}
 
+\bibitem[ak11]{cite:5}
+Miklós~Illyés a~kolektiv., \emph{Tensiomed arteriograph brochure. tensiomed.
+  <\url{http://www.tensiomed.com>.}}
+
+\bibitem[Cha11]{cite:7}
+L.~Chaloupka, \emph{Monitorování parametrů kardiovaskulárního systému z
+  tvaru tlakových křivek, dp}, ČVUT (2011).
+
+\bibitem[Dar87]{cite:4}
+Gloria~Oblouk Darovic, \emph{Hemodynamic monitoring: Invasive and noninvasive
+  clinical applications}, W B Saunders Co. \textbf{1} (1987).
+
 \bibitem[FV19]{cite:2}
 DOBIAS M. ( CTU in Prague~) FABIAN~V., KREMEN~V., \emph{Method for an accurate
   automated non-invasive measurement of blood pressure waveform and apparatus
   to carry out the same}, United States Patent and Trademark Office, US Patent
   US10251567 (2019).
+
+\bibitem[J.15]{cite:6}
+Pereira T.; Correia C.;~Cardoso J., \emph{Novel methods for pulse wave velocity
+  measurement.}, Journal of Medical and Biological Engineering (2015).
 
 \bibitem[Ví10]{cite:3}
 Záhlava Vít, \emph{Návrh a konstrukce desek plošných spojů principy a
