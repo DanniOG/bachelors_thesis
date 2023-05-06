@@ -4,6 +4,25 @@
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{siunitx}
+\usepackage{pgfplots}
+% \pgfplotsset{compat=1.5}
+\usepackage{tikz}
+\usetikzlibrary{spy,shadows}
+\tikzset{spy using overlaysshadow/.style={
+    spy scope={#1,
+         every spy on node/.style={
+            circle,
+            fill, fill opacity=0.2, text opacity=1
+             },
+         every spy in node/.style={
+                 circle, circular drop shadow,
+                 fill=white, draw, ultra thick, cap=round
+            }
+        }
+    }
+}
+\usepackage{filecontents}
+
 \ctusetup{
 	% preprint = \ctuverlog,
 %	mainlanguage = english,
