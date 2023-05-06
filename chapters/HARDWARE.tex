@@ -458,6 +458,16 @@ Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. P�
 \end{equation}
 Rovnice (\ref{eq:nyquist}) říká, že vzorkovací frekvence musí být alespoň dvojnásobek snímaného signálu.
 \par
+Pro zachycení pulzní tlakové vlny je také zapotřebí dostatečné rozlišení v časové oblasti. Pokud vzorkovací frekvence signálu je $f_s = 5000 \ Hz$, chyba v měření může být $t_e = \pm 200 \ \mu s$. Podle vzroce (\ref{eq:pwv}) můžeme vypočítat chybu měření v závislosti na časovém kroku.
+Například ať $l = 0.5 \ m$, $t_2 = 200 \ ms$ a $t_1 = 0 \ ms$, tak výsledné $PWV$ bude $PWV = 5 \ \frac{m}{s}$. Pokud započítáme chybu $t_e$ do vý počtu rychlost pulzní vlny bude
+\begin{equation*}
+    PWV = \frac{2l}{t_2 - t_1 + t_e} = \frac{1}{0.2 - 0.0002} = 5.005 \ \frac{m}{s}
+\end{equation*}
+\begin{equation*}
+    PWV = \frac{2l}{t_2 - t_1 + t_e} = \frac{1}{0.2 + 0.0002} = 4,995 \ \frac{m}{s}
+\end{equation*}
+Výsledek se může lišit o $\pm 0.1 \ \%$.
+\par
 Byl vybrán 24 bit sigma-delta AD převodník MCP3561 od firmy Microchip s maximální vzorkovací frekvencí $153.6 \ kHz$. Je to AD převodník s velmi nízkým šumem, s jedním diferečním vstupem nebo dvěmi jednotlivými vstupy analogových signálu.
 Obsahuje interní oscilátor, teplotní sensor, obvody pro detekci zkratu či odpojeného sensoru, programovatelné zesílení od $0.33 \times$ až $64 \times$ a další.
 \par
