@@ -10,7 +10,7 @@ Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty systému
     \label{fig:pcb_full}
 \end{figure}
 
-DPS je čtyřvsrtvá deska s dvěma signálovými vrstvy a dvěma silovýma vrstvama. Kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty. Druhá je společná zem, třetí je napájencí 3.3 V a poslední spodní vrtva je také signálová.
+DPS je čtyřvsrtvá deska o výšce 1.6 mm s dvěma signálovými vrstvy a dvěma silovýma vrstvama. Kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty. Druhá je společná zem, třetí je napájencí 3.3 V a poslední spodní vrtva je také signálová.
 Základní materiál je FR-4 a povrchová úprava je ENIG(Electroless nickel immersion gold).
 \par
 DPS je vyrobena a z části osazena firmou JLCPCB.
@@ -148,6 +148,11 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
         pro difereční tlakový sensor k refereční zemi.}
     \includegraphics[width=1\textwidth]{graphs/mcp_gnd.png}
+\end{figure}
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
+        pro difereční tlakový sensor k k $1.630$.}
+    \includegraphics[width=1\textwidth]{graphs/mcp_16.png}
 \end{figure}
 \subsection{Charakteristika 12 bit AD převodníku STM32}
 12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absultní hodnoty tlaku z tlakových sezorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
