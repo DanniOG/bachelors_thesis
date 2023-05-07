@@ -15,7 +15,7 @@ uložení a čtení dat do přidané FLASH paměti.
 Řídící jednotka působí jako centrum řízení a sběru dat. Má na starosti řízení ventilů, natlakování pneumatického systémum, sběr a vyhodnocení
 dat ze senzorů a komunikaci s nadřazeným systémem. \par
 
-Jako řídící jednotka byl vybrán mikroprocesor SMT32F407ZG (dále jenom MCU) od firmy ST Microelectronics.
+Jako řídící jednotka byl vybrán mikroprocesor STM32F407ZG (dále jenom MCU) od firmy ST Microelectronics.
 Jádro je Arm® Cortex®-M4 32bit, jehož časovací frekvence může být až $168 \ MHz$. Jádro Cortex-M4 je vhodné pro zpracování signálu díky zabudovanému výpočetnímu modulu Floating Point Unit(FPU) určené na
 počítání s desetinými čísly a také řadou instrukcí určené specificky na zpracování signálu.
 \begin{figure}[H]
@@ -25,14 +25,14 @@ počítání s desetinými čísly a také řadou instrukcí určené specificky
     \label{fig:stm32}
 \end{figure}
 MCU je v obalu se 144 piny se 114 vstupně/výstupními piny, 1 MB FLASH paměti, 256 kB paměti SRAM, 3x 12 bit AD převodníky s až 24 kanály s maximální vzorkovací frekvencí 2.4 MHz,
-2x 12 bit DA převodníky, 14 TIMER, 6x USART, 3x SPI, SysTick Timer a další periferie.
+2x 12 bit DA převodníky, 14 TIMER, 6x USART, 3x SPI, SysTick Timer, WatchDog a další periferie.
 \par
 Celkové zapojení MCU je na obrázku (\ref{fig:stm32_conection}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/stm_connection.jpg}
-    \caption{Schéma zapojení SMT32F407ZG}
+    \caption{Schéma zapojení STM32F407ZG}
     \label{fig:stm32_conection}
 \end{figure}
 
@@ -412,7 +412,7 @@ můžeme získat přesnost střídy PWM signálu. $f_{TIMCLK} = 168 \ MHz$ je ob
 $ARR$ je Auto-Reload-Register MCU pro daný TIMER. Podle nastavené hodnoty v $ARR$ je možné nastavit frekvenci PWM signálu. Pro tento připad $N \doteq 9.96 $ bit.
 
 \section{Digitalizace analogových signálů}
-Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze senzorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU SMT32F407ZG6 pro snímání napětí tlakových sezorů na větvích pneumatického systému popsaných v sekci (\ref{section:pressure_sen}).
+Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze senzorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU STM32F407ZG6 pro snímání napětí tlakových sezorů na větvích pneumatického systému popsaných v sekci (\ref{section:pressure_sen}).
 Další je 24 bit sigma-delta AD převodník Microchip MCP3561 pro snímání napětí z diferenčního tlakového sensoru popsaný v sekci (\ref{section:diff_pressure_sen}).
 
 \subsection{Snímání signálů z tlakových senzorů větví pneumatíckého systému}
@@ -435,7 +435,7 @@ K dalším chybám AD převodníku patří
 
 \begin{table}[H]
     \label{tab:stm_adc_error}
-    \caption{Charakteristika vestavěného AD převodníku v SMT32F407ZG6}
+    \caption{Charakteristika vestavěného AD převodníku v STM32F407ZG6}
     \hspace*{-1.3cm}
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
@@ -548,7 +548,7 @@ Přidané datové úložitě slouží jako úložiště dat z AD převodníku MC
 \end{equation*}
 Neboli $\frac{M}{8} = 450 \ kB$.
 \par
-Interní úložiště MCU SMT32F407ZG6 typu FLASH je 1 MB, ale toto úložistě slouží jako úložiště programu a také sdílí s periferiemy MCU. Dostupné interního úložistě MCU je menší než potřebné.
+Interní úložiště MCU STM32F407ZG6 typu FLASH je 1 MB, ale toto úložistě slouží jako úložiště programu a také sdílí s periferiemy MCU. Dostupné interního úložistě MCU je menší než potřebné.
 \par
 Jako přidané datové úložiště je vybrána NOR FLASH paměť MX25R3235FM2IH0 od firmy Macronix o velikosti 32 MBit. Komunikace probíhá přes komunikační protokol SPI. NOR FLASH je typ energeticky nezávislou paměť, po odpojení napájení stále drží zapsaný obsah.
 \begin{figure}[H]
@@ -590,7 +590,7 @@ Celkový proudový odběr přístroje je
             Uzavírací ventily       & Conjoin CJAV08-2B05A1 &        & 401     &          \\
             Regulační ventily       & JQF4-6A/DC6V          & I      & 214     & mA       \\
             Modul měření BP         & PAR NIBP 2020 UP      &        & 1000    &          \\
-            MCU                     & ST M SMT32F407ZG6     &        & 109     &          \\
+            MCU                     & ST M STM32F407ZG6     &        & 109     &          \\
             AD převodník            & Microchip MCP3561     &        & 2.2     &          \\
             FLASH Paměť             & Macronix MX25R3235F   &        & 2       &          \\
             \bottomrule
