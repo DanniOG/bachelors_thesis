@@ -451,7 +451,7 @@ K dalším chybám AD převodníku patří
     \end{ctucolortab}
 \end{table}
 
-\subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému}
+\subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému} \label{section:mcp3561_hw}
 Difereční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Při srdečním tepu např. 120 tepů/min tj. 2 Hz, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Aby byl tlakový analogový signál správně převeden do digitálního signálu, musí být dodržen Nyquistův teorém.
 \begin{equation} \label{eq:nyquist}
     f_s \geq 2f
@@ -492,13 +492,13 @@ Podporované frekvence externího oscilátoru jsou v rozmezí $ 1 \ MHz \leq  f_
 Maximální možná přenosová rychlost pro tuto frekvenci oscilátoru je $f_s = 38400 \ Hz$.
 
 \subsubsection{Přesnost a rušení}
-Nejmenší možné snímané napětí ideálního $N = 24$ bit AD převodníku při referečním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N}} \doteq  196,695  \ nV$.
+Nejmenší možné snímané napětí ideálního $N = 24 - 1$ bit AD převodníku, protože rozah snímaného napětí je $\pm U_{ref}$ největší bit je rezervován pro znaménko. Při referečním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N-1}} \doteq  393.390  \ nV$.
 Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí jaká přenosová rychlost bude mít nejlepší počet efektivních bitů. Přenosová rychlost udává počet vzorků odeslané po přenosové lince nadřazenému systému, signalizovaném výstupním digitálním pinem AD převodníku $\overline{IRQ}$.
 Rovnice po výpočet přenosové rychlosti:
 \begin{equation}
     f_s = DRCLK = \frac{DMCLK}{OSR} =\frac{f_{CLK}}{4 \times OSR \times Prescale}
 \end{equation}
-Rovnice je převzatá z katalogu AD převodníku. Kde $f_{CLK} = 4.9152 \ MHz$ je frekvence AD převodníku, DMCLK je vzorkovací frekvence AD převodníku, Prescale je hodnota pro decimaci taktovací frekvence AD převodníku s hodnotamy $Prescale = \{1, 2, 4, 8\}$.  OSR (Oversampling Ratio) je poměr vzorkovací frekvence ku přenosové rychlosti. Počet a hodnoty OSR jsou v omezeném množstvý a jsou napsané v katalogu AD převodníku. Podle katalogu závisí počet efektivních bitů a rušení na OSR.
+Rovnice je převzatá z katalogu AD převodníku. Kde $f_{CLK} = 4.9152 \ MHz$ je frekvence AD převodníku, DMCLK je vzorkovací frekvence AD převodníku, Prescale je hodnota pro decimaci taktovací frekvence AD převodníku s hodnotamy $PRESCALE = \{1, 2, 4, 8\}$.  OSR (Oversampling Ratio) je poměr vzorkovací frekvence ku přenosové rychlosti. Počet a hodnoty OSR jsou v omezeném množstvý a jsou napsané v katalogu AD převodníku. Podle katalogu závisí počet efektivních bitů a rušení na OSR.
 Čím vyšší OSR, tím větší bude počet použitelných bitů a menší rušení. Pro dosáhnutí přenosové rychlosti $f_s = 5000 \ Hz$ byly vybrány hodnoty $Prescale = 1$, $OSR = 256$ a zesílení $Gain = 1 \times$. Vzorkovací frekvence AD převodníku je $DMCLK = \frac{f_{CLK}}{4 \times Prescale} = 1 \ 228 \ 800 \ Hz$ a výsledná přenosová rychlost je $f_s = DRCLK = 4800 \ Hz$. Výsledná přenosová rychlost vyhovuje požadavkům. Díky vybrání hodnoty OSR je výsledný $ENOB = 19.5 \ bit$ a RMS rušení $U_{noise \ RMS} = 8.94 \ \mu V$.
 Výsledná přesnot AD převodníku se sníží na $ 1 \ LSB = \frac{U_{ref}}{2^{ENOB}} \doteq  4.4 \ \mu V$.
 \par

@@ -142,21 +142,29 @@ Z naměřené hodnoty impulzní odezvy byly vypočteny parametry vlastní frekve
 Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 20. harmonická složka tepu frekvenci $f = 40 \ Hz$. Podle obrázku (\ref{fig:pneu_freq_char}) srdeční frekvence je amplituda zkreslena o +2 dB a fáze signálu o $^\circ 5$, což jsou akceptovatelné hodnoty.
 
 \section{Vyhodnocení dat z AD převodníků}
-Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP35651. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS $3.289 \ V$ a poté pomocí napěťového děliče ze $3.289 \ V$ na $1.630 \ V$.
+Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS je $U_{ref} = 3.289 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.630 \ V$.
 \subsection{Charakteristika MCP3561}
+24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schema (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
+Při této konfiguraci registrů AD převodník má přenosovou rychlost $f_s = 4800 \ kHz$ a efektivní počet bitů $ENOB = 19.5$ bit. Hodnota 1 LSB $= \frac{U_{ref}}{2^{24 - 1}} = 392.07 \ nV$.
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
-        pro difereční tlakový sensor k refereční zemi.}
+        pro diferenční tlakový sensor k refereční zemi.}
     \includegraphics[width=1\textwidth]{graphs/mcp_gnd.png}
 \end{figure}
+Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 5499.1729$ se směrodatnou odchylkou $\sigma = 23.093053$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 2.156112 \pm 0.0090543 \ mV$
+
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
-        pro difereční tlakový sensor k k $1.630$.}
+        pro diferenční tlakový sensor k  $1.630 \ V$.}
     \includegraphics[width=1\textwidth]{graphs/mcp_16.png}
 \end{figure}
+Očekáváné hodnoty pro připojení k $U_{in} = 1.630 \ V$ jsou $4168728.976$. Střední hodnota naměřených dat je $\mu = 4172558.1$ se směrodatnou odchylkou $\sigma = 145.81662$. Po převedení naměřených dat na napětí $U_{out} = 1.635973882 \pm 0.00005717169\ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = 1.630 \ V$
+$U_{offset} = 5.9973882 \pm 0.0570152 \ mV$.
+\par
+Po připojení napětí $U_{in} = U_{ref}$ na kanál, AD převodník byl v saturaci a všechny naměřené vzorky byly s hodnout $U_{ref}$.
 \subsection{Charakteristika 12 bit AD převodníku STM32}
 12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absultní hodnoty tlaku z tlakových sezorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
-
+Hodnota 1 LSB $= \frac{U_{ref}}{2^{12}} = 802 \ \mu V$.
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k refereční zemi.}
     \label{fig:hist_vacuum1_gnd}
@@ -181,6 +189,7 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     %     \end{axis}
     % \end{tikzpicture}
 \end{figure}
+Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 1.871485944$ se směrodatnou odchylkou $\sigma = 2.55307$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 1.503 \pm 2.05 \ mV$.
 
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k $1.630 \ V$.}
@@ -207,6 +216,9 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     %     \end{axis}
     % \end{tikzpicture}
 \end{figure}
+
+Očekáváné hodnoty pro připojení k $U_{in} = 1.630 \ V$ jsou $2023.175758$. Střední hodnota naměřených dat je $\mu = 2036.148$ se směrodatnou odchylkou $\sigma = 4.1455134$. Po převedení naměřených dat na napětí $U_{out} = 1.634983099 \pm 0.00332876 \ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = 1.630 \ V$
+$U_{offset} = 10.41643 \pm 3.32876 \ mV$.
 
 \pgfplotstablegetrowsof{graphs/vacuum1_3_3_v.dat}
 \begin{figure}[H]
@@ -237,7 +249,8 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     % \end{tikzpicture}
 \end{figure}
 
-
+Očekáváné hodnoty pro připojení k $U_{in} = U_{ref} \ V$ jsou $4095$. Střední hodnota naměřených dat je $\mu = 4091.362814$ se směrodatnou odchylkou $\sigma = 3.4597461$. Po převedení naměřených dat na napětí $U_{out} = 3.285276439 \pm 0.00278 \ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = U_{ref} = 3.289 \ V$
+$U_{offset} = -2.92 \pm 2.78 \ mV$.
 
 
 
@@ -266,6 +279,7 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     %     \end{axis}
     % \end{tikzpicture}
 \end{figure}
+Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 2.3356713$ se směrodatnou odchylkou $\sigma = 3.3095937$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 1.88 \pm 2.66 \ mV$.
 
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k $1.630 \ V$.}
@@ -295,6 +309,9 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     %     \end{axis}
     % \end{tikzpicture}
 \end{figure}
+Očekáváné hodnoty pro připojení k $U_{in} = 1.630 \ V$ jsou $2023.175758$. Střední hodnota naměřených dat je $\mu = 2036.0629$ se směrodatnou odchylkou $\sigma = 7.6566582$. Po převedení naměřených dat na napětí $U_{out} = 1.634914765 \pm 0.006148132 \ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = 1.630 \ V$
+$U_{offset} = 10.3481 \pm 6.148132 \ mV$.
+
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k $3.289 \ V$.}
     \label{fig:hist_vacuum2_3_3}
@@ -324,3 +341,5 @@ Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 
     %     \end{axis}
     % \end{tikzpicture}
 \end{figure}
+Očekáváné hodnoty pro připojení k $U_{in} = U_{ref} \ V$ jsou $4095$. Střední hodnota naměřených dat je $\mu = 4091.5986$ se směrodatnou odchylkou $\sigma = 2.8579738$. Po převedení naměřených dat na napětí $U_{out} = 3.28546577 \pm 0.00229 \ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = U_{ref} = 3.289 \ V$
+$U_{offset} = -2.73 \pm 2.29 \ mV$.
