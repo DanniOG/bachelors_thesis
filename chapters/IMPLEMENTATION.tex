@@ -140,3 +140,177 @@ Z naměřené hodnoty impulzní odezvy byly vypočteny parametry vlastní frekve
     \label{fig:pneu_freq_char}
 \end{figure}
 Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 20. harmonická složka tepu frekvenci $f = 40 \ Hz$. Podle obrázku \ref{fig:pneu_freq_char} srdeční frekvence je amplituda zkreslena o +2 dB a fáze signálu o $^\circ 5$, což jsou akceptovatelné hodnoty.
+
+\section{Vyhodnocení dat z AD převodníků}
+Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP35651. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS $3.289 \ V$ a poté pomocí napěťového děliče ze $3.289 \ V$ na $1.630 \ V$.
+\subsection{Charakteristika MCP3561}
+
+\subsection{Charakteristika 12 bit AD převodníku STM32}
+12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absultní hodnoty tlaku z tlakových sezorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
+
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k refereční zemi.}
+    \label{fig:hist_vacuum1_gnd}
+    \begin{tikzpicture}
+        \begin{axis}
+            [ybar,
+                width=\textwidth,
+                nodes near coords,
+                every node near coord/.append style={xshift=6pt,font=\footnotesize},
+                ymin=0,
+                xlabel={LSB},
+                ylabel={Počet}
+            ]
+            \addplot [
+                hist={bins=22},
+                fill=orange!75,
+                draw=orange!50!black,
+            ]
+            table [y index=0] {graphs/vacuum1_gnd.dat};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k $1.630 \ V$.}
+    \label{fig:hist_vacuum1_1_6}
+    \begin{tikzpicture}
+        \begin{axis}
+            [ybar,
+                width=\textwidth,
+                nodes near coords,
+                every node near coord/.append style={xshift=6pt,font=\footnotesize},
+                ymin=0,
+                xlabel={LSB},
+                ylabel={Počet},
+                xticklabel style = {font=\tiny}
+            ]
+            \addplot [
+                hist={bins=22},
+                fill=orange!75,
+                draw=orange!50!black,
+            ]
+            table [y index=0] {graphs/vacuum1_1_6_v.dat};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\pgfplotstablegetrowsof{graphs/vacuum1_3_3_v.dat}
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k $3.289 \ V$.}
+    \label{fig:hist_vacuum1_3_3}
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                nodes near coords,
+                nodes near coords align={vertical},
+                every node near coord/.append style={xshift=7pt,font=\footnotesize},
+                % every node near coord/.append style={xshift=60pt,yshift=-3pt,anchor=west,font=\footnotesize},
+                ymin=0,
+                width=\textwidth,
+                xlabel={LSB},
+                ylabel={Počet},
+                % xticklabel style = {font=\tiny},
+            ]
+
+            \addplot [
+                hist={},
+                fill=orange!75,
+                draw=orange!50!black,
+            ]
+            table [y index=0] {graphs/vacuum1_3_3_v.dat};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k refereční zemi.}
+    \label{fig:hist_vacuum2_gnd}
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                nodes near coords,
+                every node near coord/.append style={xshift=6pt,font=\footnotesize},
+                ymin=0,
+                width=\textwidth,
+                % title=\texttt{Histogram},
+                xlabel={LSB},
+                ylabel={Počet}
+            ]
+
+            \addplot[
+                hist={bins=22},
+                fill=orange!75,
+                draw=orange!50!black,
+            ]
+            table [y index=0] {graphs/vacuum2_gnd.dat};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k $1.630 \ V$.}
+    \label{fig:hist_vacuum2_1_6}
+    \begin{tikzpicture}
+
+        \begin{axis}[
+                ybar,
+                nodes near coords,
+                every node near coord/.append style={xshift=6pt,font=\footnotesize},
+                % every node near coord/.append style={xshift=60pt,yshift=-3pt,anchor=west,font=\footnotesize},
+                ymin=0,
+                width=\textwidth,
+                % title=\texttt{Histogram},
+                xlabel={LSB},
+                ylabel={Počet},
+                xticklabel style = {font=\tiny}
+            ]
+
+            \addplot [
+                hist={bins=20},
+                fill=orange!75,
+                draw=orange!50!black,
+            ]
+            table [y index=0] {graphs/vacuum2_1_6_v.dat};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k $3.289 \ V$.}
+    \label{fig:hist_vacuum2_3_3}
+    \begin{tikzpicture}
+
+        \begin{axis}[
+                ybar,
+                nodes near coords,
+                nodes near coords align={vertical},
+                every node near coord/.append style={xshift=7pt,font=\footnotesize},
+                % every node near coord/.append style={xshift=60pt,yshift=-3pt,anchor=west,font=\footnotesize},
+                ymin=0,
+                width=\textwidth,
+                % title=\texttt{Histogram},
+                xlabel={LSB},
+                ylabel={Počet},
+                % xticklabel style = {font=\tiny},
+            ]
+
+            \addplot [
+                hist={},
+                fill=orange!75,
+                draw=orange!50!black,
+            ]
+            table [y index=0] {graphs/vacuum2_3_3_v.dat};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
