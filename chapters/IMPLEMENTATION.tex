@@ -1,9 +1,9 @@
 %!TEX ROOT=main.tex
 \chapter{Realizace}
-V této kapitole je popsaná realizace systému CarDi a naměřené hodnoty pneumatického systému.
+V této kapitole je popsaná realizace systému CarDi a jeho parametrů. Je popsána metoda měření, charakterizace pneumatického systému a analýza analogově digitálních převodníků.
 
 \section{Deska plošného spoje}
-Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty systému. DPS a schéma je navržena v otevřeném freeware KiCad EDA.
+Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty pro řízení systému, sběr a vyhodnocení dat. DPS a schéma je navržena v otevřeném freeware KiCad EDA.
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/pcb_full.jpg}
     \caption{Realizovaná deska plošného spoje.}
@@ -15,18 +15,17 @@ Základní materiál je FR-4 a povrchová úprava je ENIG(Electroless nickel imm
 \par
 DPS je vyrobena a z části osazena firmou JLCPCB.
 \begin{figure}[H]
-    \includegraphics[width=1\linewidth]{pictures/pcb_from_production.jpg}
+    \includegraphics[width=0.9\linewidth]{pictures/pcb_from_production.jpg}
     \caption{Deska plošného spoje z výroby.}
     \label{fig:pcb_production}
 \end{figure}
 \begin{figure}[H]
-    \includegraphics[width=1\linewidth]{pictures/pcb_production_bottom.jpg}
+    \includegraphics[width=0.9\linewidth]{pictures/pcb_production_bottom.jpg}
     \caption{Deska plošného spoje z výroby. Spodní vrstva.}
     \label{fig:pcb_production_bottom}
 \end{figure}
 
 Celkovká cena desky a potřebné materiály jsou:
-
 \begin{table}[H]
     \label{tab:bom}
     \caption{Celkový počet součástek a výrobní cena }
@@ -85,7 +84,7 @@ Celkovká cena desky a potřebné materiály jsou:
     \end{ctucolortab}
 \end{table}
 \section{Pneumatická část}
-Pneumatická čast systému je část ve které probíhá měření měření hemodynamických parametrů srdce pacienta. Je to jediná čast systému, která přichází v přímý kontakt s pacientem. Tato část je sestavena podle
+Pneumatická čast systému je část ve které probíhá měření hemodynamických parametrů srdce pacienta. Je to jediná čast systému, která přichází v přímý kontakt s pacientem. Tato část je sestavena podle
 patentu \cite[US Patent US10251567]{cite:2}
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/blokove_schema_pneu.jpg}
@@ -131,7 +130,7 @@ Metoda je patentována v České Republice a USA \cite{cite:2}. Tato metoda mě�
 \subsection{Měření těsnosti penumatické časti}
 Pneumatická čast musí být co nejlépe těsná, aby po dobu terapie byl co nejmešní úbytek tlaku v systému.
 \par
-Test těsnosti probíhal pomocí přístroje FLUKE Biomedical BP pump 2, který natlakoval pneumatickou část na hodnotu 200 mmHg a následně sledoval úbytek tlaku v systému po dobu 60 s.
+Test těsnosti probíhal pomocí přístroje FLUKE Biomedical BP pump 2, který natlakoval pneumatickou část na hodnotu 200 $mmHg$ a následně sledoval úbytek tlaku v systému po dobu 60 s.
 Měření bylo opakováno 10 krát po sobě.
 
 \begin{table}[H]
@@ -155,7 +154,7 @@ Měření bylo opakováno 10 krát po sobě.
         \end{tabular}
     \end{ctucolortab}
 \end{table}
-Průměrný pokles tlaku v důsledku úniku vzduchu z pneumatického obvodu je $0.94 \ \frac{mmHg}{min}$ se směrodatnou odchylkou $0.10  \ \frac{mmHg}{min}$. Dle normy je maximální úbytek tlaku v systému $4 \ \frac{mmHg}{min}$.
+Průměrný pokles tlaku v důsledku úniku vzduchu z pneumatického obvodu je $\mu = 0.94 \ \frac{mmHg}{min}$ se směrodatnou odchylkou $\sigma = 0.10  \ \frac{mmHg}{min}$. Dle normy je maximální úbytek tlaku v systému $P_{loss} = 4 \ \frac{mmHg}{min}$.
 \subsection{Zkreslení signálu pneumatickým systémem}
 Přenosová funkce systému byla identifikována měřením impulzní odezvy systému. Systém byl natlakovám na průměrnou hodnotu suprasystolického tlaku 230 mmHg a poté
 byl aplikován jednotkový impuls pomocí mechanického kyvadla.
