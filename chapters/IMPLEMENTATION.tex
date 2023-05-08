@@ -84,8 +84,8 @@ Celkovká cena desky a potřebné materiály jsou:
     \end{ctucolortab}
 \end{table}
 \section{Pneumatická část}
-
-Pneumatická čast systému je část ve které probíhá měření měření hemodynamických parametrů srdce pacienta. Je to jediná čast systému, která přichází v přímý kontakt s pacientem.
+Pneumatická čast systému je část ve které probíhá měření měření hemodynamických parametrů srdce pacienta. Je to jediná čast systému, která přichází v přímý kontakt s pacientem. Tato část je sestavena podle
+patentu \cite[US Patent US10251567]{cite:2}
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/blokove_schema_pneu.jpg}
     \caption{Blokové schéma pneumatického systému}
@@ -141,8 +141,13 @@ Z naměřené hodnoty impulzní odezvy byly vypočteny parametry vlastní frekve
 \end{figure}
 Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 20. harmonická složka tepu frekvenci $f = 40 \ Hz$. Podle obrázku (\ref{fig:pneu_freq_char}) srdeční frekvence je amplituda zkreslena o +2 dB a fáze signálu o $^\circ 5$, což jsou akceptovatelné hodnoty.
 
+%
+%
+%
+%
 \section{Vyhodnocení dat z AD převodníků}
 Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS je $U_{ref} = 3.289 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.630 \ V$.
+Všechny součástky a refereční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.289 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.630 \ V$ bylo provedeno na vedlejším nepájivém poli.
 \subsection{Charakteristika MCP3561}
 24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schema (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
 Při této konfiguraci registrů AD převodník má přenosovou rychlost $f_s = 4800 \ kHz$ a efektivní počet bitů $ENOB = 19.5$ bit. Hodnota 1 LSB $= \frac{U_{ref}}{2^{24 - 1}} = 392.07 \ nV$.
