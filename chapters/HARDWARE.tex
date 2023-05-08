@@ -1,6 +1,6 @@
 %!TEX ROOT=main.tex
 \chapter{Hardware}
-V této sekci je popsáná elektro-mechanická čast systému pro měření hemodynamických parametrů krevního řečiště pacienta.
+V této sekci je popsán návrh a dokumentace elektro-mechanické časti systému pro měření hemodynamických parametrů krevního řečiště pacienta.
 
 \begin{figure}[H]
     \label{fig:block_cardi}
@@ -138,7 +138,6 @@ Parametry senzorů tlaku vychází z parametrů terapie. Pneumatický systém m�
 \subsection{Senzor tlaku} \label{section:pressure_sen}
 Senzor tlaku se používá na snímání tlaku v jednotlivých větví pneumatického systému. \par
 
-
 Použité sensory tlaku jsou NPX MP3V5050GC6U.
 
 \begin{figure}[H]
@@ -199,7 +198,7 @@ Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Po
 Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analogový senzor tlaku určený na snímání ultra nízkých tlaků.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\linewidth]{pictures/amphenol.jpg}
+    \includegraphics[width=0.4\linewidth]{pictures/amphenol.jpg}
     \caption{Diferenční sensor tlaku Amphenol ELVH-L02D-HRRD-C-NAA4 \cite{cite:Allsensors}}
     \label{fig:amphenol}
 \end{figure}
@@ -580,7 +579,8 @@ Celkový proudový odběr přístroje je
 \begin{table}[H]
     \label{tab:sum_of_current}
     \caption{Celkový proudový odběr přístroje}
-    \hspace*{-1.2cm}
+    % \hspace*{-1.2cm}
+    \centering
     \begin{ctucolortab}
         \begin{tabular}{cccccc}
             \toprule
@@ -600,7 +600,7 @@ Celkový proudový odběr přístroje je
     \end{ctucolortab}
 \end{table}
 
-Přístroj je opatřen $4 [A]$ pojistkou a ochranou proti opačné polaritě.
+Přístroj je opatřen $4 \ A$ pojistkou a ochranou proti opačné polaritě.
 Ochrana proti opačné polaritě zajistí při špatném zapojení, aby proud neprotékal přístrojem, ale musí se zajistit, aby ztrátový výkon
 \begin{align*}
     W = I^2 R

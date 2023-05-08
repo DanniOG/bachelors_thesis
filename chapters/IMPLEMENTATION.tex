@@ -1,5 +1,5 @@
 %!TEX ROOT=main.tex
-\chapter{Implementace}
+\chapter{Realizace}
 V této kapitole je popsaná realizace systému CarDi a naměřené hodnoty pneumatického systému.
 
 \section{Deska plošného spoje}
@@ -30,6 +30,7 @@ Celkovká cena desky a potřebné materiály jsou:
 \begin{table}[H]
     \label{tab:bom}
     \caption{Celkový počet součástek a výrobní cena }
+    \hspace*{-1.55cm}
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
@@ -68,7 +69,7 @@ Celkovká cena desky a potřebné materiály jsou:
             $\Sigma$              &                        &               & 94    & 16.3262  & €        & \\
             \bottomrule
             Služba                & Výroba PCB od JLCPCB   &               & 1     & 5        & €        & \\
-            Služba                & Osazení PCB            &               & 1     & 16       & €        & \\
+            Služba                & Osazení PCB od JLCPCB  &               & 1     & 16       & €        & \\
             \bottomrule
             $\Sigma$              &                        &               & 2     & 21       & €        & \\
             \bottomrule
@@ -91,6 +92,9 @@ patentu \cite[US Patent US10251567]{cite:2}
     \caption{Blokové schéma pneumatického systému}
     \label{fig:pneu_block}
 \end{figure}
+\subsection{Metoda měření}
+
+
 
 \subsection{Měření těsnosti penumatické časti}
 Pneumatická čast musí být co nejlépe těsná, aby po dobu terapie byl co nejmešní úbytek tlaku v systému.

@@ -74,14 +74,19 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \end{declaration}
 
 \begin{abstract-english}
-We develop \ldots
+	The bachelor's thesis deals with the design and implementation of a system for non-invasive measurement of the hemodynamic parameters of the human bloodstream using the oscillometric method. The measured parameters include pulse wave velocity and central aortic pressure.
+	The first part is focused on a theoretical description of hemodynamic parameters and a research of commercially available devices for non-invasive measurement of hemodynamic parameters and their description. In the next part is the hardware design and documentation of the system. This is followed by the characterization of the entire device,
+	measurement and evaluation of its parameters.
 \end{abstract-english}
 
 \begin{abstract-czech}
-Rozvíjíme \ldots
+Bakalářská práce se zabývá návrhu a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečistě člověka oscilometrickou metodou. Mezi měřené parametry patří rychlost pulzní vlny a cetrální aortální tlak. 
+První část je zaměřena na teoretickému popisu hemodynamických parametrů a rešerši komerčeně dostupných přístrojů pro neinvazivní měření hemodynamických parametrů. V další části je hardwarový návrh a dokumentace systému. Na to navazuje charakterizace celého přístroje, 
+měření a vyhodnocení jeho parametrů.
 \end{abstract-czech}
 
 \begin{document}
+
 \maketitle
 
 
@@ -89,7 +94,15 @@ Rozvíjíme \ldots
 
 %Intro
 \chapter{Úvod}
+Cílem bakalářkské práce je návrh a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka pomocí oscilometrické metody. Mezi hemodynamické parametry patří rychlost pulzní vlny a střední aortální tlak.
+Systém je pojmenován CarDi - Cardiovascular Diagnostic. Systém slouží jako podklad pro další výzkumné činnosti a přiblížení k validovanému systému pro komerční použití. Metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
 
+\par
+První část seznámí čtenáře s částí měřených hemodynamických parametrů a to zejména krevního tlaku a rychlosti pulzní vlny. Popis metod neivazivního měření krevního tlaku. Rešerši přístrojů dostupné na trhu zaměřené na neivazivní měření rychlosti pulzní vlny, jejich postup měření a ovládání z uživatelského hlediska.
+\par
+Další část se zaměří na návrh přístroje a jeho dokumentaci. Návrh přístroje je hlavně zaměřen na návrh desky plošného spoje pro ovládání průběhu terapie a sběru dat.
+\par
+V části realizace systému CarDi jsou naměřené hlavní parametry přístroje, realizace desky plošného spoje a popis metody měření. Hlavní parametry přístroje je těstnost pneumatické části a charakterizace analogově-digitálních převodníků pro tlakové senzory.
 
 %BloodPressure
 \input{chapters/BLOODPRESSURE}
@@ -117,6 +130,6 @@ Rozvíjíme \ldots
 \bibliography{main}
 
 
-\ctutemplate{specification.as.chapter}
+% \ctutemplate{specification.as.chapter}
 
 \end{document}
