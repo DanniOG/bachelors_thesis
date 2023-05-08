@@ -93,9 +93,41 @@ patentu \cite[US Patent US10251567]{cite:2}
     \label{fig:pneu_block}
 \end{figure}
 \subsection{Metoda měření}
-
-
-
+Měření probíhá ve dvou fázích. V první fázi se systém natlakuje na suprasystolický tlak $P_s$ při otevřeném uzavíracím ventilu a zavřených regulačních ventilech. Suprasystolický tlak $P_s$ je $\approx 50 \ mmHg$ nad systolickým tlakem pacienta.
+\begin{figure}[H]
+    \includegraphics[width=1\linewidth]{pictures/faze_mereni_1.jpg}
+    \caption{První fáze měření oscilometrických pulzací}
+\end{figure}
+V celé pneumatické části bude suprasystolický tlak a tlak v jednotlivých bodech je
+\begin{equation*}
+    P_1 = P_{osc} + P_s
+\end{equation*}
+\begin{equation*}
+    P_2 = P_{osc} + P_s
+\end{equation*}
+\begin{equation*}
+    P_{DIFF} = P_1 - P_2 = 0
+\end{equation*}
+Na výstupu diferečního senzoru tlaku je nulový signál. \par
+V druhé fázi měření po natlakování systému na suprasystolický tlak, se uzavírací ventil uzavře.
+\begin{figure}[H]
+    \includegraphics[width=1\linewidth]{pictures/faze_mereni_2.jpg}
+    \caption{Druhá fáze měření oscilometrických pulzací}
+\end{figure}
+Tlak na větvích pneumatického systému bude následovný
+\begin{equation*}
+    P_1 = P_{osc} + P_s
+\end{equation*}
+\begin{equation*}
+    P_2 = P_s
+\end{equation*}
+\begin{equation}
+    P_{DIFF} = P_1 - P_2 = P_{osc}
+\end{equation}
+Jelikož na měříme rozdíl tlaků ve větvích na výstupním signálu diferenčního senzoru budou pouze tlakové oscilace $P_{osc}$.
+Pomocí regulačních ventilů se bude snižovat statický tlak v obou větví součastně, aby nadále zůstala pouze oscilační složka.
+Tento způsob měření způsobí zvýšení citlivosti snímání tlakových pulzací pomocí diferenčního sensoru tlaku 75x až 150x. \cite{cite:Habilitace}
+Metoda je patentována v České Republice a USA \cite{cite:2}. Tato metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
 \subsection{Měření těsnosti penumatické časti}
 Pneumatická čast musí být co nejlépe těsná, aby po dobu terapie byl co nejmešní úbytek tlaku v systému.
 \par
