@@ -131,8 +131,11 @@ Poslední část obsahuje popis a charakterizace parametrů navrženého systém
 \par
 Výsledkem bakalářské práce je systém pro snímání tlakových pulzací pomocí pažní manžety, jeho dokumentace a charakterizace parametrů. Systém dokáže ovládat ventily, sběr dat z tlakových senzorů a ostatních periférií, jejich následné zpracování a komunikaci s nadřazeným systémem.
 \par
-Tento systém přináší platformu pro další výzkumné činnosti z hlediska analýzy tlakových pulzací krevního řečiště a další krok k případnému převedení přístroje na trh. Na systému by se mohlo zaměřit na analýzu rušení senzorů, zlepšení odolnosti proti elektromagnetickému rušení, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro použitou
-řídící jednotku STM32 a dálkový upgrade firmware z uživatelkého prostředí.
+Tento systém přináší platformu pro další výzkumné činnosti z hlediska analýzy tlakových pulzací krevního řečiště a další krok k případnému převedení přístroje na trh. Na realizovaném systému je potřeba zlepšit frekveční odezva filtru pro napájení analogové časti MCU. Chyby jsou ve zvolených blokovacích kondenzátorech
+pro MCP3561 jejich hodnota se liší od doporučených v katalogovém listu. Další zlepšení se může zaměřit na analýzu rušení senzorů a její potlačení, zlepšení odolnosti proti elektromagnetickému rušení, optimalizace návrhu desky plošného spoje, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro použitou
+řídící jednotku STM32, dálkový upgrade firmware z uživatelkého prostředí a vytvoření softwarového systému tzv. Board Support Package.
+\par
+Vytvořený systém splňuje požadavky zadání bakalářské práce, systém je navrhnut, realizován, jsou popsané jeho parametry a je vytvořená jeho dokumentace.
 
 
 \appendix
@@ -144,14 +147,14 @@ Tento systém přináší platformu pro další výzkumné činnosti z hlediska 
 \bibliographystyle{amsalpha}
 \bibliography{main}
 \chapter{Schéma DPS}
-% \includepdf{pictures/cardiac_gener.pdf}
-% \includepdf{pictures/cardiac_gener-B_Cu.pdf}
-% \includepdf{pictures/cardiac_gener-B_Mask.pdf}
-% \includepdf{pictures/cardiac_gener-F_Cu.pdf}
-% \includepdf{pictures/cardiac_gener-F_Mask.pdf}
-% \includepdf{pictures/cardiac_gener-F_Silkscreen.pdf}
-% \includepdf{pictures/cardiac_gener-In1_GND_Cu.pdf}
-% \includepdf{pictures/cardiac_gener-In2_3V3_Cu.pdf}
-% \includepdf{pictures/cardiac_gener-Edge_Cuts.pdf}
+\includepdf{pictures/cardiac_gener.pdf}
+\includepdf{pictures/cardiac_gener-B_Cu.pdf}
+\includepdf{pictures/cardiac_gener-B_Mask.pdf}
+\includepdf{pictures/cardiac_gener-F_Cu.pdf}
+\includepdf{pictures/cardiac_gener-F_Mask.pdf}
+\includepdf{pictures/cardiac_gener-F_Silkscreen.pdf}
+\includepdf{pictures/cardiac_gener-In1_GND_Cu.pdf}
+\includepdf{pictures/cardiac_gener-In2_3V3_Cu.pdf}
+\includepdf{pictures/cardiac_gener-Edge_Cuts.pdf}
 
 \end{document}
