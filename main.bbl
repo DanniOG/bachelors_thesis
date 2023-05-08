@@ -11,17 +11,40 @@
 Miklós~Illyés a~kolektiv., \emph{Tensiomed arteriograph brochure. tensiomed.
   <\url{http://www.tensiomed.com}>.}
 
-\bibitem[Atc23]{cite:10}
+\bibitem[Atc23a]{cite:10}
 Atcor, \emph{Sphygmocor xcel
   <\url{https://atcormedical.com/technology/sphygmocor-xcel/}>}.
+
+\bibitem[Atc23b]{cite:SphygmoCor}
+\bysame, \emph{Sphygmocor® xcel
+  <\url{https://atcormedical.com/technology/sphygmocor-xcel/}>}.
+
+\bibitem[CD18]{cite:BP}
+Whelton PK; Carey RM; Aronow; WS; Casey DE; Collins KJ;~Himmelfarb CD,
+  \emph{2017 acc/aha/aapa/abc/acpm/ags/apha/ash/aspc/nma/pcna guideline for the
+  prevention, detection, evaluation, and management of high blood pressure in
+  adults: A report of the american college of cardiology/american heart
+  association task force on clinical practice guidelines}, J Am Coll Cardiol.
+  (2018).
 
 \bibitem[Cha11]{cite:7}
 L.~Chaloupka, \emph{Monitorování parametrů kardiovaskulárního systému z
   tvaru tlakových křivek, dp}, ČVUT (2011).
 
+\bibitem[CON]{cite:UzaviraciVentil}
+CONJOIN, \emph{Cjav08-2b05a
+  <\url{https://www.aliexpress.com/i/33040651412.html}>}.
+
 \bibitem[Dar87]{cite:4}
 Gloria~Oblouk Darovic, \emph{Hemodynamic monitoring: Invasive and noninvasive
   clinical applications}, W B Saunders Co. \textbf{1} (1987).
+
+\bibitem[Des]{cite:RCResponse}
+OKAWA~Electric Design, \emph{Webová aplikace pro design filtrů.
+  <\url{http://sim.okawa-denshi.jp/en/CRlowkeisan.htm}>}.
+
+\bibitem[Fab22]{cite:Fabian}
+V.~Fabián, \emph{Přednášky z předmětu biofyzika bab02bfy}, ČVUT (2022).
 
 \bibitem[fDCP23]{cite:11}
 Centers for Disease~Control and Prevention, \emph{High blood pressure
@@ -33,15 +56,36 @@ DOBIAS M. ( CTU in Prague~) FABIAN~V., KREMEN~V., \emph{Method for an accurate
   to carry out the same}, United States Patent and Trademark Office, US Patent
   US10251567 (2019).
 
+\bibitem[Inc]{cite:ESD}
+Diodes Incorporated, \emph{Katalogový list d5v0f1u2s9}.
+
 \bibitem[J.15]{cite:6}
 Pereira T.; Correia C.;~Cardoso J., \emph{Novel methods for pulse wave velocity
   measurement.}, Journal of Medical and Biological Engineering (2015).
 
-\bibitem[Ten22]{cite:8}
+\bibitem[Mic]{cite:STM32F407}
+ST~Microelectronics, \emph{Online na <
+  \url{https://octopart.com/stm32f407zgt6-stmicroelectronics-20570112} >}.
+
+\bibitem[Sem]{cite:NXP}
+NXP Semiconductors, \emph{Katalogový list mp3v5050}.
+
+\bibitem[Sen]{cite:Allsensors}
+All Sensors, \emph{Katalogový list elv series}.
+
+\bibitem[tec]{cite:MCPPWV}
+Microchip technology, \emph{Application note tb3250}.
+
+\bibitem[Ten22]{cite:Arteriograph}
 Tensiomed, \emph{Arteriograph
   <\url{https://www.tensiomed.com/devices/arteriograph/}>}.
 
-\bibitem[Usc23]{cite:9}
+\bibitem[TR16]{cite:CBP}
+Nichols~WW Townsend~RR, Rosendorff~C, \emph{American society of hypertension
+  10(5) (2016) 467–468 society of hypertension position paper: central blood
+  pressure waveforms in health and disease.}, J Am Soc Hypertens. (2016).
+
+\bibitem[Usc23]{cite:Uscom}
 Uscom, \emph{Uscom bp+ overview
   <\url{https://www.uscom.com.au/products/bp/overview/}>}.
 

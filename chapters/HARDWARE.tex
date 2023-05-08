@@ -21,7 +21,7 @@ počítání s desetinými čísly a také řadou instrukcí určené specificky
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{pictures/stm32f407.jpg}
-    \caption{Model stm32f407}
+    \caption{Model STM32F407ZGT6 \cite{cite:STM32F407}}
     \label{fig:stm32}
 \end{figure}
 MCU je v obalu se 144 piny se 114 vstupně/výstupními piny, 1 MB FLASH paměti, 256 kB paměti SRAM, 3x 12 bit AD převodníky s až 24 kanály s maximální vzorkovací frekvencí 2.4 MHz,
@@ -104,7 +104,7 @@ Jako ochrana je použita transient voltage suppression (TVS) dioda D5V0F1U2S9-7 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\linewidth]{pictures/esd_diode_schema.jpg}
-    \caption{Schéma ochrané ESD diody D5V0F1U2S9-7. Kde Pin 1 je katoda.}
+    \caption{Schéma ochrané ESD diody D5V0F1U2S9-7. Kde Pin 1 je katoda. \cite{cite:ESD}}
     \label{fig:esd_diode}
 \end{figure}
 
@@ -144,21 +144,21 @@ Použité sensory tlaku jsou NPX MP3V5050GC6U.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{pictures/nxp_sensor.jpg}
-    \caption{Senzor tlaku NPX MP3V5050GC6U}
+    \caption{Senzor tlaku NPX MP3V5050GC6U \cite{cite:NXP}}
     \label{fig:nxp}
 \end{figure}
 
 Je to analogový sensor tlaku od firmy NXP ze série peizorezistivních převodníků. Parametry jsou následovné:
 \begin{table}[H]
     \label{tab:nxp_properties}
-    \caption{Properties of nxp sensor}
+    \caption{Charakterisitky senzoru NPX MP3V5050GC6U. \cite{cite:NXP}}
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
             Charakteristika                                         & Symbol        & Min & Typ   & Max        & Jednotka         & \\ \midrule
             Rozsah tlaku                                            & $P$           & 0   & -     & 50         & $kPa$            & \\
-            Vstupní napětí                                          & $U_{s}$       & -   & 3.3   & -          & $V$              & \\
-            Vstupní proud                                           & $I_{s}$       & -   & 10    & -          & $mA$             & \\
+            Vstupní napětí                                          & $U_{s}$       & 2.7 & 3.0   & 3.3        & $V$              & \\
+            Vstupní proud                                           & $I_{s}$       & -   & 7     & 10         & $mA$             & \\
             Napěťový offset($0^{\circ}$ až $ 85^{\circ}  C $)       & $U_{off}$     & -   & 0.188 & -          & $V$              & \\
             $\textnormal{Full Scale Output}^{(\ref{enum:nxp_fso})}$ & $U_{FSO}$     &     & 2.77  &            & $V$              & \\
             Přesnost($0^{\circ}$ až $ 85^{\circ} C$)                & -             & -   & -     & $\pm 2.5 $ & $\%$             & \\
@@ -176,7 +176,7 @@ Zapojení senzoru je na separátní DPS podle doporučeného schématu (\ref{fig
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{pictures/nxp_recommended.jpg}
-    \caption{Doporučené schéma zapojení senzoru tlaku NPX MP3V5050GC6U. Kde $V_S$ je vstupní napájecí napětí a $V_{out}$ je výstupní napětí.}
+    \caption{Doporučené schéma zapojení senzoru tlaku NPX MP3V5050GC6U. Kde $V_S$ je vstupní napájecí napětí a $V_{out}$ je výstupní napětí.  \cite{cite:NXP}}
     \label{fig:nxp_recommended}
 \end{figure}
 Analogový výstup ze sensoru je připojen na interní AD převodník MCU.
@@ -190,7 +190,7 @@ Převodní charakteristika výstupního napětí $U_{o} \ V$ na tlak $P \ kPa$je
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{pictures/nxp_transfer.jpg}
-    \caption{}
+    \caption{Graf převodní rovnice tlak na napětí pro senzor tlaku NPX MP3V5050GC6U. \cite{cite:NXP}}
     \label{fig:nxp_transfer}
 \end{figure}
 
@@ -200,14 +200,14 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\linewidth]{pictures/amphenol.jpg}
-    \caption{Diferenční sensor tlaku Amphenol ELVH-L02D-HRRD-C-NAA4}
+    \caption{Diferenční sensor tlaku Amphenol ELVH-L02D-HRRD-C-NAA4 \cite{cite:Allsensors}}
     \label{fig:amphenol}
 \end{figure}
 
 
 \begin{table}[H]
     \label{tab:amphenol_properies}
-    \caption{properties of an amphenol}
+    \caption{Charakterisitky diferenčního tlakového sensoru Amphenol ELVH-L02D-HRRD-C-NAA4 \cite{cite:Allsensors}}
     \centering
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
@@ -217,7 +217,7 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
             $\textnormal{Proof pressure}^{(\ref{enum:amp_proof_pressure})}$         & $P_{pp}$  & -       & 67         & -           & $kPa$    & \\
             $\textnormal{Průrazný tlak}^{(\ref{enum:amp_burst_pressure}) }$         & $P_{bp}$  & -       & 103        & -           & $kPa$    & \\
             $\textnormal{Common mode pressure}^{(\ref{enum:amp_common_pressure})} $ & $P_{cm}$  & -       & 103        & -           & $kPa$    & \\
-            Vstupní napětí                                                          & $U_{s}$   & -       & 3.3        & -           & $V$      & \\
+            Vstupní napětí                                                          & $U_{s}$   & 3.0     & 3.3        & 5.0         & $V$      & \\
             Vstupní proud                                                           & $I_{s}$   & -       & 2.1        & 2.8         & $mA$     & \\
             Napěťový offset                                                         & $U_{off}$ & -       & 1.65       & -           & $V$      & \\
             $\textnormal{Full Scale Span}^{(\ref{enum:amp_fss})} $                  & $U_{FSS}$ &         & $\pm 1.32$ &             & $V$      & \\
@@ -249,7 +249,7 @@ Zlomová frekvence RC článku $f_0 = \frac{1}{2 \pi RC} = 1591 \ Hz $ byla spo�
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{pictures/rc_1k_100n_1591.png}
-    \caption{Bodeho aproximace RC článku pro Amphenol ELVH-L02D-HRRD-C-NAA4}
+    \caption{Bodeho aproximace RC článku pro Amphenol ELVH-L02D-HRRD-C-NAA4. \cite{cite:RCResponse}}
     \label{fig:amphenol_filter}
 \end{figure}
 
@@ -265,15 +265,15 @@ Uzavírací ventil je důležitou součástí systému. Pneumatický systém roz
 
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/closing_valve.jpg}
-    \caption{Fotka uzavíracího ventilu CJAV08-2B05A1}
+    \caption{Fotka uzavíracího ventilu CJAV08-2B05A1. \cite{cite:UzaviraciVentil}}
     \label{fig:closing_valve}
 \end{figure}
 
-Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napětím, normálně zavřený, vzduchový ventil typu solenoid  o $U = 5 \ V$ a vstupní proud o $I = 204 \ mA \pm 10\% $
+Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napětím, normálně zavřený, vzduchový ventil typu solenoid  o $U = 5 \ V$ a vstupní proud o $I = 204 \ mA \pm 10\% $ \cite{cite:UzaviraciVentil}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/closing_valve_driver.jpg}
-    \caption{Schéma zapojení uzavíracího ventilu}
+    \caption{Schéma zapojení uzavíracího ventilu.}
     \label{fig:closing_valve_driver}
 \end{figure}
 
@@ -288,7 +288,7 @@ Napětí na ventilech je $5V$ i přes to, že ventily požadují napětí $6 \ V
 
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/var_valves.jpg}
-    \caption{Schéma zapojení regulačních ventilů}
+    \caption{Schéma zapojení regulačních ventilů.}
     \label{fig:variable_valve_driver}
 \end{figure}
 
@@ -332,7 +332,7 @@ Pomocí fourierovy analýzy PWM signálu můžeme vidět, že PWM signál se nes
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/pwm_spectrum_microchip90003250A.jpg}
-    \caption{Spektrum PWM signálu převzatého od Microchip TB3250 kde $f_{PWM}$ je frekvence PWM signálu a $T$ je jeho perioda.}
+    \caption{Spektrum PWM signálu převzatého od Microchip TB3250 kde $f_{PWM}$ je frekvence PWM signálu a $T$ je jeho perioda. \cite{cite:MCPPWV}}
     \label{fig:pwm_spectrum}
 \end{figure}
 
@@ -342,7 +342,7 @@ Největší amplitudu typyckého PWM signálu má na její nastavené frekvenci 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/rc_pwm_spectrum_microchip90003250A.jpg}
-    \caption{Požadované odstraněné frekvence ve spektru PWM signálu převzatého od Microchip TB3250 kde $f_{PWM}$ je frekvence PWM signálu a $T$ je jeho perioda, $f_{c}$ je zlomová frekvence filtru.}
+    \caption{Požadované odstraněné frekvence ve spektru PWM signálu převzatého od Microchip TB3250 kde $f_{PWM}$ je frekvence PWM signálu a $T$ je jeho perioda, $f_{c}$ je zlomová frekvence filtru.\cite{cite:MCPPWV}}
     \label{fig:unwanted_pwm_spectrum}
 \end{figure}
 
@@ -352,7 +352,7 @@ Kde $f_c = 159 \ Hz$ je zlomová frekvence filtru.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/var_rc_filter.png}
-    \caption{Frekveční charakteristika použitého RC filtru. Obrázek je poskytnut z webové stránky \url{http://sim.okawa-denshi.jp/en/CRtool.php}}
+    \caption{Frekveční charakteristika použitého RC filtru pro převod PWV na napětí.\cite{cite:RCResponse}}
     \label{fig:var_rc_filter_char}
 \end{figure}
 
