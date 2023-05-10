@@ -183,25 +183,7 @@ Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 
 \section{Vyhodnocení dat z AD převodníků}
 Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS je $U_{ref} = 3.29 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.63 \ V$.
 Všechny součástky a refereční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
-\subsection{Charakteristika MCP3561}
-24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schema (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
-Při této konfiguraci registrů AD převodník má přenosovou rychlost $f_s = 4800 \ kHz$ a efektivní počet bitů $ENOB = 19.5$ bit. Hodnota 1 LSB $= \frac{U_{ref}}{2^{24 - 1}} = 392.07 \ nV$.
-\begin{figure}[H]
-    \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
-        pro diferenční tlakový sensor k refereční zemi.}
-    \includegraphics[width=1\textwidth]{graphs/mcp_gnd.png}
-\end{figure}
-Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 5499.17$ se směrodatnou odchylkou $\sigma = 23.09$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 2.15 \pm 0.0090 \ mV$
 
-\begin{figure}[H]
-    \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
-        pro diferenční tlakový sensor k  $1.63 \ V$.}
-    \includegraphics[width=1\textwidth]{graphs/mcp_16.png}
-\end{figure}
-Očekáváné hodnoty pro připojení k $U_{in} = 1.63 \ V$ jsou $4168728.97$. Střední hodnota naměřených dat je $\mu = 4172558.10$ se směrodatnou odchylkou $\sigma = 145.82$. Po převedení naměřených dat na napětí $U_{out} = 1.63 \pm 0.000057\ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = 1.63 \ V$
-$U_{offset} = 5.99 \pm 0.057 \ mV$.
-\par
-Po připojení napětí $U_{in} = U_{ref}$ na kanál, AD převodník byl v saturaci a všechny naměřené vzorky byly s hodnout $U_{ref}$.
 \subsection{Charakteristika 12 bit AD převodníku STM32}
 12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absultní hodnoty tlaku z tlakových sezorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
 Hodnota 1 LSB $= \frac{U_{ref}}{2^{12}} = 802 \ \mu V$.
@@ -260,3 +242,32 @@ $U_{offset} = 10.35 \pm 6.15 \ mV$.
 \end{figure}
 Očekáváné hodnoty pro připojení k $U_{in} = U_{ref} \ V$ jsou $4095$. Střední hodnota naměřených dat je $\mu = 4091.59$ se směrodatnou odchylkou $\sigma = 2.85$. Po převedení naměřených dat na napětí $U_{out} = 3.28 \pm 0.0023 \ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = U_{ref} = 3.29 \ V$
 $U_{offset} = -2.73 \pm 2.29 \ mV$.
+
+
+\subsection{Charakteristika MCP3561}
+24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schema (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
+Při této konfiguraci registrů AD převodník má přenosovou rychlost $f_s = 4800 \ kHz$ a efektivní počet bitů $ENOB = 19.5$ bit. Hodnota 1 LSB $= \frac{U_{ref}}{2^{24 - 1}} = 392.07 \ nV$.
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
+        pro diferenční tlakový sensor k refereční zemi.}
+    \includegraphics[width=1\textwidth]{graphs/mcp_gnd.png}
+\end{figure}
+Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 5499.17$ se směrodatnou odchylkou $\sigma = 23.09$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 2.15 \pm 0.0090 \ mV$
+
+\begin{figure}[H]
+    \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
+        pro diferenční tlakový sensor k  $1.63 \ V$.}
+    \includegraphics[width=1\textwidth]{graphs/mcp_16.png}
+\end{figure}
+Očekáváné hodnoty pro připojení k $U_{in} = 1.63 \ V$ jsou $4168728.97$. Střední hodnota naměřených dat je $\mu = 4172558.10$ se směrodatnou odchylkou $\sigma = 145.82$. Po převedení naměřených dat na napětí $U_{out} = 1.63 \pm 0.000057\ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = 1.63 \ V$
+$U_{offset} = 5.99 \pm 0.057 \ mV$.
+\par
+Po připojení napětí $U_{in} = U_{ref}$ na kanál, AD převodník byl v saturaci a všechny naměřené vzorky byly s hodnout $U_{ref}$.
+
+
+\subsection{Měření pulzní tlakové vlny}
+
+
+
+
+

@@ -9,8 +9,8 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{statistics}
 \usepackage{pgfplotstable}
-% \pgfplotsset{compat=1.5}
 \usepackage{tikz}
+
 \usetikzlibrary{spy,shadows}
 \tikzset{spy using overlaysshadow/.style={
     spy scope={#1,
@@ -76,13 +76,13 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \begin{abstract-english}
 	The bachelor's thesis deals with the design and implementation of a system for non-invasive measurement of the hemodynamic parameters of the human bloodstream using the oscillometric method. The measured parameters include pulse wave velocity and central aortic pressure.
 	The first part is focused on a theoretical description of hemodynamic parameters and a research of commercially available devices for non-invasive measurement of hemodynamic parameters and their description. In the next part is the hardware design and documentation of the system. This is followed by the characterization of the entire device,
-	measurement and evaluation of its parameters.
+	measurement and evaluation of its parameters. Finally, the measured pulse wave pressure at a cuff pressure of $200 \ mmHg$ and $275 \ mmHg$ are shown.
 \end{abstract-english}
 
 \begin{abstract-czech}
 Bakalářská práce se zabývá návrhu a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka oscilometrickou metodou. Mezi měřené parametry patří rychlost pulzní vlny a cetrální aortální tlak. 
 První část je zaměřena na teoretickému popisu hemodynamických parametrů a rešerši komerčeně dostupných přístrojů pro neinvazivní měření hemodynamických parametrů. V další části je hardwarový návrh a dokumentace systému. Na to navazuje charakterizace celého přístroje, 
-měření a vyhodnocení jeho parametrů.
+měření a vyhodnocení jeho parametrů. Na zavěr je ukázána naměřené pulzní tlakové vlny při manžetovém tlaku $200 \ mmHg$ a $275 \ mmHg$.
 \end{abstract-czech}
 
 \begin{document}
@@ -102,7 +102,7 @@ První část seznámí čtenáře s částí měřených hemodynamických param
 \par
 Další část se zaměří na návrh přístroje a jeho dokumentaci. Návrh přístroje je hlavně zaměřen na návrh desky plošného spoje pro ovládání průběhu terapie a sběru dat.
 \par
-V části realizace systému CarDi jsou naměřené hlavní parametry přístroje, realizace desky plošného spoje a popis metody měření. Hlavní parametry přístroje je těstnost pneumatické části a charakterizace analogově-digitálních převodníků pro tlakové senzory.
+V části realizace systému CarDi jsou naměřené hlavní parametry přístroje, realizace desky plošného spoje a popis metody měření. Hlavní parametry přístroje je těstnost pneumatické části a charakterizace analogově-digitálních převodníků pro tlakové senzory a měření pulzní tlakové vlny pomocí diferenčního sensoru tlaku.
 
 %BloodPressure
 \input{chapters/BLOODPRESSURE}
@@ -147,6 +147,18 @@ Vytvořený systém splňuje požadavky zadání bakalářské práce, systém j
 \bibliographystyle{amsalpha}
 \bibliography{main}
 \chapter{Schéma DPS}
+Následující stránky obsahují.
+\begin{itemize}
+    \item Schéma zapojení DPS
+    \item Elektrické spoje zadní strany DPS
+    \item Maska zadní strany DSP
+    \item Elektrické spoje přední strany DSP
+    \item Maska přední strany DSP
+    \item Silkscreen přední strany DSP
+    \item Druhá vrstva GND DPS
+    \item Třetí vrstva 3V3 DPS
+\end{itemize}
+
 \includepdf{pictures/cardiac_gener.pdf}
 \includepdf{pictures/cardiac_gener-B_Cu.pdf}
 \includepdf{pictures/cardiac_gener-B_Mask.pdf}
@@ -155,6 +167,5 @@ Vytvořený systém splňuje požadavky zadání bakalářské práce, systém j
 \includepdf{pictures/cardiac_gener-F_Silkscreen.pdf}
 \includepdf{pictures/cardiac_gener-In1_GND_Cu.pdf}
 \includepdf{pictures/cardiac_gener-In2_3V3_Cu.pdf}
-\includepdf{pictures/cardiac_gener-Edge_Cuts.pdf}
 
 \end{document}
