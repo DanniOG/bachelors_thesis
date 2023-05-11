@@ -10,7 +10,7 @@ Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty pro ří
     \label{fig:pcb_full}
 \end{figure}
 
-DPS je čtyřvsrtvá deska o výšce 1.6 mm s dvěma signálovými vrstvy a dvěma silovýma vrstvama. Kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty. Druhá je společná zem, třetí je napájencí 3.3 V a poslední spodní vrtva je také signálová.
+DPS je čtyřvrstvá deska o výšce 1.6 mm s dvěmi signálovými vrstvy a dvěmi silovými vrstvami. Kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty. Druhá je společná zem, třetí je napájecí 3.3 V a poslední spodní vrstva je také signálová.
 Základní materiál je FR-4 a povrchová úprava je ENIG(Electroless nickel immersion gold).
 \par
 DPS je vyrobena a z části osazena firmou JLCPCB.
@@ -25,7 +25,7 @@ DPS je vyrobena a z části osazena firmou JLCPCB.
     \label{fig:pcb_production_bottom}
 \end{figure}
 
-Celkovká cena desky a potřebné materiály jsou:
+Celková cena DPS a potřebné materiály jsou:
 \begin{table}[H]
     \label{tab:bom}
     \caption{Celkový počet součástek a výrobní cena }
@@ -67,8 +67,8 @@ Celkovká cena desky a potřebné materiály jsou:
             \bottomrule
             $\Sigma$              &                        &               & 94    & 16.3262  & €        & \\
             \bottomrule
-            Služba                & Výroba PCB od JLCPCB   &               & 1     & 5        & €        & \\
-            Služba                & Osazení PCB od JLCPCB  &               & 1     & 16       & €        & \\
+            Služba                & Výroba DPS od JLCPCB   &               & 1     & 5        & €        & \\
+            Služba                & Osazení DPS od JLCPCB  &               & 1     & 16       & €        & \\
             \bottomrule
             $\Sigma$              &                        &               & 2     & 21       & €        & \\
             \bottomrule
@@ -84,7 +84,7 @@ Celkovká cena desky a potřebné materiály jsou:
     \end{ctucolortab}
 \end{table}
 \section{Pneumatická část}
-Pneumatická čast systému je část ve které probíhá měření hemodynamických parametrů srdce pacienta. Je to jediná čast systému, která přichází v přímý kontakt s pacientem. Tato část je sestavena podle
+Pneumatická část systému je část ve které probíhá měření hemodynamických parametrů srdce pacienta. Je to jediná část systému, která přichází v přímý kontakt s pacientem. Tato část je sestavena podle
 patentu \cite[US Patent US10251567]{cite:2}
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/blokove_schema_pneu.jpg}
@@ -124,19 +124,19 @@ Tlak na větvích pneumatického systému bude následovný
     P_{DIFF} = P_1 - P_2 = P_{osc}
 \end{equation}
 Jelikož na měříme rozdíl tlaků ve větvích na výstupním signálu diferenčního senzoru budou pouze tlakové oscilace $P_{osc}$.
-Pomocí regulačních ventilů se bude snižovat statický tlak v obou větví součastně, aby nadále zůstala pouze oscilační složka.
+Pomocí regulačních ventilů se bude snižovat statický tlak v obou větví současně, aby nadále zůstala pouze oscilační složka.
 Tento způsob měření způsobí zvýšení citlivosti snímání tlakových pulzací pomocí diferenčního sensoru tlaku 75x až 150x. \cite{cite:Habilitace}
 Metoda je patentována v České Republice a USA \cite{cite:2}. Tato metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
 \pagebreak
-\subsection{Měření těsnosti penumatické časti}
-Pneumatická čast musí být co nejlépe těsná, aby po dobu terapie byl co nejmešní úbytek tlaku v systému.
+\subsection{Měření těsnosti penumatické části}
+Pneumatická část musí být co nejlépe těsná, aby po dobu terapie byl co nejmenší úbytek tlaku v systému.
 \par
 Test těsnosti probíhal pomocí přístroje FLUKE Biomedical BP pump 2, který natlakoval pneumatickou část na hodnotu 200 $mmHg$ a následně sledoval úbytek tlaku v systému po dobu 60 s.
 Měření bylo opakováno 10 krát po sobě.
 
 \begin{table}[H]
     \label{tab:pressure_test_pneu}
-    \caption{Test těstnosti pneumatického systému}
+    \caption{Test těsnosti pneumatického systému}
     \begin{ctucolortab}
         \begin{tabular}{ccc}
             \toprule
@@ -159,12 +159,12 @@ Průměrný pokles tlaku v důsledku úniku vzduchu z pneumatického obvodu je $
 Dle normy ISO 81060–1:2013 maximální úbytek tlaku v systému nesmí přesahovat $P_{loss} = 6 \ \frac{mmHg}{min}$.
 \pagebreak
 \subsection{Zkreslení signálu pneumatickým systémem}
-Přenosová funkce systému byla identifikována měřením impulzní odezvy systému. Systém byl natlakovám na průměrnou hodnotu suprasystolického tlaku 230 mmHg a poté
+Přenosová funkce systému byla identifikována měřením impulzní odezvy systému. Systém byl natlakován na průměrnou hodnotu suprasystolického tlaku $230 mmHg$ a poté
 byl aplikován jednotkový impuls pomocí mechanického kyvadla. \cite{cite:Patricia}
 \begin{figure}[H]
     \label{fig:mech_kyvadlo}
     \includegraphics[width=1\textwidth]{pictures/mech_kyvadlo.jpg}
-    \caption{Mechaniké kyvadlo pro vytvoření jednotkového impulsu na pneumatický systém. \cite{cite:Patricia}}
+    \caption{Mechanické kyvadlo pro vytvoření jednotkového impulsu na pneumatický systém. \cite{cite:Patricia}}
 \end{figure}
 \begin{figure}[H]
     \label{fig:pneu_impulse_response}
@@ -185,19 +185,19 @@ Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 
 %
 \pagebreak
 \section{Vyhodnocení dat z AD převodníků}
-Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS je $U_{ref} = 3.29 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.63 \ V$.
-Všechny součástky a refereční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
+Tato sekce se zaměří o popsání charakteristiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s referenční zemí, na napětí z DPS je $U_{ref} = 3.29 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.63 \ V$.
+Všechny součástky a referenční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
 
 \subsection{Charakteristika 12 bit AD převodníku STM32}
-12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absultní hodnoty tlaku z tlakových sezorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
+12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absolutní hodnoty tlaku z tlakových senzorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
 Hodnota 1 LSB $= \frac{U_{ref}}{2^{12}} = 802 \ \mu V$.
 \begin{figure}[H]
-    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k refereční zemi.}
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k referenční zemi.}
     \label{fig:hist_vacuum1_gnd}
     \includegraphics[width=1\textwidth]{graphs/vacuum1_gnd.png}
 
 \end{figure}
-Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 1.87$ se směrodatnou odchylkou $\sigma = 2.55$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 1.503 \pm 2.05 \ mV$.
+Očekáváné hodnoty pro připojení k referenční zemi je 0. Střední hodnota naměřených dat je $\mu = 1.87$ se směrodatnou odchylkou $\sigma = 2.55$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 1.503 \pm 2.05 \ mV$.
 
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k $1.63 \ V$.}
@@ -222,12 +222,12 @@ $U_{offset} = -2.92 \pm 2.78 \ mV$.
 
 
 \begin{figure}[H]
-    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k refereční zemi.}
+    \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k referenční zemi.}
     \label{fig:hist_vacuum2_gnd}
     \includegraphics[width=1\textwidth]{graphs/vacuum2_gnd.png}
 
 \end{figure}
-Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 2.33$ se směrodatnou odchylkou $\sigma = 3.31$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 1.88 \pm 2.66 \ mV$.
+Očekáváné hodnoty pro připojení k referenční zemi je 0. Střední hodnota naměřených dat je $\mu = 2.33$ se směrodatnou odchylkou $\sigma = 3.31$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 1.88 \pm 2.66 \ mV$.
 
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro druhý tlakový sensor k $1.63 \ V$.}
@@ -249,14 +249,14 @@ $U_{offset} = -2.73 \pm 2.29 \ mV$.
 
 
 \subsection{Charakteristika MCP3561} \label{section:char_mcp}
-24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schema (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
+24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schéma (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
 Při této konfiguraci registrů AD převodník má přenosovou rychlost $f_s = 4800 \ kHz$ a efektivní počet bitů $ENOB = 19.5$ bit. Hodnota 1 LSB $= \frac{U_{ref}}{2^{24 - 1}} = 392.07 \ nV$.
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
-        pro diferenční tlakový sensor k refereční zemi.}
+        pro diferenční tlakový sensor k referenční zemi.}
     \includegraphics[width=1\textwidth]{graphs/mcp_gnd.png}
 \end{figure}
-Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota naměřených dat je $\mu = 5499.17$ se směrodatnou odchylkou $\sigma = 23.09$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 2.15 \pm 0.0090 \ mV$
+Očekáváné hodnoty pro připojení k referenční zemi je 0. Střední hodnota naměřených dat je $\mu = 5499.17$ se směrodatnou odchylkou $\sigma = 23.09$. Aktuální hodnoty se liší od čekávané o $U_{offset} = 2.15 \pm 0.0090 \ mV$
 
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
@@ -266,12 +266,12 @@ Očekáváné hodnoty pro připojení k refereční zemi je 0. Střední hodnota
 Očekáváné hodnoty pro připojení k $U_{in} = 1.63 \ V$ jsou $4168728.97$. Střední hodnota naměřených dat je $\mu = 4172558.10$ se směrodatnou odchylkou $\sigma = 145.82$. Po převedení naměřených dat na napětí $U_{out} = 1.63 \pm 0.000057\ V$ je napěťový rozdíl od očekávané hodnoty $U_{in} = 1.63 \ V$
 $U_{offset} = 5.99 \pm 0.057 \ mV$.
 \par
-Po připojení napětí $U_{in} = U_{ref}$ na kanál, AD převodník byl v saturaci a všechny naměřené vzorky byly s hodnout $U_{ref}$.
+Po připojení napětí $U_{in} = U_{ref}$ na kanál, AD převodník byl v saturaci a všechny naměřené vzorky byly s hodnotou $U_{ref}$.
 
 \pagebreak
 \section{Měření pulzní tlakové vlny}
 Pulzní tlaková vlna byla měřena na dobrovolníkovy pomocí navrženého systému CarDi na suprasystolickém tlaku $200 \ mmHg$ a $275 \ mmHg$. Nastavení registrů 24 bitového AD převodníku MCP3561 je stejné jako v sekci (\ref{section:char_mcp}).
-Postup měřění probíhalo podle metody popsané v sekci (\ref{section:metoda_mereni}). Postup tohoto měření je následovný
+Postup měření probíhalo podle metody popsané v sekci (\ref{section:metoda_mereni}). Postup tohoto měření je následovný
 \begin{enumerate}
     \item Nasazení manžety na levou paži.
     \item Otevření uzavíracího ventilu.
@@ -287,12 +287,12 @@ Postup měřění probíhalo podle metody popsané v sekci (\ref{section:metoda_
 
 \begin{figure}[H]
     \includegraphics[width=1\textwidth]{graphs/pulzace_fabi_200mmhg.png}
-    \caption{Pulzní tlaková vlná při manžetním tlaku $200 \ mmHg$}
+    \caption{Pulzní tlaková vlna při manžetním tlaku $200 \ mmHg$}
     \label{fig:pwa_200}
 \end{figure}
 
 \begin{figure}[H]
     \includegraphics[width=1\textwidth]{graphs/pulzace_fabi_275mmhg.png}
-    \caption{Pulzní tlaková vlná při manžetním tlaku $275 \ mmHg$}
+    \caption{Pulzní tlaková vlna při manžetním tlaku $275 \ mmHg$}
     \label{fig:pwa_275}
 \end{figure}

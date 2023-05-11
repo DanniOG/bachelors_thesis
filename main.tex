@@ -46,8 +46,8 @@
 	supervisor = {doc. Ing. Vratislav Fabián, Ph.D},
 	supervisor-address = {Praha, Technická 1902/2, \\ místnost: B2-36},
 	fieldofstudy-english = {Medical electronics and bioinformatics},
-	fieldofstudy-czech = {Lékařská elektronika a bioinfomatika},
-	keywords-czech = {Hemodynamické parametry, Neinvazivní, Systém, Embedded system, Rychlost pulzní vlny,Analýza pulzní vlny ,Oscilometrická metoda, Měření krevního tlaku, PWV},
+	fieldofstudy-czech = {Lékařská elektronika a bioinformatika},
+	keywords-czech = {Hemodynamické parametry, Neinvazivní, Systém, Embedded system, Rychlost pulzní vlny, Analýza pulzní vlny ,Oscilometrická metoda, Měření krevního tlaku, PWV},
 	keywords-english = {Hemodynamic parameters, Noninvasive, System, Embedded system, Pulse Wave Velocity, Pulse Wave Analysis, Oscilometric method, Blood Pressure measurement},
 	day = 25,
 	month = 4,
@@ -80,8 +80,8 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \end{abstract-english}
 
 \begin{abstract-czech}
-Bakalářská práce se zabývá návrhu a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka oscilometrickou metodou. Mezi měřené parametry patří rychlost pulzní vlny a cetrální aortální tlak. 
-První část je zaměřena na teoretickému popisu hemodynamických parametrů a rešerši komerčeně dostupných přístrojů pro neinvazivní měření hemodynamických parametrů. V další části je hardwarový návrh a dokumentace systému. Na to navazuje charakterizace celého přístroje, 
+Bakalářská práce se zabývá návrhu a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka oscilometrickou metodou. Mezi měřené parametry patří rychlost pulzní vlny a centrální aortální tlak. 
+První část je zaměřena na teoretickému popisu hemodynamických parametrů a rešerši komerčně dostupných přístrojů pro neinvazivní měření hemodynamických parametrů. V další části je hardwarový návrh a dokumentace systému. Na to navazuje charakterizace celého přístroje, 
 měření a vyhodnocení jeho parametrů. Na zavěr je ukázána naměřené pulzní tlakové vlny při suprasystolickém tlaku $200 \ mmHg$ a $275 \ mmHg$.
 \end{abstract-czech}
 
@@ -94,15 +94,15 @@ měření a vyhodnocení jeho parametrů. Na zavěr je ukázána naměřené pul
 
 %Intro
 \chapter{Úvod}
-Cílem bakalářkské práce je návrh a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka pomocí oscilometrické metody. Mezi hemodynamické parametry patří rychlost pulzní vlny a střední aortální tlak.
+Cílem bakalářské práce je návrh a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka pomocí oscilometrické metody. Mezi hemodynamické parametry patří rychlost pulzní vlny a střední aortální tlak.
 Systém je pojmenován CarDi - Cardiovascular Diagnostic. Systém slouží jako podklad pro další výzkumné činnosti a přiblížení k validovanému systému pro komerční použití. Metoda měření splňuje kritéria norem ISO 81060–1:2013 a ISO 81060–2:2013 \cite{cite:Validation}.
 
 \par
-První část seznámí čtenáře s částí měřených hemodynamických parametrů a to zejména krevního tlaku a rychlosti pulzní vlny. Popis metod neivazivního měření krevního tlaku. Rešerši přístrojů dostupné na trhu zaměřené na neivazivní měření rychlosti pulzní vlny, jejich postup měření a ovládání z uživatelského hlediska.
+První část seznámí čtenáře s částí měřených hemodynamických parametrů a to zejména krevního tlaku a rychlosti pulzní vlny. Popis metod neinvazivního měření krevního tlaku. Rešerši přístrojů dostupné na trhu zaměřené na neinvazivní měření rychlosti pulzní vlny, jejich postup měření a ovládání z uživatelského hlediska.
 \par
 Další část se zaměří na návrh přístroje a jeho dokumentaci. Návrh přístroje je hlavně zaměřen na návrh desky plošného spoje pro ovládání průběhu terapie a sběru dat.
 \par
-V části realizace systému CarDi jsou naměřené hlavní parametry přístroje, realizace desky plošného spoje a popis metody měření. Hlavní parametry přístroje je těstnost pneumatické části a charakterizace analogově-digitálních převodníků pro tlakové senzory a měření pulzní tlakové vlny pomocí diferenčního sensoru tlaku.
+V části realizace systému CarDi jsou naměřené hlavní parametry přístroje, realizace desky plošného spoje a popis metody měření. Hlavní parametry přístroje je těsnost pneumatické části a charakterizace analogově-digitálních převodníků pro tlakové senzory a měření pulzní tlakové vlny pomocí diferenčního sensoru tlaku.
 
 %BloodPressure
 \input{chapters/BLOODPRESSURE}
@@ -125,15 +125,15 @@ tlakové křivky, navrhnou a realizovat systém pro snímání tlakových pulzac
 První část se věnovala popisu hemodynamických parametrů krevního řečiště, popsání metod měření parametrů a rešerši přístrojů pro měření hemodynamických parametrů krevního řečiště určovaných neinvazivně z tvaru
 tlakové křivky.
 \par
-Druhá čast je zaměřena na návrh a dokumentaci systému pro snímání tlakových pulzací pomocí pažní manžety.
+Druhá část je zaměřena na návrh a dokumentaci systému pro snímání tlakových pulzací pomocí pažní manžety.
 \par
-Poslední část obsahuje popis a charakterizace parametrů navrženého systému, test těstnosti pneumatické časti, charakterizace analogově digitálních převodníků pro tlakové senzory a měření pulzní tlakové křivky dobrovolníka.
+Poslední část obsahuje popis a charakterizace parametrů navrženého systému, test těsnosti pneumatické části, charakterizace analogově digitálních převodníků pro tlakové senzory a měření pulzní tlakové křivky dobrovolníka.
 \par
 Výsledkem bakalářské práce je systém pro snímání tlakových pulzací pomocí pažní manžety, jeho dokumentace a charakterizace parametrů. Systém dokáže ovládat ventily, sběr dat z tlakových senzorů a ostatních periférií, jejich následné zpracování a komunikaci s nadřazeným systémem.
 \par
-Tento systém přináší platformu pro další výzkumné činnosti z hlediska analýzy tlakových pulzací krevního řečiště a další krok k případnému převedení přístroje na trh. Na realizovaném systému je potřeba zlepšit frekveční odezvu filtru pro napájení analogové časti MCU. Chyby jsou ve zvolených blokovacích kondenzátorech
-pro MCP3561 jejich hodnota se liší od doporučených v katalogovém listu, těstnost pneumatického systému. Další zlepšení se může zaměřit na analýzu rušení senzorů a její potlačení, zlepšení odolnosti proti elektromagnetickému rušení, optimalizace návrhu desky plošného spoje, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro použitou
-řídící jednotku STM32, dálkový upgrade firmware z uživatelkého prostředí a vytvoření softwarového systému tzv. Board Support Package pro podporu více verzí desky plošného spoje.
+Tento systém přináší platformu pro další výzkumné činnosti z hlediska analýzy tlakových pulzací krevního řečiště a další krok k případnému převedení přístroje na trh. Na realizovaném systému je potřeba zlepšit frekvenční odezvu filtru pro napájení analogové části MCU. Chyby jsou ve zvolených blokovacích kondenzátorech
+pro MCP3561 jejich hodnota se liší od doporučených v katalogovém listu, těsnost pneumatického systému. Další zlepšení se může zaměřit na analýzu rušení senzorů a její potlačení, zlepšení odolnosti proti elektromagnetickému rušení, optimalizace návrhu desky plošného spoje, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro použitou
+řídící jednotku STM32, dálkový upgrade firmware z uživatelského prostředí a vytvoření softwarového systému tzv. Board Support Package pro podporu více verzí desky plošného spoje.
 \par
 Vytvořený systém splňuje požadavky zadání bakalářské práce, systém je navrhnut, realizován, jsou popsané jeho parametry a je vytvořená jeho dokumentace.
 
