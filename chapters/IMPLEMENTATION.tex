@@ -127,6 +127,7 @@ Jelikož na měříme rozdíl tlaků ve větvích na výstupním signálu difere
 Pomocí regulačních ventilů se bude snižovat statický tlak v obou větví součastně, aby nadále zůstala pouze oscilační složka.
 Tento způsob měření způsobí zvýšení citlivosti snímání tlakových pulzací pomocí diferenčního sensoru tlaku 75x až 150x. \cite{cite:Habilitace}
 Metoda je patentována v České Republice a USA \cite{cite:2}. Tato metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
+\pagebreak
 \subsection{Měření těsnosti penumatické časti}
 Pneumatická čast musí být co nejlépe těsná, aby po dobu terapie byl co nejmešní úbytek tlaku v systému.
 \par
@@ -154,7 +155,9 @@ Měření bylo opakováno 10 krát po sobě.
         \end{tabular}
     \end{ctucolortab}
 \end{table}
-Průměrný pokles tlaku v důsledku úniku vzduchu z pneumatického obvodu je $\mu = 0.94 \ \frac{mmHg}{min}$ se směrodatnou odchylkou $\sigma = 0.10  \ \frac{mmHg}{min}$. Dle normy je maximální úbytek tlaku v systému $P_{loss} = 4 \ \frac{mmHg}{min}$.
+Průměrný pokles tlaku v důsledku úniku vzduchu z pneumatického obvodu je $\mu = 0.94 \ \frac{mmHg}{min}$ se směrodatnou odchylkou $\sigma = 0.10  \ \frac{mmHg}{min}$.
+Dle normy ISO 81060–1:2013 maximální úbytek tlaku v systému nesmí přesahovat $P_{loss} = 6 \ \frac{mmHg}{min}$.
+\pagebreak
 \subsection{Zkreslení signálu pneumatickým systémem}
 Přenosová funkce systému byla identifikována měřením impulzní odezvy systému. Systém byl natlakovám na průměrnou hodnotu suprasystolického tlaku 230 mmHg a poté
 byl aplikován jednotkový impuls pomocí mechanického kyvadla. \cite{cite:Patricia}
@@ -180,6 +183,7 @@ Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 
 %
 %
 %
+\pagebreak
 \section{Vyhodnocení dat z AD převodníků}
 Tato sekce se zaměří o popsání charakretistiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s refereční zemí, na napětí z DPS je $U_{ref} = 3.29 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.63 \ V$.
 Všechny součástky a refereční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
@@ -264,29 +268,31 @@ $U_{offset} = 5.99 \pm 0.057 \ mV$.
 \par
 Po připojení napětí $U_{in} = U_{ref}$ na kanál, AD převodník byl v saturaci a všechny naměřené vzorky byly s hodnout $U_{ref}$.
 
-
+\pagebreak
 \section{Měření pulzní tlakové vlny}
-Pulzní tlaková křivka byla měřena na doc. Ing. Vratislavu Fabiánovi, Ph.D. pomocí navrženého systému CarDi.Nastavení registrů 24 bitového AD převodníku MCP3561 je stejné jako v sekci (\ref{section:char_mcp}).
-Postup měřění probíhalo podle metody popsané v sekci (\ref{section:metoda_mereni}). Přesný postup je následovný
+Pulzní tlaková vlna byla měřena na dobrovolníkovy pomocí navrženého systému CarDi na suprasystolickém tlaku $200 \ mmHg$ a $275 \ mmHg$. Nastavení registrů 24 bitového AD převodníku MCP3561 je stejné jako v sekci (\ref{section:char_mcp}).
+Postup měřění probíhalo podle metody popsané v sekci (\ref{section:metoda_mereni}). Postup tohoto měření je následovný
 \begin{enumerate}
-    \item Nasazení manžety na levou paži
-    \item Otevření uzavíracího ventilu
-    \item Uzavření regulačních ventilů
-    \item Natlakování pneumatického systému
-    \item 20 s čekání pro ustálení tlaku
-    \item Uzavření uzavíracího ventilu
-    \item 3 s čekání pro ustálení tlaku
-    \item Měření diferenčního senzoru tlaku
+    \item Nasazení manžety na levou paži.
+    \item Otevření uzavíracího ventilu.
+    \item Uzavření regulačních ventilů.
+    \item Natlakování pneumatického systému.
+    \item Prodleva $20 \ s$ na ustálení tlaku.
+    \item Uzavření uzavíracího ventilu.
+    \item Prodleva $3 \ s$ na ustálení tlaku.
+    \item Měření výstupního signálu diferenčního senzoru tlaku po dobu $3 \ s $.
 \end{enumerate}
+
+\pagebreak
 
 \begin{figure}[H]
     \includegraphics[width=1\textwidth]{graphs/pulzace_fabi_200mmhg.png}
-    \caption{Pulzní tlaková vlná při manžetním tlaku $200 mmHg$}
+    \caption{Pulzní tlaková vlná při manžetním tlaku $200 \ mmHg$}
+    \label{fig:pwa_200}
 \end{figure}
-
 
 \begin{figure}[H]
     \includegraphics[width=1\textwidth]{graphs/pulzace_fabi_275mmhg.png}
-    \caption{Pulzní tlaková vlná při manžetním tlaku $275 mmHg$}
+    \caption{Pulzní tlaková vlná při manžetním tlaku $275 \ mmHg$}
+    \label{fig:pwa_275}
 \end{figure}
-

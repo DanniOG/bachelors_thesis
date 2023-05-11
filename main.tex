@@ -76,13 +76,13 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \begin{abstract-english}
 	The bachelor's thesis deals with the design and implementation of a system for non-invasive measurement of the hemodynamic parameters of the human bloodstream using the oscillometric method. The measured parameters include pulse wave velocity and central aortic pressure.
 	The first part is focused on a theoretical description of hemodynamic parameters and a research of commercially available devices for non-invasive measurement of hemodynamic parameters and their description. In the next part is the hardware design and documentation of the system. This is followed by the characterization of the entire device,
-	measurement and evaluation of its parameters. Finally, the measured pulse wave pressure at a cuff pressure of $200 \ mmHg$ and $275 \ mmHg$ are shown.
+	measurement and evaluation of its parameters. Finally, the measured pulse wave pressure at a suprasystolic pressure of $200 \ mmHg$ and $275 \ mmHg$ are shown.
 \end{abstract-english}
 
 \begin{abstract-czech}
 Bakalářská práce se zabývá návrhu a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka oscilometrickou metodou. Mezi měřené parametry patří rychlost pulzní vlny a cetrální aortální tlak. 
 První část je zaměřena na teoretickému popisu hemodynamických parametrů a rešerši komerčeně dostupných přístrojů pro neinvazivní měření hemodynamických parametrů. V další části je hardwarový návrh a dokumentace systému. Na to navazuje charakterizace celého přístroje, 
-měření a vyhodnocení jeho parametrů. Na zavěr je ukázána naměřené pulzní tlakové vlny při manžetovém tlaku $200 \ mmHg$ a $275 \ mmHg$.
+měření a vyhodnocení jeho parametrů. Na zavěr je ukázána naměřené pulzní tlakové vlny při suprasystolickém tlaku $200 \ mmHg$ a $275 \ mmHg$.
 \end{abstract-czech}
 
 \begin{document}
@@ -95,7 +95,7 @@ měření a vyhodnocení jeho parametrů. Na zavěr je ukázána naměřené pul
 %Intro
 \chapter{Úvod}
 Cílem bakalářkské práce je návrh a realizace systému pro neinvazivní měření hemodynamických parametrů krevního řečiště člověka pomocí oscilometrické metody. Mezi hemodynamické parametry patří rychlost pulzní vlny a střední aortální tlak.
-Systém je pojmenován CarDi - Cardiovascular Diagnostic. Systém slouží jako podklad pro další výzkumné činnosti a přiblížení k validovanému systému pro komerční použití. Metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
+Systém je pojmenován CarDi - Cardiovascular Diagnostic. Systém slouží jako podklad pro další výzkumné činnosti a přiblížení k validovanému systému pro komerční použití. Metoda měření splňuje kritéria norem ISO 81060–1:2013 a ISO 81060–2:2013 \cite{cite:Validation}.
 
 \par
 První část seznámí čtenáře s částí měřených hemodynamických parametrů a to zejména krevního tlaku a rychlosti pulzní vlny. Popis metod neivazivního měření krevního tlaku. Rešerši přístrojů dostupné na trhu zaměřené na neivazivní měření rychlosti pulzní vlny, jejich postup měření a ovládání z uživatelského hlediska.
@@ -127,12 +127,12 @@ tlakové křivky.
 \par
 Druhá čast je zaměřena na návrh a dokumentaci systému pro snímání tlakových pulzací pomocí pažní manžety.
 \par
-Poslední část obsahuje popis a charakterizace parametrů navrženého systému, test těstnosti pneumatické časti a charakterizace analogově digitálních převodníků pro tlakové senzory.
+Poslední část obsahuje popis a charakterizace parametrů navrženého systému, test těstnosti pneumatické časti, charakterizace analogově digitálních převodníků pro tlakové senzory a měření pulzní tlakové křivky dobrovolníka.
 \par
 Výsledkem bakalářské práce je systém pro snímání tlakových pulzací pomocí pažní manžety, jeho dokumentace a charakterizace parametrů. Systém dokáže ovládat ventily, sběr dat z tlakových senzorů a ostatních periférií, jejich následné zpracování a komunikaci s nadřazeným systémem.
 \par
 Tento systém přináší platformu pro další výzkumné činnosti z hlediska analýzy tlakových pulzací krevního řečiště a další krok k případnému převedení přístroje na trh. Na realizovaném systému je potřeba zlepšit frekveční odezvu filtru pro napájení analogové časti MCU. Chyby jsou ve zvolených blokovacích kondenzátorech
-pro MCP3561 jejich hodnota se liší od doporučených v katalogovém listu. Další zlepšení se může zaměřit na analýzu rušení senzorů a její potlačení, zlepšení odolnosti proti elektromagnetickému rušení, optimalizace návrhu desky plošného spoje, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro použitou
+pro MCP3561 jejich hodnota se liší od doporučených v katalogovém listu, těstnost pneumatického systému. Další zlepšení se může zaměřit na analýzu rušení senzorů a její potlačení, zlepšení odolnosti proti elektromagnetickému rušení, optimalizace návrhu desky plošného spoje, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro použitou
 řídící jednotku STM32, dálkový upgrade firmware z uživatelkého prostředí a vytvoření softwarového systému tzv. Board Support Package pro podporu více verzí desky plošného spoje.
 \par
 Vytvořený systém splňuje požadavky zadání bakalářské práce, systém je navrhnut, realizován, jsou popsané jeho parametry a je vytvořená jeho dokumentace.
@@ -149,14 +149,14 @@ Vytvořený systém splňuje požadavky zadání bakalářské práce, systém j
 \chapter{Schéma DPS}
 Následující stránky obsahují.
 \begin{itemize}
-    \item Schéma zapojení DPS
-    \item Elektrické spoje zadní strany DPS
-    \item Maska zadní strany DSP
-    \item Elektrické spoje přední strany DSP
-    \item Maska přední strany DSP
-    \item Silkscreen přední strany DSP
-    \item Druhá vrstva GND DPS
-    \item Třetí vrstva 3V3 DPS
+	\item Schéma zapojení DPS
+	\item Elektrické spoje zadní strany DPS
+	\item Maska zadní strany DSP
+	\item Elektrické spoje přední strany DSP
+	\item Maska přední strany DSP
+	\item Silkscreen přední strany DSP
+	\item Druhá vrstva GND DPS
+	\item Třetí vrstva 3V3 DPS
 \end{itemize}
 
 \includepdf{pictures/cardiac_gener.pdf}

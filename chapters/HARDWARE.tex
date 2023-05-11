@@ -211,17 +211,17 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
-            Charakteristika                                                         & Symbol    & Min     & Typ        & Max         & Jednotka & \\ \midrule
-            Rozsah tlaku                                                            & $P$       & -497.68 & -          & 497.68      & $Pa$     & \\
-            $\textnormal{Proof pressure}^{(\ref{enum:amp_proof_pressure})}$         & $P_{pp}$  & -       & 67         & -           & $kPa$    & \\
-            $\textnormal{Průrazný tlak}^{(\ref{enum:amp_burst_pressure}) }$         & $P_{bp}$  & -       & 103        & -           & $kPa$    & \\
-            $\textnormal{Common mode pressure}^{(\ref{enum:amp_common_pressure})} $ & $P_{cm}$  & -       & 103        & -           & $kPa$    & \\
-            Vstupní napětí                                                          & $U_{s}$   & 3.0     & 3.3        & 5.0         & $V$      & \\
-            Vstupní proud                                                           & $I_{s}$   & -       & 2.1        & 2.8         & $mA$     & \\
-            Napěťový offset                                                         & $U_{off}$ & -       & 1.65       & -           & $V$      & \\
-            $\textnormal{Full Scale Span}^{(\ref{enum:amp_fss})} $                  & $U_{FSS}$ &         & $\pm 1.32$ &             & $V$      & \\
-            Přesnost                                                                & -         & -       & -          & $\pm 0.25 $ & $\%$     & \\
-            Citlivost                                                               & -         & -       & 0.2        & -           & $\%$     & \\
+            Charakteristika                                                         & Symbol    & Min     & Typ               & Max         & Jednotka & \\ \midrule
+            Rozsah tlaku                                                            & $P$       & -497.68 & -                 & 497.68      & $Pa$     & \\
+            $\textnormal{Proof pressure}^{(\ref{enum:amp_proof_pressure})}$         & $P_{pp}$  & -       & 67                & -           & $kPa$    & \\
+            $\textnormal{Průrazný tlak}^{(\ref{enum:amp_burst_pressure}) }$         & $P_{bp}$  & -       & 103               & -           & $kPa$    & \\
+            $\textnormal{Common mode pressure}^{(\ref{enum:amp_common_pressure})} $ & $P_{cm}$  & -       & 103               & -           & $kPa$    & \\
+            Vstupní napětí                                                          & $U_{s}$   & 3.0     & 3.3               & 5.0         & $V$      & \\
+            Vstupní proud                                                           & $I_{s}$   & -       & 2.1               & 2.8         & $mA$     & \\
+            Napěťový offset                                                         & $U_{off}$ & -       & 1.65              & -           & $V$      & \\
+            $\textnormal{Full Scale Span}^{(\ref{enum:amp_fss})} $                  & $U_{FSS}$ &         & $\pm 40 \% \ U_s$ &             & $V$      & \\
+            Přesnost                                                                & -         & -       & -                 & $\pm 0.25 $ & $\%$     & \\
+            Citlivost                                                               & -         & -       & 0.2               & -           & $\%$     & \\
             \bottomrule
         \end{tabular}
     \end{ctucolortab}
@@ -232,7 +232,14 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
         \item \label{enum:amp_fss} Algebraický rozdíl napětí při nejmenším možném specifikovaném tlaku a při maximálním specifikovaném tlaku.
     \end{enumerate}
 \end{table}
-\raggedbottom
+\subsection{Převodní charakteristika}
+Senzor má převodní funkci $10 \% - 90 \%$ napěťového rozsahu. Nejmenší možný signál vycházející ze sensoru bude o velikosti $10\% U_s$,
+to připadá tlaku $P_{min} = -3.736873 \ mmHg$. Největší $90\% U_s$ a výsledný tlak $P_{max} = 3.736873 \ mmHg$. Senzor má lineární převodní funkci.
+Výsledná převodní funkce z výstupního napětí na tlak je
+\begin{equation}
+    P = 2.831 \times U - 4.6711
+\end{equation}
+\subsection{Vstupní filtr}
 Analogový signál ze senzoru je připojen k 24 bit AD převodníku přes RC článek. Schéma zapojení k AD převodníu je (\ref{fig:amphenol_circuit})
 
 \begin{figure}[H]
@@ -257,7 +264,7 @@ Podle Bodeho fázové aproximace RC článku na obrázku (\ref{fig:amphenol_filt
 Ventily jsou důležitou součástí pneumatického systému. Starají se o správný průběh terapie a také o bezpečí pacienta. \par
 V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a vypouštějcí regulační. Uzavíraci ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvích pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
 Všechny použité ventily nesmí v uzavřeném stavu propustit vzduch při tlaku $300 \ mmHg$, jinak by hrozilo nepřesné výsledky při měření a tím pádem špatná terapie.
-
+\pagebreak
 \subsection{Uzavírací ventil}
 Uzavírací ventil je důležitou součástí systému. Pneumatický systém rozdělí na dvě větve, kde jedna je část s manžetou a druhá větěv je jako referenční. \par
 
@@ -367,15 +374,15 @@ Aby výstupní řídící signál byl co nejvíce konstatní musíme zvolit vstu
                     connect spies}
         ]
         \begin{axis}[
-            width=\linewidth,
-            % title = {Picture 1},  % whatever name you want
-            ylabel = {$U_{out}$ [V]},
-            xlabel = {Čas [s]},
-            grid=major, % Display a grid
-            grid style={dashed,gray!30}, % Set the style  
-            % xunit = \si{s},
-            % ymin = -3, ymax = 3,
-            % minor y tick num = 1,
+                width=\linewidth,
+                % title = {Picture 1},  % whatever name you want
+                ylabel = {$U_{out}$ (V)},
+                xlabel = {Čas (s)},
+                grid=major, % Display a grid
+                grid style={dashed,gray!30}, % Set the style  
+                % xunit = \si{s},
+                % ymin = -3, ymax = 3,
+                % minor y tick num = 1,
             ]
             \addplot[blue] table {graphs/pwm_to_analog.dat};
             % \begin{scope}
