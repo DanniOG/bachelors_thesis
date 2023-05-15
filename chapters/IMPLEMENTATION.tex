@@ -107,7 +107,7 @@ V celé pneumatické části bude suprasystolický tlak a tlak v jednotlivých b
 \begin{equation*}
     P_{DIFF} = P_1 - P_2 = 0
 \end{equation*}
-Na výstupu diferenčního senzoru tlaku je nulový signál. \par
+Na výstupu diferenčního sensoru tlaku je nulový signál. \par
 V druhé fázi měření po natlakování systému na suprasystolický tlak, se uzavírací ventil uzavře.
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/faze_mereni_2.jpg}
@@ -123,7 +123,7 @@ Tlak na větvích pneumatického systému bude následovný
 \begin{equation}
     P_{DIFF} = P_1 - P_2 = P_{osc}
 \end{equation}
-Jelikož na měříme rozdíl tlaků ve větvích na výstupním signálu diferenčního senzoru budou pouze tlakové oscilace $P_{osc}$.
+Jelikož na měříme rozdíl tlaků ve větvích na výstupním signálu diferenčního sensoru budou pouze tlakové oscilace $P_{osc}$.
 Pomocí regulačních ventilů se bude snižovat statický tlak v obou větví současně, aby nadále zůstala pouze oscilační složka.
 Tento způsob měření způsobí zvýšení citlivosti snímání tlakových pulzací pomocí diferenčního sensoru tlaku 75x až 150x. \cite{cite:Habilitace}
 Metoda je patentována v České Republice a USA \cite{cite:2}. Tato metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
@@ -189,7 +189,7 @@ Tato sekce se zaměří o popsání charakteristiky 12 bit AD převodníku a 24 
 Všechny součástky a referenční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
 
 \subsection{Charakteristika 12 bit AD převodníku STM32}
-12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absolutní hodnoty tlaku z tlakových senzorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
+12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absolutní hodnoty tlaku z tlakových sensorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
 Hodnota 1 LSB $= \frac{U_{ref}}{2^{12}} = 802 \ \mu V$.
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k referenční zemi.}
@@ -249,7 +249,7 @@ $U_{offset} = -2.73 \pm 2.29 \ mV$.
 
 
 \subsection{Charakteristika MCP3561} \label{section:char_mcp}
-24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního senzoru tlaku. Během měření MCP3561 je zapojeno podle schéma (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
+24 bitový AD převodník MCP3561 převádí hodnoty z diferenčního sensoru tlaku. Během měření MCP3561 je zapojeno podle schéma (\ref{fig:mcp3561_connection}) a vnitřní nastavení registrů je následovné $OSR = 256$, $GAIN = 1$, $PRESCALE = 1$, $GAIN = 1$, $BOOST = 1$.
 Při této konfiguraci registrů AD převodník má přenosovou rychlost $f_s = 4800 \ kHz$ a efektivní počet bitů $ENOB = 19.5$ bit. Hodnota 1 LSB $= \frac{U_{ref}}{2^{24 - 1}} = 392.07 \ nV$.
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 24 bit AD převodníku MCP3561 při připojení kanálu
@@ -280,7 +280,7 @@ Postup měření probíhalo podle metody popsané v sekci (\ref{section:metoda_m
     \item Prodleva $20 \ s$ na ustálení tlaku.
     \item Uzavření uzavíracího ventilu.
     \item Prodleva $3 \ s$ na ustálení tlaku.
-    \item Měření výstupního signálu diferenčního senzoru tlaku po dobu $3 \ s $.
+    \item Měření výstupního signálu diferenčního sensoru tlaku po dobu $3 \ s $.
 \end{enumerate}
 
 \pagebreak

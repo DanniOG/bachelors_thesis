@@ -1,22 +1,23 @@
 %!TEX ROOT=main.tex
 \chapter{Hardware}
-V této sekci je popsán návrh a dokumentace elektro-mechanické čái systému pro měření hemodynamických parametrů krevního řečiště pacienta.
+V této sekci je popsán návrh a dokumentace elektro-mechanické části systému pro měření hemodynamických parametrů krevního řečiště pacienta.
 
 \begin{figure}[H]
     \label{fig:block_cardi}
     \includegraphics[width=1\textwidth]{pictures/blokove_schema_cele_zarizeni.jpg}
     \caption{Blokové schéma zařízení}
 \end{figure}
-Součástí pneumatické části je uzavírací ventil, regulační ventily na obou částí uzavíracího ventilu, rezervoáru a klinicky validovaného modulu pro měření tlaku.
-K elektrické části patří obvody pro ovládání regulačních a uzavíracího ventilu, komunikace s modulem pro měření tlaku, sběr dat ze senzorů tlaku na obou částí uzavíracího ventilu, komunikace a sběr dat z 24 bitového analogově digitálního převodníku a
+Součástí pneumatické části je uzavírací ventil, regulační ventily na obou částí uzavíracího ventilu, sensory tlaku, diferenčního sensoru tlaku, rezervoáru a klinicky validovaného modulu pro měření tlaku.
+K elektrické části patří obvody pro ovládání regulačních a uzavíracího ventilů, komunikace s modulem pro měření tlaku, sběr dat ze sensorů tlaku na obou částí uzavíracího ventilu, komunikace a sběr dat z 24 bitového analogově digitálního převodníku, na který je připojen diferenční sensor tlaku,
 uložení a čtení dat do přidané FLASH paměti.
 \section{Řídící jednotka}
 
-Řídící jednotka působí jako centrum řízení a sběru dat. Má na starosti řízení ventilů, natlakování pneumatického systému, sběr a vyhodnocení
-dat ze senzorů a komunikaci s nadřazeným systémem. \par
+Řídící jednotka působí jako centrum řízení a sběru dat.
+Má na starosti řízení ventilů,
+sběr a vyhodnocení dat ze sensorů, komunikaci s modulem pro měření krevního tlaku a komunikaci s nadřazeným systémem. \par
 
-Jako řídící jednotka je vybrán mikroprocesor STM32F407ZG (dále jenom MCU) od firmy ST Microelectronics.
-Jádro je Arm® Cortex®-M4 32bit, jehož časovací frekvence může být až $168 \ MHz$. Jádro Cortex-M4 je vhodné pro zpracování signálu díky zabudovanému výpočetnímu modulu Floating Point Unit(FPU) určené na
+Jako řídící jednotka je vybrán mikroprocesor STM32F407ZG6 (dále jenom MCU) od firmy ST Microelectronics.
+Jádro MCU je Arm Cortex-M4 na 32bit architektuře, jehož taktovací frekvence může být až $168 \ MHz$. Jádro Cortex-M4 je vhodné pro zpracování signálu díky zabudovanému výpočetnímu modulu Floating Point Unit(FPU) určené na
 počítání s desetinnými čísly a také řadou instrukcí určené specificky na zpracování signálu.
 \begin{figure}[H]
     \centering
@@ -24,7 +25,7 @@ počítání s desetinnými čísly a také řadou instrukcí určené specifick
     \caption{Model STM32F407ZGT6 \cite{cite:STM32F407}}
     \label{fig:stm32}
 \end{figure}
-MCU je v obalu se 144 piny se 114 vstupně/výstupními piny, 1 MB FLASH paměti, 256 kB paměti SRAM, 3x 12 bit AD převodníky s až 24 kanály s maximální vzorkovací frekvencí 2.4 MHz,
+MCU je v obalu se 144 piny, ze kterých jsou 114 vstupně/výstupní piny, 1 MB FLASH paměti, 256 kB paměti SRAM, 3x 12 bit AD převodníky s až 24 kanály a maximální vzorkovací frekvencí $2.4 \ MHz$,
 2x 12 bit DA převodníky, 14 TIMER, 6x USART, 3x SPI, SysTick Timer, WatchDog a další periferie.
 \par
 Celkové zapojení MCU je na obrázku (\ref{fig:stm32_conection}).
@@ -35,22 +36,21 @@ Celkové zapojení MCU je na obrázku (\ref{fig:stm32_conection}).
     \caption{Schéma zapojení STM32F407ZG}
     \label{fig:stm32_conection}
 \end{figure}
-
+\pagebreak
 Zapojení MCU je podle doporučeného zapojení z katalogového listu. Jedná se hlavně o umístění a typy blokovacích kondenzátorů, reset signál, boot z interní nebo externí flash paměti a zvolení externích nízko a vysoko kmitočtových hodin. \par
 
 \subsection{Externí hodiny}
 
-MCU obsahuje interní vysokorychlostní RC oscilátor, ale pro maximální přesnost a spolehlivost byl zvolen externí vysokorychlostní oscilátor Abracon ABM3 o frekvenci  $8 \ MHz$. Externí oscilátor slouží jako hlavní časovací hodiny pro
-jádro. Jádro může být na frekvenci až $168 \ MHz$ a to pomocí vnitřní násobičky frekvence Phase Locked Loop (dále pouze PLL) můžeme dosáhnout z $8 \ MHz$.
-
+MCU obsahuje interní vysokorychlostní RC oscilátor, ale pro maximální přesnost a spolehlivost byl zvolen externí vysokorychlostní oscilátor Abracon ABM3 o frekvenci  $8 \ MHz$. Externí oscilátor slouží jako taktovací hodiny pro
+jádro.
+Pomocí vnitřní smyčky fázového závěsu (Phase Locked Loop) jádro může být taktováno až na frekvenci $168 \ MHz$.
+Snížení frekvence externích taktovacích hodin omezíme vysoko frekvenčního rušení, případného přeslechu na vodičích a celkové zlepšení signálové integrity.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{pictures/stm32_hse.jpg}
     \caption{Schéma zapojení vysokorychlostního externího oscilátoru pro STM32}
     \label{fig:stm32_hse}
 \end{figure}
-
-Snížení frekvence externích hodin omezíme vysoko frekvenčního rušení, případného přeslechu na vodičích a celkové zlepšení signálové integrity.
 
 
 \subsection{Napěťová reference pro analogové periferie} \label{section:vref}
@@ -67,21 +67,16 @@ Jako referenční napětí je použito zapojení na obrázku (\ref{fig:stm32_vre
 Tento filtr začne potlačovat na frekvenci $f = 138 \ kHz$. Ale mezi $\approx 50 \ kHz$ a $ \approx 115 \ kHz$ filtr zesiluje, kde největší zesílení o $19 \ dB$ je na frekvenci $88.8 \ kHz$
 
 \begin{figure}[H]
-    \caption{Aproximace frekvenční odezvy filtru pro referenční napájení analogové periférie MCU.}
+    \caption{Aproximace frekvenční charakteristiky filtru pro referenční napájení analogové periférie MCU.}
     \label{fig:stm32_vref_response}
     \begin{tikzpicture}
         \begin{axis}[
                 width=\linewidth,
                 xmode = log,
-                % ymode = log,
-                % title = {Picture 1},  % whatever name you want
                 ylabel = {(dB)},
                 xlabel = {$f$ (Hz) },
                 grid=both, % Display a grid
                 grid style={dashed,gray!30}, % Set the style  
-                % xunit = \si{s},
-                % ymin = -3, ymax = 3,
-                % minor y tick num = 1,
             ]
             \addplot[width=1pt,color=blue] table {graphs/vref_filtering_cardi.dat};
         \end{axis}
@@ -102,13 +97,13 @@ Jako ochrana je použita transient voltage suppression (TVS) dioda D5V0F1U2S9-7 
     \label{fig:esd_diode}
 \end{figure}
 
-Tato dioda je určená pro ochranu proti elektrostatickým výbojům. Je připojena v závěrném směru na všechny konektory. V závěrném směru bude otevřena při napětí
-$U = 5.5 \ V $ a napětí omezí na $U_{BR} = 6.0 \ V $.
+Tato dioda je určená pro ochranu proti elektrostatickým výbojům. Je připojena v závěrném směru na všechny konektory, kterém bude otevřena na napětí
+$U = 5.5 \ V $ a tranzientní napětí omezí na $U_{BR} = 6.0 \ V $.
 
 \section{Modul měření krevního tlaku}
 
-Součástí pneumatické části je modul PAR Medizintechnik NIBP 2020 UP , který umožňuje validované měření krevního tlaku oscilometrickou metodou v průběhu nafukování, také vyfukování, a následné nafouknutí na suprasystolický tlak. Samotné nafukování pneumatického systému je realizováno z elektromechanické vzduchové pumpy integrované v modulu PAR.
-Pneumatická část modulu PAR se skládá ze vzduchové pumpy se zpětným ventilem zamezujícím úniku tlaku, vypouštějícího ventilu, tlakového senzoru a také redundantním sensorem tlaku a vypouštěcím ventilem pro případ poruchy. \par
+Součástí pneumatické části je modul PAR Medizintechnik NIBP 2020 UP, který umožňuje validované měření krevního tlaku oscilometrickou metodou v průběhu nafukování, také vyfukování, a následné nafouknutí na suprasystolický tlak. Samotné tlakování pneumatického systému je realizováno z elektromechanické vzduchové pumpy integrované v modulu PAR.
+Pneumatická část modulu PAR se skládá ze vzduchové pumpy se zpětným ventilem zamezujícím úniku tlaku, vypouštějícího ventilu, tlakového sensoru a také redundantním sensorem tlaku a vypouštěcím ventilem pro případ poruchy. \par
 Modul PAR má klinickou validaci pro měření krevního tlaku dle norem EN 80601-2-30, EN 81060-2 a systém podle norem EN 60601-1 (2. a 3. edice), EN 60601-1-2, EN 60601-1-6.
 \begin{figure}[H]
     \centering
@@ -125,26 +120,26 @@ Pneumatická část je řízena procesorem, se kterým lze komunikovat pomocí d
     \label{fig:par_modul_comm}
 \end{figure}
 Pneumatickou část lze udržovat na hladinách tlaku v rozmezí (0–300) $mmHg$ po dobu až 180 s a uživateli umožňuje zvolit odstup suprasystolického tlaku od naměřeného systolického tlaku. Po odeslání příkazu pro zahájení měření posílá modul po lince aktuální stav pneumatické části během celého měření a po měření posílá zprávu s naměřenými hodnotami krevního tlaku a srdeční frekvence.
-\section{Senzory}
-Tato sekce se zaměří na popis a použití senzorů a to zejména tlakových. Tlakové senzory tvoří nezbytnou část celkového přístroje, rozhodují o přesnosti výsledné terapie. \par
-Parametry senzorů tlaku vychází z parametrů terapie. Pneumatický systém může být pod tlakem až $300 \ mmHg \approx 40 \ kPa$, tento požadavek musí splňovat všechny senzory napojené do pneumatického systému.
+\section{sensory}
+Tato sekce se zaměří na popis a použití sensorů tlaku. Tlakové sensory tvoří nezbytnou část celkového přístroje, rozhodují o přesnosti výsledné terapie. \par
+Parametry sensorů tlaku vychází z požadavků terapie. Pneumatický systém může být pod tlakem až $300 \ mmHg \approx 40 \ kPa$, tento požadavek musí splňovat všechny sensory napojené do pneumatického systému.
 
-\subsection{Senzor tlaku} \label{section:pressure_sen}
-Senzor tlaku se používá na snímání tlaku v jednotlivých větví pneumatického systému. \par
+\subsection{sensor tlaku} \label{section:pressure_sen}
+sensor tlaku se používá na snímání tlaku v jednotlivých větví pneumatického systému. \par
 
 Použité sensory tlaku jsou NPX MP3V5050GC6U.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{pictures/nxp_sensor.jpg}
-    \caption{Senzor tlaku NPX MP3V5050GC6U \cite{cite:NXP}}
+    \caption{sensor tlaku NPX MP3V5050GC6U \cite{cite:NXP}}
     \label{fig:nxp}
 \end{figure}
 
 Je to analogový sensor tlaku od firmy NXP ze série peizorezistivních převodníků. Parametry jsou následovné:
 \begin{table}[H]
     \label{tab:nxp_properties}
-    \caption{Charakteristiky senzoru NPX MP3V5050GC6U. \cite{cite:NXP}}
+    \caption{Charakteristiky sensoru NPX MP3V5050GC6U. \cite{cite:NXP}}
     \begin{ctucolortab}
         \begin{tabular}{ccccccc}
             \toprule
@@ -165,16 +160,16 @@ Je to analogový sensor tlaku od firmy NXP ze série peizorezistivních převodn
     \end{enumerate}
 \end{table}
 
-Zapojení senzoru je na separátní DPS podle doporučeného schématu (\ref{fig:nxp_recommended}) z katalogového listu.
+Zapojení sensoru je na separátní DPS podle doporučeného zapojení (\ref{fig:nxp_recommended}) z katalogového listu.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{pictures/nxp_recommended.jpg}
-    \caption{Doporučené schéma zapojení senzoru tlaku NPX MP3V5050GC6U. Kde $V_S$ je vstupní napájecí napětí a $V_{out}$ je výstupní napětí.  \cite{cite:NXP}}
+    \caption{Doporučené schéma zapojení sensoru tlaku NPX MP3V5050GC6U. Kde $V_S$ je vstupní napájecí napětí a $V_{out}$ je výstupní napětí.  \cite{cite:NXP}}
     \label{fig:nxp_recommended}
 \end{figure}
 Analogový výstup ze sensoru je připojen na interní AD převodník MCU.
 \subsubsection{Převodní charakteristika}
-Převodní charakteristika výstupního napětí $U_{o} \ V$ na tlak $P \ kPa$je
+Převodní charakteristika výstupního napětí $U_{o}$ na tlak $P \ kPa$
 \begin{equation}
     P = \frac{U_o \pm ERROR}{0.018 \cdot U_s} - \frac{0.04}{0.018}
     \label{eq:nxp_transfer}
@@ -183,13 +178,13 @@ Převodní charakteristika výstupního napětí $U_{o} \ V$ na tlak $P \ kPa$je
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{pictures/nxp_transfer.jpg}
-    \caption{Graf převodní rovnice tlak na napětí pro senzor tlaku NPX MP3V5050GC6U. \cite{cite:NXP}}
+    \caption{Graf převodní rovnice tlak na napětí pro sensor tlaku NPX MP3V5050GC6U. \cite{cite:NXP}}
     \label{fig:nxp_transfer}
 \end{figure}
 
 \subsection{Diferenční sensor tlaku} \label{section:diff_pressure_sen}
 Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Porovnává tlak mezí první a druhou (referenční) větví systému. Po natlakování pneumatického systému až na $300 \ mmHg$ uzavírací ventil oddělí systém na dvě větve. Rozdíl tlaků ve větvi může být $300 \ mmHg$ neboli $40 \ kPa$. \par
-Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analogový senzor tlaku určený na snímání velmi nízkých tlaků.
+Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analogový sensor tlaku určený na snímání velmi nízkých tlaků.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\linewidth]{pictures/amphenol.jpg}
@@ -220,21 +215,21 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
         \end{tabular}
     \end{ctucolortab}
     \begin{enumerate}
-        \item \label{enum:amp_proof_pressure} Maximální tlak, který může být aplikován na jeden z portů senzoru a zachoval původní specifikace.
-        \item \label{enum:amp_burst_pressure} Maximální tlak, který může být aplikován na jeden z portů senzoru, bez způsobení úniku tlaku.
+        \item \label{enum:amp_proof_pressure} Maximální tlak, který může být aplikován na jeden z portů sensoru a zachoval původní specifikace.
+        \item \label{enum:amp_burst_pressure} Maximální tlak, který může být aplikován na jeden z portů sensoru, bez způsobení úniku tlaku.
         \item \label{enum:amp_common_pressure} Maximální tlak, který může být aplikován na oba porty zároveň, bez způsobení úniku tlaku.
         \item \label{enum:amp_fss} Algebraický rozdíl napětí při nejmenším možném specifikovaném tlaku a při maximálním specifikovaném tlaku.
     \end{enumerate}
 \end{table}
 \subsection{Převodní charakteristika}
-Senzor má převodní funkci $10 \% - 90 \%$ napěťového rozsahu. Nejmenší možný signál vycházející ze sensoru bude o velikosti $10\% U_s$,
-to připadá tlaku $P_{min} = -3.736873 \ mmHg$. Největší $90\% U_s$ a výsledný tlak $P_{max} = 3.736873 \ mmHg$. Senzor má lineární převodní funkci.
-Výsledná převodní funkce z výstupního napětí na tlak je
+sensor má převodní funkci $10 \% - 90 \%$ napěťového rozsahu. Nejmenší možný signál vycházející ze sensoru bude o velikosti $10\% U_s$,
+to připadá tlaku $P_{min} = -3.736873 \ mmHg$, největší $90\% U_s$ a výsledný tlak $P_{max} = 3.736873 \ mmHg$. sensor má lineární převodní funkci.
+Výsledná převodní funkce z výstupního napětí na tlak v jednotkách $mmHg$ je
 \begin{equation}
     P = 2.831 \times U - 4.6711
 \end{equation}
 \subsection{Vstupní filtr}
-Analogový signál ze senzoru je připojen k 24 bit AD převodníku přes RC článek. Schéma zapojení k AD převodníku je (\ref{fig:amphenol_circuit})
+Analogový signál ze sensoru je připojen k 24 bit AD převodníku přes RC článek. Schéma zapojení k AD převodníku je (\ref{fig:amphenol_circuit})
 
 \begin{figure}[H]
     \centering
@@ -243,8 +238,7 @@ Analogový signál ze senzoru je připojen k 24 bit AD převodníku přes RC čl
     \label{fig:amphenol_circuit}
 \end{figure}
 
-\raggedbottom
-Zlomová frekvence RC článku $f_0 = \frac{1}{2 \pi RC} = 1591 \ Hz $ byla spočítána podle maximální frekvence tlakové vlny.
+Při srdečním tepu např. $120 \  \frac{tepů}{min}$ tj. $2 \ Hz$, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Pro dodržení Nyquistova vzorkovacího teorému a zachování dynamických vlastností tlakové vlny je zvolena zlomová frekvence RC článku $f_0 = \frac{1}{2 \pi RC} = 1591 \ Hz $.
 
 \begin{figure}[H]
     \centering
@@ -253,7 +247,7 @@ Zlomová frekvence RC článku $f_0 = \frac{1}{2 \pi RC} = 1591 \ Hz $ byla spo�
     \label{fig:amphenol_filter}
 \end{figure}
 
-Podle Bodeho fázové aproximace RC článku na obrázku (\ref{fig:amphenol_filter}) můžeme vidět, že fáze se začne měnit před $\frac{f_0}{10}$. Tento fázový posun je podle interních požadavků akceptovatelný.
+Podle Bodeho fázové aproximace RC článku na obrázku (\ref{fig:amphenol_filter}) fáze se začne měnit před $\frac{f_0}{10}$. Tento fázový posun je podle interních požadavků akceptovatelný.
 \section{Vzduchové ventily}
 Ventily jsou důležitou součástí pneumatického systému. Starají se o správný průběh terapie a také o bezpečí pacienta. \par
 V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a regulační. Uzavírací ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvích pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
@@ -411,12 +405,12 @@ můžeme získat přesnost střídy PWM signálu. $f_{TIMCLK} = 168 \ MHz$ je ob
 $ARR$ je Auto-Reload-Register MCU pro daný TIMER. Podle nastavené hodnoty v $ARR$ je možné nastavit frekvenci PWM signálu. Pro tento případ $N \doteq 9.96 $ bit.
 
 \section{Digitalizace analogových signálů}
-Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze senzorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU STM32F407ZG6 pro snímání napětí tlakových senzorů na větvích pneumatického systému popsaných v sekci (\ref{section:pressure_sen}).
+Tato sekce popisuje typy použitých analogově digitálních převodníků, které jsou použity pro snímání analogových výstupů ze sensorů tlaku. Jsou použity dva typy AD převodníků, první je 12 bit AD převodník součástí MCU STM32F407ZG6 pro snímání napětí tlakových sensorů na větvích pneumatického systému popsaných v sekci (\ref{section:pressure_sen}).
 Další je 24 bit sigma-delta AD převodník Microchip MCP3561 pro snímání napětí z diferenčního tlakového sensoru popsaný v sekci (\ref{section:diff_pressure_sen}).
 
-\subsection{Snímání signálů z tlakových senzorů větví pneumatíckého systému}
+\subsection{Snímání signálů z tlakových sensorů větví pneumatíckého systému}
 Je použit AD převodník součástí periférii rodiny MCU STM32F4xx. Jedná se o 12 bitový AD převodník s postupnou aproximací a maximální vzorkovací frekvencí $f_{sample} = 2.4 \ MSPS$. Pro každý kanál se může aplikovat jiná vzorkovací frekvence. \par
-Díky měření pouze absolutní hodnoty tlaku ze senzorů vzorkovací frekvence nemusí být vysoká. Vzorkovací frekvence je:
+Díky měření pouze absolutní hodnoty tlaku ze sensorů vzorkovací frekvence nemusí být vysoká. Vzorkovací frekvence je:
 \begin{equation}
     f_{sample}=\frac{f_{ADCCKL}}{\textnormal{vzorkovací počet cyklů} + 15 \ \textnormal{cyklů} } = \frac{20.5 \ MHz}{480 + 15} \approx 41.5 \; kHz
 \end{equation}
@@ -451,7 +445,7 @@ K dalším chybám AD převodníku patří
 \end{table}
 
 \subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému} \label{section:mcp3561_hw}
-Diferenční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Při srdečním tepu např. 120 tepů/min tj. 2 Hz, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Aby byl tlakový analogový signál správně převeden do digitálního signálu, musí být dodržen Nyquistův teorém.
+Diferenční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Při srdečním tepu např. $120 \  \frac{tepů}{min}$ tj. $2 \ Hz$, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Aby byl tlakový analogový signál správně převeden do digitálního signálu, musí být dodržen Nyquistův teorém.
 \begin{equation} \label{eq:nyquist}
     f_s \geq 2f
 \end{equation}
