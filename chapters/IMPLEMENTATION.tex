@@ -1,27 +1,26 @@
 %!TEX ROOT=main.tex
 \chapter{Realizace}
-V této kapitole je popsaná realizace systému CarDi a jeho parametrů. Je popsána metoda měření, charakterizace pneumatického systému a analýza analogově digitálních převodníků.
+V této kapitole je popsaná metoda měření, charakterizace pneumatického systému, analýza analogově digitálních převodníků a ukázka naměřených pulzací systémem CarDi.
 
 \section{Deska plošného spoje}
-Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty pro řízení systému, sběr a vyhodnocení dat. DPS a schéma je navržena v otevřeném freeware KiCad EDA.
+Na desce plošného spoje (DPS) sídlí všechny elektrické komponenty pro řízení systému, sběr a vyhodnocení dat.
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/pcb_full.jpg}
     \caption{Realizovaná deska plošného spoje.}
     \label{fig:pcb_full}
 \end{figure}
 
-DPS je čtyřvrstvá deska o výšce 1.6 mm s dvěmi signálovými vrstvy a dvěmi silovými vrstvami. Kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty. Druhá je společná zem, třetí je napájecí 3.3 V a poslední spodní vrstva je také signálová.
-Základní materiál je FR-4 a povrchová úprava je ENIG(Electroless nickel immersion gold).
+DPS je čtyřvrstvá deska o výšce 1.6 mm se základním materiálem FR-4 a povrchovou úpravou ENIG(Electroless nickel immersion gold). DPS obsahuje dvě signálové a dvě silové vrstvy, kde první(horní) vrstva je signálová a nachází se na ní veškeré elektronické komponenty, druhá je společná zem, třetí je napájecí 3.3 V a poslední spodní vrstva je také signálová.
 \par
-DPS je vyrobena a z části osazena firmou JLCPCB.
+DPS a schéma je navržena v otevřeném freeware KiCad EDA a je vyrobena a z části osazena firmou JLCPCB.
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/pcb_from_production.jpg}
-    \caption{Deska plošného spoje z výroby.}
+    \caption{Horní pohled desky plošného spoje z výroby.}
     \label{fig:pcb_production}
 \end{figure}
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/pcb_production_bottom.jpg}
-    \caption{Deska plošného spoje z výroby. Spodní vrstva.}
+    \caption{Spodní pohled desky plošného spoje z výroby.}
     \label{fig:pcb_production_bottom}
 \end{figure}
 
@@ -84,15 +83,15 @@ Celková cena DPS a potřebné materiály jsou:
     \end{ctucolortab}
 \end{table}
 \section{Pneumatická část}
-Pneumatická část systému je část ve které probíhá měření hemodynamických parametrů srdce pacienta. Je to jediná část systému, která přichází v přímý kontakt s pacientem. Tato část je sestavena podle
-patentu \cite[US Patent US10251567]{cite:2}
+Pneumatická část systému je část, ve které probíhá měření hemodynamických parametrů srdce pacienta a je sestavena podle patentu \cite[US Patent US10251567]{cite:2}.
+
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/blokove_schema_pneu.jpg}
     \caption{Blokové schéma pneumatického systému}
     \label{fig:pneu_block}
 \end{figure}
 \subsection{Metoda měření} \label{section:metoda_mereni}
-Měření probíhá ve dvou fázích. V první fázi se systém natlakuje na suprasystolický tlak $P_s$ při otevřeném uzavíracím ventilu a zavřených regulačních ventilech. Suprasystolický tlak $P_s$ je $\approx 50 \ mmHg$ nad systolickým tlakem pacienta.
+Měření probíhá ve dvou fázích, v první fázi se systém natlakuje na suprasystolický tlak $P_s$ při otevřeném uzavíracím ventilu a zavřených regulačních ventilech, kde suprasystolický tlak $P_s$ je $\approx 50 \ mmHg$ nad systolickým tlakem pacienta.
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/faze_mereni_1.jpg}
     \caption{První fáze měření oscilometrických pulzací \cite{cite:Habilitace}}
@@ -123,10 +122,10 @@ Tlak na větvích pneumatického systému bude následovný
 \begin{equation}
     P_{DIFF} = P_1 - P_2 = P_{osc}
 \end{equation}
-Jelikož na měříme rozdíl tlaků ve větvích na výstupním signálu diferenčního sensoru budou pouze tlakové oscilace $P_{osc}$.
+Jelikož měříme rozdíl tlaků ve větvích, na výstupním signálu diferenčního sensoru budou pouze tlakové oscilace $P_{osc}$.
 Pomocí regulačních ventilů se bude snižovat statický tlak v obou větví současně, aby nadále zůstala pouze oscilační složka.
 Tento způsob měření způsobí zvýšení citlivosti snímání tlakových pulzací pomocí diferenčního sensoru tlaku 75x až 150x. \cite{cite:Habilitace}
-Metoda je patentována v České Republice a USA \cite{cite:2}. Tato metoda měření splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
+Metoda je patentována v České Republice a USA \cite{cite:2} a splňuje kritéria normy ISO 81060–2:2013 \cite{cite:Validation}.
 \pagebreak
 \subsection{Měření těsnosti penumatické části}
 Pneumatická část musí být co nejlépe těsná, aby po dobu terapie byl co nejmenší úbytek tlaku v systému.
@@ -185,11 +184,11 @@ Při měření srdečních frekvencí např. 120 tepů/min tj. 2 Hz, odpovídá 
 %
 \pagebreak
 \section{Vyhodnocení dat z AD převodníků}
-Tato sekce se zaměří o popsání charakteristiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s referenční zemí, na napětí z DPS je $U_{ref} = 3.29 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.63 \ V$.
-Všechny součástky a referenční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace okolní teploty ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
+Tato sekce se zaměří o popsání charakteristiky 12 bit AD převodníku a 24 bit AD převodníku MCP3561. Měření probíhalo na třech veličinách, vstupní piny byly zkratovány s referenční zemí, na napětí z DPS $U_{ref} = 3.3 \ V$ a poté pomocí napěťového děliče ze $U_{ref}$ na $U_{h} = 1.63 \ V$.
+Všechny součástky a referenční hodnoty měření jsou napájené z napájecího napětí na DSP při hodnotě $3.3 \ V$ kde reálná hodnota je $U_{ref} = 3.29 \ V$. Během měření nebyl brán v dotaz fluktuace ambientní teploty, ani teploty samostatných součástek. Dělič napětí pro hodnotu $U_{h} = 1.63 \ V$ bylo provedeno na vedlejším nepájivém poli.
 
 \subsection{Charakteristika 12 bit AD převodníku STM32}
-12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absolutní hodnoty tlaku z tlakových sensorů na obou větví pneumatického systému. Vzorkovací frekvence byla zvolena $f_s = 1 \ kHz$.
+12 bit AD převodník je součástí MCU STM32F407ZGT6. AD převodník slouží k měření absolutní hodnoty tlaku z tlakových sensorů na obou větví pneumatického systému.
 Hodnota 1 LSB $= \frac{U_{ref}}{2^{12}} = 802 \ \mu V$.
 \begin{figure}[H]
     \caption{Graf počtu hodnot LSB 12 bit AD převodníku při připojení kanálu pro první tlakový sensor k referenční zemi.}
