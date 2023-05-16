@@ -249,12 +249,12 @@ Při srdečním tepu např. $120 \  \frac{tepů}{min}$ tj. $2 \ Hz$, odpovídá 
 
 Podle Bodeho fázové aproximace RC článku na obrázku (\ref{fig:amphenol_filter}) fáze se začne měnit před $\frac{f_0}{10}$. Tento fázový posun je podle interních požadavků akceptovatelný.
 \section{Vzduchové ventily}
-Ventily jsou důležitou součástí pneumatického systému. Starají se o správný průběh terapie a také o bezpečí pacienta. \par
-V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a regulační. Uzavírací ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvích pneumatického systému. Slouží jako pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
+Ventily jsou důležitou součástí pneumatického systému, starají se o správný průběh terapie a také o bezpečí pacienta. \par
+V systému rozlišujeme dva druhy vzduchových ventilů, uzavírací a regulační. Uzavírací ventil slouží pro oddělení manžety a pumpy. Vypouštěcí regulační ventily jsou na obou větvích pneumatického systému, slouží pro regulaci tlaku v systému během terapie a také jako nouzové vypouštěcí ventily. \par
 Všechny použité ventily nesmí v uzavřeném stavu propustit vzduch při tlaku $300 \ mmHg$, jinak by hrozilo nepřesné výsledky při měření a tím pádem špatná terapie.
 \pagebreak
 \subsection{Uzavírací ventil}
-Uzavírací ventil je důležitou součástí systému. Pneumatický systém rozdělí na dvě větve, kde jedna je část s manžetou a druhá větev je jako referenční. \par
+Uzavírací ventil je důležitou součástí systému, pneumatický systém rozdělí na dvě větve, kde jedna je část s manžetou, na které jsou tlakové pulzace a druhá větev je jako referenční. \par
 
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/closing_valve.jpg}
@@ -262,7 +262,7 @@ Uzavírací ventil je důležitou součástí systému. Pneumatický systém roz
     \label{fig:closing_valve}
 \end{figure}
 
-Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napětím, normálně zavřený, vzduchový ventil typu solenoid  o $U = 5 \ V$ a vstupní proud o $I = 204 \ mA \pm 10\% $ \cite{cite:UzaviraciVentil}
+Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napětím, normálně zavřený, vzduchový ventil typu solenoid o napájecím napětí $U = 5 \ V$ a vstupním proudu $I = 204 \ mA \pm 10\% $
 
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/closing_valve_driver.jpg}
@@ -270,14 +270,13 @@ Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napět
     \label{fig:closing_valve_driver}
 \end{figure}
 
-Pro řízení ventilu z výstupního pinu MCU je použitý NMOS tranzistor BSS138. BSS138 má spínací práh napětí $U_{GS} = 3.3 \ V$ což je přímo výstupní napětí z GPIO a maximální proud přes drain je $I_D = 0.22 \ A$. Resistor přes Gate a Source zajisti známé napětí, pokud bude vstup na Gate plovoucí. Tím se zamezí neznámé chovaní tranzistoru.
+Pro řízení ventilu z výstupního pinu MCU je použitý NMOS tranzistor BSS138. BSS138 má spínací práh napětí $U_{GS} = 3.3 \ V$ což je přímo výstupní napětí z GPIO a maximální proud přes drain je $I_D = 0.22 \ A$.
+Resistor na gate tranzistoru zajisti známé napětí, pokud bude vstup na gate plovoucí, tím se zamezí neznámé chovaní tranzistoru.
 
 \subsection{Regulační ventil}
 Regulační ventily slouží k regulaci tlaku v systému při terapii a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každé větvi pneumatického systému. Během terapie je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvích podle potřeby terapie. \par
 
-Regulační ventily jsou použité JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil. Maximální povolený tlak je $350mmHg$, řízený napětím $U = 6 \ V$ DC a proudový odběr je $I = 0.107 \ A$.\par
-
-Napětí na ventilech je $5V$ i přes to, že ventily požadují napětí $6 \ V$. Sadou testů zjistilo, že momentální napětí vyhovuje naším požadavkům a únik tlaku při plném sevření nijak neovlivňuje terapii a přidáním $6 \ V$ by se akorát zvýšila komplexita systému.
+Použité regulační ventily jsou JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil a maximálním povoleným tlakem $350mmHg$, řízený napětím $U = 6 \ V$ a s proudovým odběrem $I = 0.107 \ A$.\par
 
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/var_valves.jpg}
@@ -285,42 +284,41 @@ Napětí na ventilech je $5V$ i přes to, že ventily požadují napětí $6 \ V
     \label{fig:variable_valve_driver}
 \end{figure}
 
+Napájecí napětí o hodnotě $5 \ V$ bylo zvoleno, po provedení testů, které ukázaly, že zvolené napájecí napětí vyhovuje požadavkům a únik tlaku při plném sevření nijak neovlivňuje terapii a přidáním $6 \ V$ napájení by se zvýšila komplexita návrhu systému.
+
 \subsubsection{Zdroj proudu}
-Regulační ventily jsou řízené napěťově řízeným zdrojem proudu jak je na obrázku (\ref{fig:variable_valve_driver}).\par
-Ventily jsou napojené na drain NMOS tranzistoru, přes který jde konstantní napětí požadované ventilem. Proud se řídí operačním zesilovačem, který má na neinvertujícím vstupu $U_+$ napojené řídící napětí $U_i$. Výstup operačního zesilovače je spojen s gate tranzistoru. Source tranzistoru je spojen s invertujícím vstupem $U_-$ operačního zesilovače a také paralelně k zemi jsou zapojené resistory $R_{||}$, které určují maximální možný proud na regulačních ventilech. Výsledný proud je:
+Regulační ventily jsou řízené napěťově řízeným zdrojem proudu (\ref{fig:variable_valve_driver}).\par
+Ventily jsou napojené na drain NMOS tranzistoru, přes který jde konstantní napětí požadované ventilem. Proud se řídí operačním zesilovačem, který má na neinvertujícím vstupu $U_+$ napojené řídící napětí $U_i$. Výstup operačního zesilovače je spojen s gate tranzistoru, source tranzistoru je spojen s invertujícím vstupem $U_-$ operačního zesilovače a také paralelně k zemi jsou zapojené resistory $R_{||}$, které určují maximální možný proud na regulačních ventilech. Výsledný proud je:
 \begin{equation}
     \label{eq:current_source}
     I = \frac{U_i}{R_{||}}
 \end{equation}
-V případě na obrázku (\ref{fig:variable_valve_driver}) paralelní resistory $R_1 = R_2 = 51 \ \Omega$ mají výslednou hodnotu:
+Paralelní resistory $R_1 = R_2 = 51 \ \Omega$ mají výslednou hodnotu:
 \begin{align*}
     R_{||} = \frac{R_1 R_2}{R_1 + R_2} = \frac{51}{2} = 25.5 \ \Omega
 \end{align*}
 Maximálním napětí, které umožní MCU z GPIO pinu je $3.3 \ V$ proto maximální možný proud na regulačních ventilech je:
 \begin{align*}
-    I = \frac{U_i}{R_{||}} = \frac{3.3}{25.5} \approx 129 \ mA
+    I = \frac{U_i}{R_{||}} = \frac{3.3}{25.5} \doteq  129 \ mA
 \end{align*}
 
 Pokud budeme brát v úvahu ideální OZ, tak do invertujícího $U_-$ a neinvertujícího $U_+$ vstupu jde nulový proud, kde $U_+ = U_-$ a výstup z OZ je
 \begin{align}
     U_o = A(U_+ - U_-)
 \end{align}
-kde $A [-] $ je zesilovační činitel, který se blíží k nekonečnu. Pokud bude na výstupu OZ nulové napětí, tranzistor je uzavřen a napětí na source je také nulové. Pokud, ale například řídící napětí bude  $U_i = 1V$, poté se OZ bude snažit, aby rozdíl $U_+ - U_- = 0$, tak na výstupu OZ se bude zvyšovat napětí dokud napětí na source nebude $U_- = U_i$. To znamená, že přes regulační ventily právě bude procházet proud z rovnice (\ref{eq:current_source}).
+kde $A \ [-] $ je zesilovační činitel, který se blíží k nekonečnu. Pokud bude na výstupu OZ nulové napětí, tranzistor je uzavřen a napětí na source je také nulové. Pokud, ale například řídící napětí bude  $U_i = 1V$, poté se OZ bude snažit, aby rozdíl $U_+ - U_- = 0$, proto se na výstupu OZ bude zvyšovat napětí dokud napětí na source nebude $U_- = U_i$. To znamená, že přes regulační ventily právě bude procházet proud z rovnice (\ref{eq:current_source}).
 
 Použitý NMOS tranzistor je BSS138, má minimální prahové napětí $U_{GS(th)} = 0.5 \ V$, to je napětí, při kterém začne protékat proud na drain. To znamená, že minimální řídící napětí musí být $U_{i} = 0.5 \ V$
 
 
 \subsubsection{Řídící signál}
-Řídící signál je čtvercový pro řízení proudového zdroje. PWM signál z MCU o frekvenci $f_{PWM} = 25 \ kHz$ je filtrován pomocí RC článku o zlomové frekvenci $f_c = 159 \ Hz$, který slouží pro modulaci řídícího PWM signálu na konstantní napětí.
+Jako řídící signál pro řízení proudového zdroje je použit PWM signál. PWM je generováno z MCU o frekvenci $f_{PWM} = 168 \ kHz$, který je filtrován pomocí RC článku o zlomové frekvenci $f_c = 159 \ Hz$, který slouží pro modulaci řídícího PWM signálu na konstantní napětí.
 \par
-Pulse Width Modulated(PWM) signál je periodický čtvercový signál s fixní periodou a měnící se poměrem času v log.1 a log.0, také nazývané jako střída(Duty Cycle). Průměrné napětí PWM signálu je
+Pulse Width Modulated(PWM) je periodický čtvercový signál s fixní periodou a měnící se poměrem času v log.1 a log.0, také nazývané jako střída(Duty Cycle). Průměrné napětí PWM signálu je
 \begin{equation}
     U_{out} = U_{max} \cdot Duty Cycle
 \end{equation}
 kde $U_{max}$ je maximální amplituda PWM signálu. \par
-
-
-Pomocí Fourierovy analýzy PWM signálu můžeme vidět, že PWM signál se neskládá pouze z jedné frekvence, ale z mnoha (\ref{fig:pwm_spectrum}).
 
 \begin{figure}[H]
     \centering
@@ -329,7 +327,7 @@ Pomocí Fourierovy analýzy PWM signálu můžeme vidět, že PWM signál se nes
     \label{fig:pwm_spectrum}
 \end{figure}
 
-Největší amplitudu typického PWM signálu má na její nastavené frekvenci $f_{PWM}$ a ostatní harmonické frekvence jsou její celočíselné násobky. Tyto frekvence přidávají nechtěný šum a můžou být potlačeny pomocí filtru typu dolní propust.
+Největší amplitudu typického PWM signálu má na její nastavené frekvenci $f_{PWM}$ a ostatní harmonické frekvence jsou její celočíselné násobky, které přidávají nechtěný šum a můžou být potlačeny pomocí filtru typu dolní propust.
 
 
 \begin{figure}[H]
@@ -339,8 +337,7 @@ Největší amplitudu typického PWM signálu má na její nastavené frekvenci 
     \label{fig:unwanted_pwm_spectrum}
 \end{figure}
 
-Použitá dolní propust je RC filtr. Podle obrázku (\ref{fig:variable_valve_driver}) RC filtr je složený z odporu $R = 10 \ k\Omega$ a kondenzátoru $C = 100 \ nF$ kde výstupní napětí je napětí na kondenzátoru.
-Kde $f_c = 159 \ Hz$ je zlomová frekvence filtru.
+Jako filtr typu dolní propust je použit RC článek, který je složen z odporu $R = 10 \ k\Omega$ a kondenzátoru $C = 100 \ nF$, kde výsledná zlomová frekvence filtru je $f_c = 159 \ Hz$.
 
 \begin{figure}[H]
     \centering
@@ -362,7 +359,7 @@ Aby výstupní řídící signál byl co nejvíce konstantní musíme zvolit vst
                     connect spies}
         ]
         \begin{axis}[
-                width=\linewidth,
+                width=0.9\linewidth,
                 % title = {Picture 1},  % whatever name you want
                 ylabel = {$U_{out}$ (V)},
                 xlabel = {Čas (s)},
@@ -382,14 +379,7 @@ Aby výstupní řídící signál byl co nejvíce konstantní musíme zvolit vst
     \end{tikzpicture}
 \end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\linewidth]{pictures/filtered_pwm.jpg}
-%     \caption{Simulace RC filtru při vstupním PWM signálu o střídě $50\%$ a frekvencí $f_{PWM} = 168 \ kHz $. Simulace byla provedena v programu LTspice XVII.}
-%     \label{fig:filtered_pwm}
-% \end{figure}
-
-Rušení výstupního signálu ovlivní chování regulačního ventilu. Toto rušení způsobí periodickou změnu amplitudy výstupního signálu a regulační ventil se podle této amplitudy bude periodicky otevírat a zavírat. Při zvolené frekvenci PWM $f_{PWM} = 168000 \ Hz $ je změna napětí $\approx 2 \ mV$. To způsobí změnu proudu $I = \frac{0.002}{25.5} = \pm 78.4 \ \mu A $. \par
+Rušení výstupního signálu ovlivní chování regulačního ventilu, toto rušení způsobí periodickou změnu amplitudy výstupního signálu a regulační ventil se podle této amplitudy bude periodicky otevírat a zavírat. Při zvolené frekvenci PWM $f_{PWM} = 168000 \ Hz $ je změna napětí $\approx 2 \ mV$, to způsobí změnu proudu $I = \frac{0.002}{25.5} = \pm 78.4 \ \mu A $. \par
 Volba velikosti prvků RC článku ovlivní schopnost reakce na změnu vstupního napětí.
 Časová konstanta $\tau = RC = 10 \times 10^{3} \cdot 100 \times 10^{-9}= 1\ ms$ definuje čas, který potrvá aby napětí na kondenzátoru dosáhlo $U_{C}(\tau) = U_{in}(\tau)(1 - e^{-1})$, což je $\approx 63 \ \% $ vstupního napětí $U_{in}$.
 
@@ -409,19 +399,19 @@ Tato sekce popisuje typy použitých analogově digitálních převodníků, kte
 Další je 24 bit sigma-delta AD převodník Microchip MCP3561 pro snímání napětí z diferenčního tlakového sensoru popsaný v sekci (\ref{section:diff_pressure_sen}).
 
 \subsection{Snímání signálů z tlakových sensorů větví pneumatíckého systému}
-Je použit AD převodník součástí periférii rodiny MCU STM32F4xx. Jedná se o 12 bitový AD převodník s postupnou aproximací a maximální vzorkovací frekvencí $f_{sample} = 2.4 \ MSPS$. Pro každý kanál se může aplikovat jiná vzorkovací frekvence. \par
+Je použit AD převodník součástí periférii rodiny MCU STM32F4xx. Jedná se o 12 bitový AD převodník s postupnou aproximací a maximální vzorkovací frekvencí $f_{sample} = 2.4 \ MSPS$. \par
 Díky měření pouze absolutní hodnoty tlaku ze sensorů vzorkovací frekvence nemusí být vysoká. Vzorkovací frekvence je:
 \begin{equation}
     f_{sample}=\frac{f_{ADCCKL}}{\textnormal{vzorkovací počet cyklů} + 15 \ \textnormal{cyklů} } = \frac{20.5 \ MHz}{480 + 15} \approx 41.5 \; kHz
 \end{equation}
 Vzorkovací frekvence závisí na vstupní frekvenci AD převodníku $f_{ADCCKL} = 20.5 \ MHz$, minimální počet $f_{ADCCKL} $ cyklů pro převod je $15$ a vzorkovacím počtem cyklů, které jsou předem dané výrobcem. Minimální počet vzorkovacích cyklů je $3$ a maximální je $480$.
 \par
-Přesnost AD převodníku je $1 LSB = \frac{U_{ref}}{2^N} = \frac{3.3}{2^{12}} = 0.000805 \ \frac{V}{ADC \ krok}$ závisí na referenčním napětí diskutovaném v sekci (\ref{section:vref}).
+Přesnost AD převodníku je $1 \ LSB = \frac{U_{ref}}{2^N} = \frac{3.3}{2^{12}} = 805 \ \mu V$ závisí na referenčním napětí diskutovaném v sekci (\ref{section:vref}).
 
 \begin{equation} \label{eq:max_adc_R}
     R_{AIN} = \frac{k - 0.5}{f_{ADCCLK} \cdot C_{ADC} \cdot ln(2^{N+2})} - R_{ADC}
 \end{equation}
-Rovnice (\ref{eq:max_adc_R}) slouží pro určení maximální vstupní externí impedance pro chybu pod $\frac{1}{4} \ LSB$. $N = 12$ je rozlišení AD převodníku, $k = 480$ je vzorkovací čas, $R_{ADC} = 6 \ k\Omega$ je vnitřní impedance vstupního kanálu AD převodníku a
+Rovnice (\ref{eq:max_adc_R}) slouží pro určení maximální vstupní impedance pro zaručení chyby převodu pod $\frac{1}{4} \ LSB$. $N = 12$ je rozlišení AD převodníku, $k = 480$ je vzorkovací čas, $R_{ADC} = 6 \ k\Omega$ je vnitřní impedance vstupního kanálu AD převodníku a
 $C_{ADC} = 4 \ pF$ je interní kapacita obvodu Sample and Hold. Výsledná maximální vstupní impedance je $R_{AIN} = 1.75 \ M\Omega$, ale podle katalogového listu je maximální externí impedance AD převodníku $R_{AIN} = 50 \ k\Omega$.
 \par
 K dalším chybám AD převodníku patří
@@ -445,14 +435,14 @@ K dalším chybám AD převodníku patří
 \end{table}
 
 \subsection{Snímání signálů z diferenčního tlakového sensoru pneumatíckého systému} \label{section:mcp3561_hw}
-Diferenční sensor tlaku snímá dynamické jevy tlaku krevního řečiště. Při srdečním tepu např. $120 \  \frac{tepů}{min}$ tj. $2 \ Hz$, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Aby byl tlakový analogový signál správně převeden do digitálního signálu, musí být dodržen Nyquistův teorém.
+Diferenční sensor tlaku snímá dynamické jevy tlakových pulzací. Při srdečním tepu např. $120 \ \frac{tepů}{min}$ tj. $2 \ Hz$, odpovídá 20. harmonická složka signálu frekvenci  $f = 40 \ Hz$. Aby byl tlakový analogový signál správně převeden do digitálního signálu, musí být dodržen Nyquistův teorém.
 \begin{equation} \label{eq:nyquist}
     f_s \geq 2f
 \end{equation}
 Rovnice (\ref{eq:nyquist}) říká, že vzorkovací frekvence musí být alespoň dvojnásobek snímaného signálu.
 \par
-Pro zachycení pulzní tlakové vlny je také zapotřebí dostatečné rozlišení v časové oblasti. Pokud vzorkovací frekvence signálu je $f_s = 5000 \ Hz$, chyba v měření může být $t_e = \pm 200 \ \mu s$. Podle vzorce (\ref{eq:pwv}) můžeme vypočítat chybu měření v závislosti na časovém kroku.
-Například ať $l = 0.5 \ m$, $t_2 = 200 \ ms$ a $t_1 = 0 \ ms$, tak výsledné $PWV$ bude $PWV = 5 \ \frac{m}{s}$. Pokud započítáme chybu $t_e$ do výpočtu rychlost pulzní vlny bude
+Pro zachycení pulzní tlakové vlny je také zapotřebí dostatečné rozlišení v časové oblasti. Pokud vzorkovací frekvence signálu je $f_s = 5000 \ Hz$, chyba v měření může být $t_e = \pm 200 \ \mu s$. Podle vzorce (\ref{eq:pwv}) můžeme vypočítat chybu měření PWM v závislosti na časovém kroku.
+Například ať $l = 0.5 \ m$, $t_2 = 200 \ ms$ a $t_1 = 0 \ ms$, výsledné $PWV$ bude $PWV = 5 \ \frac{m}{s}$. Pokud započítáme chybu $t_e$ do výpočtu rychlost šíření pulzní vlny bude
 \begin{equation*}
     PWV = \frac{2l}{t_2 - t_1 + t_e} = \frac{1}{0.2 - 0.0002} = 5.005 \ \frac{m}{s}
 \end{equation*}
@@ -461,8 +451,8 @@ Například ať $l = 0.5 \ m$, $t_2 = 200 \ ms$ a $t_1 = 0 \ ms$, tak výsledné
 \end{equation*}
 Výsledek se může lišit o $\pm 0.1 \ \%$.
 \par
-Byl vybrán 24 bit sigma-delta AD převodník MCP3561 od firmy Microchip s maximální vzorkovací frekvencí $153.6 \ kHz$. Je to AD převodník s velmi nízkým šumem, s jedním diferenčním vstupem nebo dvěma jednotlivými vstupy analogových signálu.
-Obsahuje interní oscilátor, teplotní sensor, obvody pro detekci zkratu či odpojeného sensoru, programovatelné zesílení od $0.33 \times$ až $64 \times$ a další.
+Byl vybrán 24 bit sigma-delta AD převodník MCP3561 od firmy Microchip s maximální vzorkovací frekvencí $153.6 \ kHz$. Je to AD převodník s velmi nízkým šumem, s jedním diferenčním vstupem nebo dvěma jednotlivými vstupy analogových signálu,
+obsahuje interní oscilátor, teplotní sensor, obvody pro detekci zkratu či odpojeného sensoru, programovatelné zesílení od $0.33 \times$ až $64 \times$ a další.
 \par
 MCP3561 komunikuje s MCU pomocí komunikačního rozhraní Serial Peripheral Interface (SPI) až s maximální rychlostí $20 \ MHz$. Komunikace probíhá po 8 bitových slovech, kde odpovědi z AD převodníku můžou mít délku 8, 24 a nebo podle konfigurace i 32 bit.
 \begin{figure}[H]
@@ -471,28 +461,28 @@ MCP3561 komunikuje s MCU pomocí komunikačního rozhraní Serial Peripheral Int
     \label{fig:mcp3561_connection}
     \includegraphics[width=1\linewidth]{pictures/mcp3561_connection.jpg}
 \end{figure}
-Na obrázku (\ref{fig:mcp3561_connection}) je schéma zapojení MCP3561 podle doporučeného zapojení výrobce.
 \subsubsection{Napájení a napěťové reference}
-Zapojení obsahuje oddělené filtrování analogového a digitálního napajecího vstupu. Je použit RC článek typu dolní propusti s parametry resistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$. Zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
+Zapojení obsahuje oddělené filtrování analogové a digitální napajecí reference, pro který je použit RC článek typu dolní propusti s parametry resistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$, kde zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
 \par
-Referenční napájení AD převodníku obsahuje operační zesilovač v zapojení napěťového sledovače, protože vstupní reference AD převodníku není impedančně oddělená. Operační zesilovač je MCP6V91T od firmy Microchip. Má nízkou teplotně závislou napěťovou nesymetrii $U_{OS \ Drift} = \pm 17  \ \frac{nV}{^\circ C}$
+Referenční napájení AD převodníku obsahuje operační zesilovač v zapojení napěťového sledovače, protože vstupní reference AD převodníku není impedančně oddělená. Operační zesilovač je MCP6V91T od firmy Microchip s nízkou teplotně závislou napěťovou nesymetrii $U_{OS \ Drift} = \pm 17  \ \frac{nV}{^\circ C}$
 a také nízkou napěťovou nesymetrii $U_{OS} = 9 \ \mu V$, nízký šum a je optimalizovaný pro použití v prostředí s vysokým elektromagnetickým rušením.
 
 \subsubsection{Externí oscilátor}
-Místo interního oscilátoru AD převodníku je použit externí oscilátor ECS-2520MVLC od firmy ECS Inc. s frekvencí $f_{CLK} = 4.9152 \ MHz$. Externí oscilátor zaručí stabilní funkčnost AD převodníku, protože přesnost interního oscilátoru není výrobcem zaručena, rozdíly až $\pm 30  \ \%$, může se lišit čip od čipu, mohou způsobit vadnou komunikaci a další nepredikovatelné chování.
+Místo interního oscilátoru AD převodníku je použit externí oscilátor ECS-2520MVLC od firmy ECS Inc. s frekvencí $f_{CLK} = 4.9152 \ MHz$. Externí oscilátor zaručí stabilní funkčnost AD převodníku, protože přesnost interního oscilátoru není výrobcem zaručena, s frekvenčními rozdíly až $\pm 30  \ \%$, se mohou lišit čip od čipu a mohou způsobit vadnou komunikaci a další nepredikovatelné chování.
 Podporované frekvence externího oscilátoru jsou v rozmezí $ 1 \ MHz \leq  f_{CLK} \leq 20 \ MHz $. Frekvence $f_{CLK} = 4.9152 \ MHz$ byla zvolena díky naměřených parametrů AD převodníku v katalogovém listu právě při použití této frekvence.
 \par
 Maximální možná přenosová rychlost pro tuto frekvenci oscilátoru je $f_s = 38400 \ Hz$.
 
 \subsubsection{Přesnost a rušení}
-Nejmenší možné snímané napětí ideálního $N = 24 - 1$ bit AD převodníku, protože rozsah snímaného napětí je $\pm U_{ref}$ největší bit je rezervován pro znaménko. Při referenčním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N-1}} \doteq  393.390  \ nV$.
+Nejmenší možné snímané napětí ideálního $N = 24$ bit AD převodníku, při referenčním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N-1}} \doteq 393.39 \ nV$. N-1 je protože rozsah snímaného napětí je $\pm U_{ref}$ a největší bit je rezervován pro znaménko.
 Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí jaká přenosová rychlost bude mít nejlepší počet efektivních bitů. Přenosová rychlost udává počet vzorků odeslané po přenosové lince nadřazenému systému, signalizovaném výstupním digitálním pinem AD převodníku $\overline{IRQ}$.
 Rovnice po výpočet přenosové rychlosti:
 \begin{equation}
     f_s = DRCLK = \frac{DMCLK}{OSR} =\frac{f_{CLK}}{4 \times OSR \times PRESCALE}
 \end{equation}
-Rovnice je převzatá z katalogu AD převodníku. Kde $f_{CLK} = 4.9152 \ MHz$ je frekvence AD převodníku, DMCLK je vzorkovací frekvence AD převodníku, PRESCALE je hodnota pro decimaci taktovací frekvence AD převodníku s hodnotami $PRESCALE = \{1, 2, 4, 8\}$.  OSR (Oversampling Ratio) je poměr vzorkovací frekvence ku přenosové rychlosti. Počet a hodnoty OSR jsou v omezeném množství a jsou napsané v katalogu AD převodníku. Podle katalogu závisí počet efektivních bitů a rušení na OSR.
-Čím vyšší OSR, tím větší bude počet použitelných bitů a menší rušení. Pro dosáhnutí přenosové rychlosti $f_s = 5000 \ Hz$ byly vybrány hodnoty $PRESCALE = 1$, $OSR = 256$ a zesílení $GAIN = 1 \times$. Vzorkovací frekvence AD převodníku je $DMCLK = \frac{f_{CLK}}{4 \times PRESCALE} = 1 \ 228 \ 800 \ Hz$ a výsledná přenosová rychlost je $f_s = DRCLK = 4800 \ Hz$. Výsledná přenosová rychlost vyhovuje požadavkům. Díky vybrání hodnoty OSR je výsledný $ENOB = 19.5 \ bit$ a RMS rušení $U_{noise \ RMS} = 8.94 \ \mu V$.
+Rovnice je převzatá z katalogu AD převodníku, kde $f_{CLK} = 4.9152 \ MHz$ je frekvence AD převodníku, DMCLK je vzorkovací frekvence AD převodníku, PRESCALE je hodnota pro decimaci taktovací frekvence AD převodníku s hodnotami $PRESCALE = \{1, 2, 4, 8\}$, OSR (Oversampling Ratio) je poměr vzorkovací frekvence ku přenosové rychlosti.
+Podle katalogu závisí počet efektivních bitů a rušení na OSR, čím vyšší OSR, tím větší bude počet použitelných bitů a menší rušení. Pro dosáhnutí přenosové rychlosti $f_s = 5000 \ Hz$ byly vybrány hodnoty $PRESCALE = 1$, $OSR = 256$ a zesílení $GAIN = 1$,
+vzorkovací frekvence AD převodníku je $DMCLK = \frac{f_{CLK}}{4 \times PRESCALE} = 1 \ 228 \ 800 \ Hz$ a výsledná přenosová rychlost je $f_s = DRCLK = 4800 \ Hz$ s $ENOB = 19.5 \ bit$ a RMS rušení $U_{noise \ RMS} = 8.94 \ \mu V$.
 Výsledná přesnost AD převodníku se sníží na $ 1 \ LSB = \frac{U_{ref}}{2^{ENOB}} \doteq  4.4 \ \mu V$.
 \par
 K dalším parametrům AD převodníku MCP3561 patří
@@ -535,24 +525,24 @@ K dalším parametrům AD převodníku MCP3561 patří
 
 
 \section{Datové úložiště}
-Přidané datové úložiště slouží jako úložiště dat z AD převodníku MCP3561. MCU příjmá data o velikosti $N = 24 \ bit$ při přenosové rychlosti $f_s \approx 5000 \ Hz$ po dobu $T = 30 \ s$. Velikost úložiště je potřeba alespoň
+Přidané datové úložiště slouží jako úložiště dat z AD převodníku MCP3561. MCU příjmá data o velikosti $N = 24 \ bit$ při přenosové rychlosti $f_s \approx 5000 \ Hz$ po dobu $T = 30 \ s$, minimální velikost úložiště je
 \begin{equation*}
     M = N \times f_s \times T = 3 \ 600 \ 000 \ bit
 \end{equation*}
 Neboli $\frac{M}{8} = 450 \ kB$.
 \par
-Interní úložiště MCU STM32F407ZG6 typu FLASH je 1 MB, ale toto úložiště slouží jako úložiště programu a také sdílí s periferiemi MCU. Dostupné interního úložiště MCU je menší než potřebné.
+Interní úložiště MCU STM32F407ZG6 typu FLASH je 1 MB, ale slouží pro umístění vektoru přerušení, bootloaderu a programu.
 \par
-Jako přidané datové úložiště je vybrána NOR FLASH paměť MX25R3235FM2IH0 od firmy Macronix o velikosti 32 Mb. Komunikace probíhá přes komunikační protokol SPI. NOR FLASH je typ energeticky nezávislou paměť, po odpojení napájení stále drží zapsaný obsah.
+Jako přidané datové úložiště je vybráno NOR FLASH paměť MX25R3235FM2IH0 od firmy Macronix o velikosti 32 Mb. NOR FLASH je typ energeticky nezávislou paměť, po odpojení napájení stále drží zapsaný obsah. Komunikace probíhá přes komunikační protokol SPI.
 \begin{figure}[H]
     \label{fig:flash_memory}
     \caption{Schéma zapojení paměti flash Macronix MX25R3235FM2IH0}
     \includegraphics[width=1\textwidth]{pictures/flash_memory.jpg}
 \end{figure}
-Paměť je rozdělena do 64 kB bloků, které jsou poté rozděleny do bloků po 32 kB, ty do 4 kB sektorů. Do paměti je nejmenší možný zápis po 256 B stránkách. Přenosová perioda příchozích 24 bit dat z AD převodníku je $t_s = 208 \ \mu s$ a doba pro zápis celé stránky je $t_{PP} = 850 \ \mu s$. 256 B příchozích z AD převodníku je za $t_p = 256 \times \frac{t_s}{3} \doteq 17.7 \ ms$.
-Použitá paměť nám umožní bezpečně uložit data s dostatečnou prodlevou před příchozí další 256 B z AD převodníku MCP3561.
+Paměť je rozdělena do 64 kB bloků, které jsou poté rozděleny do bloků po 32 kB a ty do 4 kB sektorů. Do paměti je nejmenší možný zápis po 256 B stránkách. Přenosová perioda příchozích 24 bit dat z AD převodníku je $t_s = 208 \ \mu s$ a doba pro zápis celé stránky je $t_{PW} = 850 \ \mu s$. 256 B příchozích z AD převodníku je za $t_p = 256 \times \frac{t_s}{3} \doteq 17.7 \ ms$.
+Použitá paměť umožní uložit data s dostatečnou prodlevou před příchozí další 256 B z AD převodníku MCP3561.
 \section{Nouzové zastavení}
-V situaci, kdy pacient se během terapie cítí v ohrožení nebo kdy je přístroj mimo běžný predikovatelný stav, je přístroj vybaven obvodem pro připojení nouzového tlačítka.
+V situaci, kdy pacient se během terapie cítí v ohrožení nebo kdy je přístroj mimo běžný, predikovatelný stav, je přístroj vybaven obvodem pro připojení nouzového tlačítka.
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/e_stop.jpg}
     \caption{Schéma zapojení nouzového tlačítka}
@@ -561,7 +551,7 @@ V situaci, kdy pacient se během terapie cítí v ohrožení nebo kdy je příst
 Nouzové tlačítko je připojeno ke vstupními pinu MCU, které má k dispozici externí přerušení. Pin MCU musí mít pull up rezistor a přerušení nastavené na detekci spádové hrany. Toto nastavení zajistí
 detekci odpojeného nouzového tlačítka, přístroj se programově nastaví do stavu nouze a tím uživateli přístroje zabrání spuštění terapie bez zabezpečení proti selhání.
 \section{Napájení}
-Vstupní napájení je použito pro napájení celého přístroje. Vstupní napětí je $U_{in} = 5 \ V DC$, které poskytuje napájení pro všechny součástky na přístroji. Vstupní napětí je poté pomocí regulátoru napětí s nízkým úbytkem usměrněno na $3.3 \ V$ pro napájení MCU, sensorů a ostatních komponentů.
+Vstupní napětí je $U_{in} = 5 \ V DC$ a poskytuje napájení celého systému. Vstupní napětí je poté pomocí regulátoru napětí s nízkým úbytkem usměrněno na $3.3 \ V$ pro napájení MCU, sensorů a ostatních komponentů.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/power.jpg}
@@ -588,7 +578,7 @@ Celkový proudový odběr přístroje je
             AD převodník            & Microchip MCP3561     &        & 2.2     &          \\
             FLASH Paměť             & Macronix MX25R3235F   &        & 2       &          \\
             \bottomrule
-            $\Sigma$                &                       &        & 1.7922  & A        \\
+            $\Sigma$                &                       &        & 1.79    & A        \\
             \bottomrule
         \end{tabular}
     \end{ctucolortab}
@@ -618,13 +608,13 @@ Ztrátový výkon bude při proudovém doběru $I = 2 \ A$
 Na schématu (\ref{fig:power_input}) je připojena mezi $U_G$ a $U_S$ Zenerova dioda, která zamezí maximální napětí, pro ochranu tranzistoru. Pokud napájecí zdroj bude mít větší napětí něž maximální povolené napětí na $U_{GS}$, zenerova dioda upne $U_{GS}$ na její maximální napětí.
 \par
 Pro maximální zamezení rušivých jevů a zlepšení EMC jsou připojeny paralelně dva blokovací kondenzátory.
-
+\subsection*{Regulátor napětí}
 \begin{figure}[H]
     \includegraphics[width=0.9\linewidth]{pictures/ldo_3v3.jpg}
-    \caption{Schéma zapojení regulátoru napětí z 5V na 3.3V}
+    \caption{Schéma zapojení regulátoru napětí AZ1084-3.3 z 5V na 3.3V}
     \label{fig:stepdown}
 \end{figure}
-Na obrázku (\ref{fig:stepdown}) je schéma zapojení lineárního regulátoru napětí s nízkým úbytkem AZ1083-3.3.
-Vstupní napětí je v rozmezí $1.5 \ V \leq U_{in} \leq 12 \ V $. Výstup regulátoru je fixní na $U_{out} = 3.3 \ V$ a maximální výstupní proud je $I_{out(MAX)} = 5 \ A$. Zapojení regulátoru je podle doporučeného zapojení v katalogovém listu.
+Je použit lineární regulátor napětí s nízkým úbytkem AZ1084-3.3 od firmy Diodes Incorporated.
+Vstupní napětí regulátoru je v rozmezí $1.5 \ V \leq U_{in} \leq 12 \ V $, výstupní napětí je fixní na $U_{out} = 3.3 \ V$ a maximální výstupní proud je $I_{out(MAX)} = 5 \ A$. Zapojení regulátoru je podle doporučeného zapojení v katalogovém listu.
 
 
