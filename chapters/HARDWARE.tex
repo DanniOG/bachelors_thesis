@@ -53,6 +53,7 @@ Snížení frekvence externích taktovacích hodin omezíme vysoko frekvenčníh
 \end{figure}
 
 
+\pagebreak
 \subsection{Napěťová reference pro analogové periferie} \label{section:vref}
 Pro dosáhnutí nejpřesnějšího měření, je třeba, aby analogová část byla co nejméně zarušena. Díky vysokým kmitočtům digitální části MCU může zarušit analogové periférie a proto jsou v MCU digitální a analogové obvody oddělené.
 Jako referenční napětí je použito zapojení na obrázku (\ref{fig:stm32_vref}).
@@ -64,7 +65,8 @@ Jako referenční napětí je použito zapojení na obrázku (\ref{fig:stm32_vre
     \label{fig:stm32_vref}
 \end{figure}
 
-Tento filtr začne potlačovat na frekvenci $f = 138 \ kHz$. Ale mezi $\approx 50 \ kHz$ a $ \approx 115 \ kHz$ filtr zesiluje, kde největší zesílení o $19 \ dB$ je na frekvenci $88.8 \ kHz$
+Tento filtr začne potlačovat na frekvenci $f = 138 \ kHz$. Ale mezi $\approx 50 \ kHz$ a $ \approx 115 \ kHz$ filtr zesiluje, kde největší zesílení o $19 \ dB$ je na frekvenci $88.8 \ kHz$.
+Frekvenční charakteristika se může nastavit změnou použitých kondenzátorů a zvýšit útlum pomocí rezistoru R28.
 
 \begin{figure}[H]
     \caption{Aproximace frekvenční charakteristiky filtru pro referenční napájení analogové periférie MCU.}
@@ -120,11 +122,11 @@ Pneumatická část je řízena procesorem, se kterým lze komunikovat pomocí d
     \label{fig:par_modul_comm}
 \end{figure}
 Pneumatickou část lze udržovat na hladinách tlaku v rozmezí (0–300) $mmHg$ po dobu až 180 s a uživateli umožňuje zvolit odstup suprasystolického tlaku od naměřeného systolického tlaku. Po odeslání příkazu pro zahájení měření posílá modul po lince aktuální stav pneumatické části během celého měření a po měření posílá zprávu s naměřenými hodnotami krevního tlaku a srdeční frekvence.
-\section{sensory}
+\section{Sensory}
 Tato sekce se zaměří na popis a použití sensorů tlaku. Tlakové sensory tvoří nezbytnou část celkového přístroje, rozhodují o přesnosti výsledné terapie. \par
 Parametry sensorů tlaku vychází z požadavků terapie. Pneumatický systém může být pod tlakem až $300 \ mmHg \approx 40 \ kPa$, tento požadavek musí splňovat všechny sensory napojené do pneumatického systému.
 
-\subsection{sensor tlaku} \label{section:pressure_sen}
+\subsection{Sensor tlaku} \label{section:pressure_sen}
 sensor tlaku se používá na snímání tlaku v jednotlivých větví pneumatického systému. \par
 
 Použité sensory tlaku jsou NPX MP3V5050GC6U.
@@ -271,7 +273,7 @@ Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napět
 \end{figure}
 
 Pro řízení ventilu z výstupního pinu MCU je použitý NMOS tranzistor BSS138. BSS138 má spínací práh napětí $U_{GS} = 3.3 \ V$ což je přímo výstupní napětí z GPIO a maximální proud přes drain je $I_D = 0.22 \ A$.
-Resistor na gate tranzistoru zajisti známé napětí, pokud bude vstup na gate plovoucí, tím se zamezí neznámé chovaní tranzistoru.
+Rezistor na gate tranzistoru zajisti známé napětí, pokud bude vstup na gate plovoucí, tím se zamezí neznámé chovaní tranzistoru.
 
 \subsection{Regulační ventil}
 Regulační ventily slouží k regulaci tlaku v systému při terapii a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každé větvi pneumatického systému. Během terapie je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvích podle potřeby terapie. \par
@@ -288,12 +290,12 @@ Napájecí napětí o hodnotě $5 \ V$ bylo zvoleno, po provedení testů, kter�
 
 \subsubsection{Zdroj proudu}
 Regulační ventily jsou řízené napěťově řízeným zdrojem proudu (\ref{fig:variable_valve_driver}).\par
-Ventily jsou napojené na drain NMOS tranzistoru, přes který jde konstantní napětí požadované ventilem. Proud se řídí operačním zesilovačem, který má na neinvertujícím vstupu $U_+$ napojené řídící napětí $U_i$. Výstup operačního zesilovače je spojen s gate tranzistoru, source tranzistoru je spojen s invertujícím vstupem $U_-$ operačního zesilovače a také paralelně k zemi jsou zapojené resistory $R_{||}$, které určují maximální možný proud na regulačních ventilech. Výsledný proud je:
+Ventily jsou napojené na drain NMOS tranzistoru, přes který jde konstantní napětí požadované ventilem. Proud se řídí operačním zesilovačem, který má na neinvertujícím vstupu $U_+$ napojené řídící napětí $U_i$. Výstup operačního zesilovače je spojen s gate tranzistoru, source tranzistoru je spojen s invertujícím vstupem $U_-$ operačního zesilovače a také paralelně k zemi jsou zapojené rezistory $R_{||}$, které určují maximální možný proud na regulačních ventilech. Výsledný proud je:
 \begin{equation}
     \label{eq:current_source}
     I = \frac{U_i}{R_{||}}
 \end{equation}
-Paralelní resistory $R_1 = R_2 = 51 \ \Omega$ mají výslednou hodnotu:
+Paralelní rezistory $R_1 = R_2 = 51 \ \Omega$ mají výslednou hodnotu:
 \begin{align*}
     R_{||} = \frac{R_1 R_2}{R_1 + R_2} = \frac{51}{2} = 25.5 \ \Omega
 \end{align*}
@@ -462,7 +464,7 @@ MCP3561 komunikuje s MCU pomocí komunikačního rozhraní Serial Peripheral Int
     \includegraphics[width=1\linewidth]{pictures/mcp3561_connection.jpg}
 \end{figure}
 \subsubsection{Napájení a napěťové reference}
-Zapojení obsahuje oddělené filtrování analogové a digitální napajecí reference, pro který je použit RC článek typu dolní propusti s parametry resistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$, kde zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
+Zapojení obsahuje oddělené filtrování analogové a digitální napajecí reference, pro který je použit RC článek typu dolní propusti s parametry rezistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$, kde zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
 \par
 Referenční napájení AD převodníku obsahuje operační zesilovač v zapojení napěťového sledovače, protože vstupní reference AD převodníku není impedančně oddělená. Operační zesilovač je MCP6V91T od firmy Microchip s nízkou teplotně závislou napěťovou nesymetrii $U_{OS \ Drift} = \pm 17  \ \frac{nV}{^\circ C}$
 a také nízkou napěťovou nesymetrii $U_{OS} = 9 \ \mu V$, nízký šum a je optimalizovaný pro použití v prostředí s vysokým elektromagnetickým rušením.
