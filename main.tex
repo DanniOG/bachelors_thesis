@@ -46,8 +46,8 @@
 	supervisor-address = {Praha, Technická 1902/2, \\ místnost: B2-36},
 	fieldofstudy-english = {Medical electronics and bioinformatics},
 	fieldofstudy-czech = {Lékařská elektronika a bioinformatika},
-	keywords-czech = {Hemodynamické parametry, Neinvazivní, Systém, Embedded system, Rychlost pulzní vlny, Analýza pulzní vlny ,Oscilometrická metoda, Měření krevního tlaku, PWV},
-	keywords-english = {Hemodynamic parameters, Noninvasive, System, Embedded system, Pulse Wave Velocity, Pulse Wave Analysis, Oscilometric method, Blood Pressure measurement},
+	keywords-czech = {Hemodynamické parametry, Neinvazivní, Systém, Embedded system, Rychlost šíření pulzní vlny, Analýza pulzní vlny, Oscilometrická metoda, Měření krevního tlaku, Suprasystolický tlak},
+	keywords-english = {Hemodynamic parameters, Noninvasive, System, Embedded system, Pulse Wave Velocity, Pulse Wave Analysis, Oscilometric method, Blood Pressure measurement, Suprasystolic pressure},
 	day = 25,
 	month = 4,
 	year = 2023,
@@ -79,9 +79,9 @@ Finally, the measured pressure pulsations of the volunteer at suprasystolic pres
 \end{abstract-english}
 
 \begin{abstract-czech}
-Bakalářská práce se zabývá návrhu a realizace systému pro snímání tlakových pulzací pomocí pažní manžety, mezi měřené parametry patří rychlost šíření pulzní vlny, centrální aortální tlak a krevní tlak. 
-První část je zaměřena na teoretickému popisu hemodynamických parametrů a rešerši přístrojů pro měření hemodynamických parametrů krevního řečiště určovaných neinvazivně z tvaru tlakové křivky. V další části je hardwarový návrh a dokumentace systému. 
-Na to navazuje popis pneumatické části, realizace desky plošného spoje a technické parametry systému. Na zavěr je ukázána naměřených tlakových pulzací dobrovolníka při suprasystolickém tlaku $200 \ mmHg$ a $275 \ mmHg$.
+Bakalářská práce se zabývá návrhem a realizací systému pro snímání tlakových pulzací pomocí pažní manžety. Mezi měřené hemodynamické parametry patří rychlost šíření pulzní vlny, centrální aortální tlak a krevní tlak. 
+První část práce je zaměřena na teoretický popis hemodynamických parametrů a rešerši přístrojů pro měření hemodynamických parametrů krevního řečiště určovaných neinvazivně z tvaru tlakové křivky. V další části je hardwarový návrh a dokumentace systému. 
+Na to navazuje popis pneumatické části, realizace desky plošného spoje a popis technických parametrů systému. Na zavěr jsou ukázány naměřené tlakové pulzace u dobrovolníka při suprasystolickém tlaku $200 \ mmHg$ a $275 \ mmHg$.
 \end{abstract-czech}
 
 \begin{document}
@@ -93,15 +93,17 @@ Na to navazuje popis pneumatické části, realizace desky plošného spoje a te
 
 %Intro
 \chapter{Úvod}
-Cílem bakalářské práce je návrh a realizace systému pro snímání tlakových pulzací pomocí pažní manžety. Systém je pojmenován CarDi(Cardiovascular Diagnostic), který měří krevní tlak, centrální aortální tlak a rychlost šíření pulzní vlny, který splňuje normy
+Cílem této bakalářské práce je návrh a realizace systému pro snímání tlakových pulzací pomocí pažní manžety. Systém je pojmenován CarDi (Cardiovascular Diagnostic), který měří krevní tlak, centrální aortální tlak a rychlost šíření pulzní vlny a splňuje normy
 ISO 81060–1:2013 a ISO 81060–2:2013 \cite{cite:Validation}.
+Práce navazuje na projekt TA ČR EPSILON 4, TH04010173 - Zařízení pro automatickou analýzu hemodynamických parametrů, který byl řešen na FEL, ČVUT v Praze v letech 2019 až 2021.
+
 
 \par
-První část seznámí čtenáře s částí měřených hemodynamických parametrů a to zejména krevního tlaku a rychlosti šíření pulzní vlny. Popis metod neinvazivního měření krevního tlaku, rešerši přístrojů dostupné na trhu zaměřené na neinvazivní měření rychlosti šíření pulzní vlny, jejich postup měření a ovládání z uživatelského hlediska.
+První část seznámí čtenáře s měřením hemodynamických parametrů, a to zejména krevního tlaku a rychlosti šíření pulzní vlny. Dále pak na popis metod neinvazivního měření krevního tlaku, rešerši přístrojů dostupných na trhu zaměřených na neinvazivní měření rychlosti šíření pulzní vlny, jejich postup měření a ovládání z uživatelského hlediska.
 \par
-Další část se zaměří na návrh elektronického systému pro ovládání terapie a její dokumentaci.
+Další část se zaměří na návrh elektronického systému pro ovládání průběhu snímání a technickou dokumentaci.
 \par
-V části realizace systému CarDi je popsána deska plošného spoje, popis pneumatického části systému, parametry přístroje, charakterizace analogově-digitálních převodníků pro tlakové senzory a měření pulzní tlakové vlny pomocí diferenčního sensoru tlaku.
+V části realizace systému CarDi je popsána deska plošného spoje, popis pneumatické části systému, parametry přístroje, charakteristiky analogově-digitálních převodníků pro tlakové sensory a měření pulzní tlakové vlny pomocí diferenčního sensoru tlaku.
 
 %BloodPressure
 \input{chapters/BLOODPRESSURE}
@@ -118,23 +120,22 @@ V části realizace systému CarDi je popsána deska plošného spoje, popis pne
 %% END
 
 \chapter{Závěr}
-Úkolem práce bylo provést rešerši přístrojů pro měření hemodynamických parametrů krevního řečiště určovaných neinvazivně z tvaru
-tlakové křivky, navrhnou a realizovat systém pro snímání tlakových pulzací pomocí pažní manžety, vyhodnotit technické parametry navrženého řešení a vytvořit technickou dokumentaci navrženého řešení.
+Úkolem této bakalářské práce bylo provést rešerši přístrojů pro měření hemodynamických parametrů krevního řečiště určovaných neinvazivně z tvaru
+tlakové křivky, navrhnout a realizovat systém pro snímání tlakových pulzací pomocí pažní manžety, vyhodnotit technické parametry a vytvořit technickou dokumentaci navrženého řešení.
 \par
 První část se věnovala popisu hemodynamických parametrů krevního řečiště, popsání metod měření parametrů a rešerši přístrojů pro měření hemodynamických parametrů krevního řečiště určovaných neinvazivně z tvaru
 tlakové křivky.
 \par
-Druhá část je zaměřena na návrh a dokumentaci systému pro snímání tlakových pulzací pomocí pažní manžety.
+Druhá část byla zaměřena na návrh a dokumentaci systému pro snímání tlakových pulzací pomocí pažní manžety.
 \par
-Poslední část obsahuje popis a charakterizace parametrů navrženého systému, test těsnosti pneumatické části, charakterizace analogově digitálních převodníků pro tlakové senzory a měření pulzní tlakové křivky dobrovolníka.
+Poslední část se poté věnovala popisu a charakterizaci parametrů navrženého systému, testům těsnosti pneumatické části, charakteristice analogově-digitálních převodníků pro tlakové sensory a měření pulzní tlakové křivky dobrovolníka.
 \par
-Výsledkem bakalářské práce je systém pro snímání tlakových pulzací pomocí pažní manžety, jeho dokumentace a charakterizace parametrů. Systém dokáže ovládat ventily, sběr dat z tlakových senzorů a ostatních periférií, jejich následné zpracování a komunikaci s nadřazeným systémem.
+Výsledkem bakalářské práce je systém pro snímání tlakových pulzací pomocí pažní manžety, jeho dokumentace a popis parametrů. Systém dokáže ovládat ventily, umožňuje sběr dat z tlakových sensorů a ostatních periférií, jejich následné zpracování a komunikaci s nadřazeným systémem.
 \par
-Na realizovaném systému je potřeba zlepšit frekvenční odezvu filtru pro napájení analogové části mikroprocesoru, těsnost pneumatického systému, zvolené blokovací kondenzátory
-pro AD převodník MCP3561, kde jejich hodnota se liší od doporučených v katalogovém listu. Další zlepšení se může zaměřit na analýzu rušení senzorů a její potlačení, zlepšení odolnosti proti elektromagnetickému rušení, optimalizace návrhu desky plošného spoje, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro
+Na realizovaném systému je potřeba dobudoucna zlepšit frekvenční odezvu filtru pro napájení analogové části mikroprocesoru, těsnost pneumatického systému. Další vylepšení se může zaměřit na analýzu rušení sensorů a jeho potlačení, zlepšení odolnosti proti elektromagnetickému rušení, vytvoření uživatelského prostředí, vytvoření vlastních knihoven pro
 mikroprocesor STM32, dálkový upgrade firmware z uživatelského prostředí a vytvoření softwarového systému Board Support Package pro podporu více verzí desky plošného spoje jedním softwarem.
 \par
-Vytvořený systém splňuje požadavky zadání bakalářské práce, systém je navrhnut, realizován, jsou popsané jeho parametry a je vytvořená jeho dokumentace.
+Vytvořený systém splňuje požadavky zadání bakalářské práce. Systém je navržen, realizován, jsou popsané jeho parametry a je vytvořená jeho dokumentace.
 
 
 \appendix
