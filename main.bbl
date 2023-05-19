@@ -1,106 +1,129 @@
-\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
-\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
-% \MRhref is called by the amsart/book/proc definition of \MR.
-\providecommand{\MRhref}[2]{%
-  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
-}
-\providecommand{\href}[2]{#2}
-\begin{thebibliography}{fDCP23}
+\begin{thebibliography}{10}
 
-\bibitem[ak11]{cite:5}
-Miklós~Illyés a~kolektiv., \emph{Tensiomed arteriograph brochure. tensiomed.
-  <\url{http://www.tensiomed.com}>.}
+\bibitem{cite:5}
+Miklós~Illyés a~kolektiv.
+\newblock Tensiomed arteriograph brochure. tensiomed.
+  <\url{http://www.tensiomed.com}>.
+\newblock 2011.
 
-\bibitem[Atc23]{cite:SphygmoCor}
-Atcor, \emph{Sphygmocor xcel
-  <\url{https://atcormedical.com/technology/sphygmocor-xcel/}>}.
+\bibitem{cite:SphygmoCor}
+Atcor.
+\newblock Sphygmocor xcel
+  <\url{https://atcormedical.com/technology/sphygmocor-xcel/}>.
+\newblock 2023.
 
-\bibitem[BD19]{cite:Validation}
+\bibitem{cite:Validation}
 Sajgalik P; Kremen V; Fabian V; Maltais S; Stulak JM; Kushwaha SS; Joyce LD;
-  Schirger JA;~Johnson BD, \emph{Non-invasive blood pressure monitor designed
-  for heart failure patients supported with continuous-flow left ventricular
-  assist devices}, ASAIO J. (2019).
+  Schirger JA;~Johnson BD.
+\newblock Non-invasive blood pressure monitor designed for heart failure
+  patients supported with continuous-flow left ventricular assist devices.
+\newblock {\em ASAIO J.}, February 2019.
 
-\bibitem[CD18]{cite:BP}
-Whelton PK; Carey RM; Aronow; WS; Casey DE; Collins KJ;~Himmelfarb CD,
-  \emph{2017 acc/aha/aapa/abc/acpm/ags/apha/ash/aspc/nma/pcna guideline for the
-  prevention, detection, evaluation, and management of high blood pressure in
-  adults: A report of the american college of cardiology/american heart
-  association task force on clinical practice guidelines}, J Am Coll Cardiol.
-  (2018).
+\bibitem{cite:BP}
+Whelton PK; Carey RM; Aronow; WS; Casey DE; Collins KJ;~Himmelfarb CD.
+\newblock 2017 acc/aha/aapa/abc/acpm/ags/apha/ash/aspc/nma/pcna guideline for
+  the prevention, detection, evaluation, and management of high blood pressure
+  in adults: A report of the american college of cardiology/american heart
+  association task force on clinical practice guidelines.
+\newblock {\em J Am Coll Cardiol.}, 2018.
 
-\bibitem[Cha11]{cite:7}
-L.~Chaloupka, \emph{Monitorování parametrů kardiovaskulárního systému z
-  tvaru tlakových křivek, dp}, ČVUT (2011).
+\bibitem{cite:7}
+L.~Chaloupka.
+\newblock Monitorování parametrů kardiovaskulárního systému z tvaru
+  tlakových křivek, dp.
+\newblock {\em ČVUT}, 2011.
 
-\bibitem[CON]{cite:UzaviraciVentil}
-CONJOIN, \emph{Cjav08-2b05a
-  <\url{https://www.aliexpress.com/i/33040651412.html}>}.
+\bibitem{cite:UzaviraciVentil}
+CONJOIN.
+\newblock Cjav08-2b05a <\url{https://www.aliexpress.com/i/33040651412.html}>.
 
-\bibitem[Dar87]{cite:4}
-Gloria~Oblouk Darovic, \emph{Hemodynamic monitoring: Invasive and noninvasive
-  clinical applications}, W B Saunders Co. \textbf{1} (1987).
+\bibitem{cite:4}
+Gloria~Oblouk Darovic.
+\newblock Hemodynamic monitoring: Invasive and noninvasive clinical
+  applications.
+\newblock {\em W B Saunders Co.}, 1, 1987.
 
-\bibitem[Des]{cite:RCResponse}
-OKAWA~Electric Design, \emph{Webová aplikace pro design filtrů.
-  <\url{http://sim.okawa-denshi.jp/en/CRlowkeisan.htm}>}.
+\bibitem{cite:RCResponse}
+OKAWA~Electric Design.
+\newblock Webová aplikace pro design filtrů.
+  <\url{http://sim.okawa-denshi.jp/en/CRlowkeisan.htm}>.
 
-\bibitem[Fab22]{cite:Fabian}
-V.~Fabián, \emph{Přednášky z předmětu biofyzika bab02bfy}, ČVUT (2022).
+\bibitem{cite:2}
+DOBIAS M. ( CTU in Prague~) FABIAN~V., KREMEN~V.
+\newblock Method for an accurate automated non-invasive measurement of blood
+  pressure waveform and apparatus to carry out the same.
+\newblock {\em United States Patent and Trademark Office, US Patent
+  US10251567}, December 2019.
 
-\bibitem[fDCP23]{cite:11}
-Centers for Disease~Control and Prevention, \emph{High blood pressure
-  <\url{https://www.cdc.gov/bloodpressure/about.htm}>}.
+\bibitem{cite:Fabian}
+V.~Fabián.
+\newblock Přednášky z předmětu biofyzika bab02bfy.
+\newblock {\em ČVUT}, 2022.
 
-\bibitem[FV19]{cite:2}
-DOBIAS M. ( CTU in Prague~) FABIAN~V., KREMEN~V., \emph{Method for an accurate
-  automated non-invasive measurement of blood pressure waveform and apparatus
-  to carry out the same}, United States Patent and Trademark Office, US Patent
-  US10251567 (2019).
+\bibitem{cite:11}
+Centers for Disease~Control and Prevention.
+\newblock High blood pressure
+  <\url{https://www.cdc.gov/bloodpressure/about.htm}>.
+\newblock 2023.
 
-\bibitem[Inc]{cite:ESD}
-Diodes Incorporated, \emph{Katalogový list d5v0f1u2s9}.
+\bibitem{cite:ESD}
+Diodes Incorporated.
+\newblock Katalogový list d5v0f1u2s9.
 
-\bibitem[J.15]{cite:6}
-Pereira T.; Correia C.;~Cardoso J., \emph{Novel methods for pulse wave velocity
-  measurement.}, Journal of Medical and Biological Engineering (2015).
+\bibitem{cite:6}
+Pereira T.; Correia C.;~Cardoso J.
+\newblock Novel methods for pulse wave velocity measurement.
+\newblock {\em Journal of Medical and Biological Engineering}, 2015.
 
-\bibitem[Mic]{cite:STM32F407}
-ST~Microelectronics, \emph{Online na <
-  \url{https://octopart.com/stm32f407zgt6-stmicroelectronics-20570112} >}.
+\bibitem{cite:STM32F407}
+ST~Microelectronics.
+\newblock Online na <
+  \url{https://octopart.com/stm32f407zgt6-stmicroelectronics-20570112} >.
 
-\bibitem[Sem]{cite:NXP}
-NXP Semiconductors, \emph{Katalogový list mp3v5050}.
+\bibitem{cite:NXP}
+NXP Semiconductors.
+\newblock Katalogový list mp3v5050.
 
-\bibitem[Sen]{cite:Allsensors}
-All Sensors, \emph{Katalogový list elv series}.
+\bibitem{cite:Allsensors}
+All Sensors.
+\newblock Katalogový list elv series.
 
-\bibitem[S.R]{cite:Vasera}
-BIONIK STAPRO~GROUP S.R.O, \emph{Fukuda denshi vasera vs-1500n
-  <\url{https://bionik.cz/pristroje/vasera/vasera-vs-1500n/}>}.
+\bibitem{cite:Vasera}
+BIONIK STAPRO~GROUP S.R.O.
+\newblock Fukuda denshi vasera vs-1500n
+  <\url{https://bionik.cz/pristroje/vasera/vasera-vs-1500n/}>.
 
-\bibitem[tec]{cite:MCPPWV}
-Microchip technology, \emph{Application note tb3250}.
+\bibitem{cite:MCPPWV}
+Microchip technology.
+\newblock Application note tb3250.
 
-\bibitem[Ten22]{cite:Arteriograph}
-Tensiomed, \emph{Arteriograph
-  <\url{https://www.tensiomed.com/devices/arteriograph/}>}.
+\bibitem{cite:Arteriograph}
+Tensiomed.
+\newblock Arteriograph <\url{https://www.tensiomed.com/devices/arteriograph/}>.
+\newblock 2022.
 
-\bibitem[TR16]{cite:CBP}
-Nichols~WW Townsend~RR, Rosendorff~C, \emph{American society of hypertension
-  10(5) (2016) 467–468 society of hypertension position paper: central blood
-  pressure waveforms in health and disease.}, J Am Soc Hypertens. (2016).
+\bibitem{cite:CBP}
+Nichols~WW Townsend~RR, Rosendorff~C.
+\newblock American society of hypertension 10(5) (2016) 467–468 society of
+  hypertension position paper: central blood pressure waveforms in health and
+  disease.
+\newblock {\em J Am Soc Hypertens.}, 2016.
 
-\bibitem[Tro19]{cite:Patricia}
-Bc.~Patrícia Troppová, \emph{Measurement of pressure cuffs physical
-  characteristics, dp}, ČVUT (2019).
+\bibitem{cite:Patricia}
+Bc.~Patrícia Troppová.
+\newblock Measurement of pressure cuffs physical characteristics, dp.
+\newblock {\em ČVUT}, 2019.
 
-\bibitem[Usc23]{cite:Uscom}
-Uscom, \emph{Uscom bp+ overview
-  <\url{https://www.uscom.com.au/products/bp/overview/}>}.
+\bibitem{cite:Uscom}
+Uscom.
+\newblock Uscom bp+ overview
+  <\url{https://www.uscom.com.au/products/bp/overview/}>.
+\newblock 2023.
 
-\bibitem[V.23]{cite:Habilitace}
-Fabián V., \emph{Okluzivní metoda měření krevního tlaku u pacientů s
-  implantovanou srdeční podporou typu cf-lvad}, ČVUT (2023).
+\bibitem{cite:Habilitace}
+Fabián V.
+\newblock Okluzivní metoda měření krevního tlaku u pacientů s
+  implantovanou srdeční podporou typu cf-lvad.
+\newblock {\em ČVUT}, 2023.
 
 \end{thebibliography}
