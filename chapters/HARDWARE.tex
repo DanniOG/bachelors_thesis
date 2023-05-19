@@ -313,14 +313,13 @@ Použitý NMOS tranzistor je BSS138, má minimální prahové napětí $U_{GS(th
 
 
 \subsubsection{Řídící signál}
-Jako řídící signál pro řízení proudového zdroje je použit PWM signál. PWM je generováno z MCU o frekvenci $f_{PWM} = 168 \ kHz$, který je filtrován pomocí RC článku o zlomové frekvenci $f_c = 159 \ Hz$, který slouží pro modulaci řídícího PWM signálu na konstantní napětí.
+Jako řídící signál pro řízení proudového zdroje je použit PWM signál, který je převeden na konstatní pomocí filtru typu dolní propust. PWM je generováno z MCU o frekvenci $f_{PWM} = 168 \ kHz$, který je filtrován pomocí RC článku o zlomové frekvenci $f_c = 159 \ Hz$, který slouží pro modulaci řídícího PWM signálu na konstantní napětí.
 \par
 Pulse Width Modulated (PWM) je periodický čtvercový signál s fixní periodou a měnící se poměrem času v log. 1 a log. 0, také nazývané jako střída (Duty Cycle). Průměrné napětí PWM signálu je
 \begin{equation}
     U_{out} = U_{max} \cdot Duty Cycle
 \end{equation}
 kde $U_{max}$ je maximální amplituda PWM signálu. \par
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/pwm_spectrum_microchip90003250A.jpg}
@@ -328,6 +327,7 @@ kde $U_{max}$ je maximální amplituda PWM signálu. \par
     \label{fig:pwm_spectrum}
 \end{figure}
 
+Pro převod PWM na konstatní signál je použitý filtr typu dolní propust, jehož zlomová frekvence musí být menší než frekvence PWM signálu.
 
 
 \begin{figure}[H]
