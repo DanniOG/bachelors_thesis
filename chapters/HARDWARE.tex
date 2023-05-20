@@ -54,7 +54,7 @@ Snížení frekvence externích taktovacích hodin omezíme vysoko frekvenčníh
 
 
 \pagebreak
-\subsection{Napěťová reference pro analogové periferie} \label{section:vref}
+\subsection{Napěťová reference pro analogové periferie mikroprocesoru} \label{section:vref}
 Pro dosáhnutí nejpřesnějšího měření, je třeba, aby analogová část byla co nejméně zarušena. Díky vysokým kmitočtům digitální části MCU může zarušit analogové periférie a proto jsou v MCU digitální a analogové obvody oddělené.
 Jako referenční napětí je použito zapojení na obrázku (\ref{fig:stm32_vref}).
 
@@ -64,9 +64,6 @@ Jako referenční napětí je použito zapojení na obrázku (\ref{fig:stm32_vre
     \caption{Schéma zapojení referenčního napájení pro analogové periférie MCU}
     \label{fig:stm32_vref}
 \end{figure}
-
-Tento filtr začne potlačovat na frekvenci $f = 138 \ kHz$. Ale mezi $\approx 50 \ kHz$ a $ \approx 115 \ kHz$ filtr zesiluje, kde největší zesílení o $19 \ dB$ je na frekvenci $88.8 \ kHz$.
-Frekvenční charakteristika se může nastavit změnou použitých kondenzátorů a zvýšit útlum pomocí rezistoru R28.
 
 \begin{figure}[H]
     \caption{Aproximace frekvenční charakteristiky filtru pro referenční napájení analogové periférie MCU.}
@@ -84,9 +81,13 @@ Frekvenční charakteristika se může nastavit změnou použitých kondenzátor
         \end{axis}
     \end{tikzpicture}
 \end{figure}
+LC filtr začne potlačovat na frekvenci $f = 138 \ kHz$, ale mezi $\approx 50 \ kHz$ a $ \approx 115 \ kHz$ zesiluje.
+Rezonanční frekvence LC filtru je dána vzorcem uvedený níže
+\begin{equation}
+    f = \frac{1}{2 \pi \sqrt{LC}}
+\end{equation}
+Výsledná rezonanční frekvence je $f = 89106.66 \ kHz$ o amplitůdě $19 \ dB$.
 
-
-Feritový korálek je pasivní součástka, který se používá pro filtraci vysokofrekvenčního rušení přes širokou část frekvenčního rozsahu. Největší impedanci má okolo určené frekvence a disipuje energii rušení ve formě tepla.
 \subsection{Ochrana proti elektrostatickému výboji}
 Elektrostatický výboj (ESD) je náhlý a krátkodobý elektrický proud mezi dvěma objekty s různým elektrickým potenciálem. Představuje hrozbu elektrickým komponentům ve formě trvalého, nevratného poškození. Nejčastější místa probití jsou zejména místa, kterých se často dotýkáme například konektory.
 \par
