@@ -226,10 +226,10 @@ Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analo
 \end{table}
 \subsection{Převodní charakteristika}
 Sensor má převodní funkci $10 \% - 90 \%$ napěťového rozsahu. Nejmenší možný signál vycházející ze sensoru bude o velikosti $10\% U_s$,
-to připadá tlaku $P_{min} = -3.736873 \ mmHg$, největší $90\% U_s$ a výsledný tlak $P_{max} = 3.736873 \ mmHg$. sensor má lineární převodní funkci.
-Výsledná převodní funkce z výstupního napětí na tlak v jednotkách $mmHg$ je
+to připadá tlaku $P_{min} = -3.736873 \ mmHg$, největší $90\% U_s$ a výsledný tlak $P_{max} = 3.736873 \ mmHg$.
+Sensor má lineární převodní funkci pro převod výstupního napětí na tlak v jednotkách $mmHg$ a je uvedena níže
 \begin{equation}
-    P = 2.831 \times U - 4.6711
+    P = 2.831 \times U - 4.671
 \end{equation}
 \subsection{Vstupní filtr}
 Analogový signál ze sensoru je připojen k 24bitovému AD převodníku přes RC článek. Schéma zapojení k AD převodníku je (\ref{fig:amphenol_circuit})
@@ -278,7 +278,7 @@ Rezistor na gate tranzistoru zajisti známé napětí, pokud bude vstup na gate 
 \subsection{Regulační ventil}
 Regulační ventily slouží k regulaci tlaku v systému při měření a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každé větvi pneumatického systému. Během měření je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvích podle potřeby měření. \par
 
-Použité regulační ventily jsou JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil a maximálním povoleným tlakem $350mmHg$, řízený napětím $U = 6 \ V$ a s proudovým odběrem $I = 0.107 \ A$.\par
+Použité regulační ventily jsou JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil a maximálním povoleným tlakem $350 \ mmHg$, řízený napětím $U = 6 \ V$ a s proudovým odběrem $I = 107 \ mA$.\par
 
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/var_valves.jpg}
@@ -308,9 +308,9 @@ Pokud budeme brát v úvahu ideální OZ, tak do invertujícího $U_-$ a neinver
 \begin{align}
     U_o = A(U_+ - U_-)
 \end{align}
-kde $A \ [-] $ je zesilovační činitel, který se blíží k nekonečnu. Pokud bude na výstupu OZ nulové napětí, tranzistor je uzavřen a napětí na source je také nulové. Pokud, ale například řídící napětí bude  $U_i = 1V$, poté se OZ bude snažit, aby rozdíl $U_+ - U_- = 0$, proto se na výstupu OZ bude zvyšovat napětí dokud napětí na source nebude $U_- = U_i$. To znamená, že přes regulační ventily právě bude procházet proud z rovnice (\ref{eq:current_source}).
-
-Použitý NMOS tranzistor je BSS138, má minimální prahové napětí $U_{GS(th)} = 0.5 \ V$, to je napětí, při kterém začne protékat proud na drain. To znamená, že minimální řídící napětí musí být $U_{i} = 0.5 \ V$
+kde $A \ [-] $ je zesilovační činitel, který se blíží k nekonečnu.
+Použitý NMOS tranzistor je BSS138, má minimální prahové napětí $U_{GS(th)} = 0.5 \ V$, to je napětí, při kterém začne protékat proud na drain.
+To znamená, že minimální řídící napětí musí být $U_{i} = 0.5 \ V$.
 
 
 \subsubsection{Řídící signál}
@@ -357,14 +357,12 @@ Jako filtr typu dolní propust je použit RC článek, který je složen z odpor
         ]
         \begin{axis}[
                 width=0.9\linewidth,
+                ytick={0,0.2,...,1.7},
                 % title = {Picture 1},  % whatever name you want
                 ylabel = {$U_{out}$ (V)},
                 xlabel = {Čas (s)},
                 grid=major, % Display a grid
                 grid style={dashed,gray!30}, % Set the style  
-                % xunit = \si{s},
-                % ymin = -3, ymax = 3,
-                % minor y tick num = 1,
             ]
             \addplot[blue] table {graphs/pwm_to_analog.dat};
             % \begin{scope}
@@ -376,9 +374,9 @@ Jako filtr typu dolní propust je použit RC článek, který je složen z odpor
     \end{tikzpicture}
 \end{figure}
 
-Toto rušení výstupního signálu ovlivní chování regulačního ventilu, toto rušení způsobí periodickou změnu amplitudy výstupního signálu a regulační ventil se podle této amplitudy bude periodicky otevírat a zavírat. Při zvolené frekvenci PWM $f_{PWM} = 168000 \ Hz $ je změna napětí $\approx 2 \ mV$, to způsobí změnu proudu $I = \frac{0.002}{25.5} = \pm 78.4 \ \mu A $. \par
+Toto rušení způsobí periodickou změnu amplitudy výstupního signálu a regulační ventil se podle této amplitudy bude periodicky otevírat a zavírat. Při zvolené frekvenci PWM $f_{PWM} = 168000 \ Hz $ je změna napětí $\approx 2 \ mV$, to způsobí změnu proudu $I = \frac{0.002}{25.5} = \pm 78.4 \ \mu A $. \par
 Volba velikosti prvků RC článku ovlivní schopnost reakce na změnu vstupního napětí.
-Časová konstanta $\tau = RC = 10 \times 10^{3} \cdot 100 \times 10^{-9}= 1\ ms$ definuje čas, který potrvá aby napětí na kondenzátoru dosáhlo $U_{C}(\tau) = U_{in}(\tau)(1 - e^{-1})$, což je $\approx 63 \ \% $ vstupního napětí $U_{in}$.
+Aby napětí na kondenzátoru dosáhlo $\approx 63 \ \% $ vstupního napětí $U_{in}$ bude trvat $\tau = RC = 10 \times 10^{3} \cdot 100 \times 10^{-9}= 1 \ ms$.
 
 \par
 Díky rovnici
@@ -401,7 +399,7 @@ Díky měření pouze absolutní hodnoty tlaku ze sensorů, vzorkovací frekvenc
 \begin{equation}
     f_{sample}=\frac{f_{ADCCKL}}{\textnormal{vzorkovací počet cyklů} + 15 \ \textnormal{cyklů} } = \frac{20.5 \ MHz}{480 + 15} \approx 41.5 \; kHz
 \end{equation}
-Vzorkovací frekvence závisí na vstupní frekvenci AD převodníku $f_{ADCCKL} = 20.5 \ MHz$, minimální počet $f_{ADCCKL} $ cyklů pro převod je $15$ a vzorkovacím počtem cyklů, které jsou předem dané výrobcem. Minimální počet vzorkovacích cyklů je $3$ a maximální je $480$.
+Vzorkovací frekvence závisí na vstupní frekvenci AD převodníku $f_{ADCCKL} = 20.5 \ MHz$, minimální počet $f_{ADCCKL} $ cyklů a vzorkovacím počtem cyklů, které jsou předem dané výrobcem. Minimální počet vzorkovacích cyklů je $3$ a maximální je $480$.
 \par
 Přesnost AD převodníku je $1 \ LSB = \frac{U_{ref}}{2^N} = \frac{3.3}{2^{12}} = 805 \ \mu V$ závisí na referenčním napětí diskutovaném v sekci (\ref{section:vref}).
 
