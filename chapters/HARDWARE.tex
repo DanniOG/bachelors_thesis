@@ -457,7 +457,7 @@ MCP3561 komunikuje s MCU pomocí komunikačního rozhraní Serial Peripheral Int
     \includegraphics[width=1\linewidth]{pictures/mcp3561_connection.jpg}
 \end{figure}
 \subsubsection{Napájení a napěťové reference}
-Zapojení obsahuje oddělené filtrování napájení analogové a digitální reference AD převodníku. Filtr je použit RC článek typu dolní propusti s parametry rezistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$, kde zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
+Zapojení obsahuje oddělené filtrování napájení analogové a digitální reference AD převodníku. Použitý filtr je RC článek typu dolní propusti s parametry rezistoru $R = 10 \ \Omega$ a kondenzátoru $C = 1100 \ nF$, kde zlomová frekvence RC článku je $f_c \doteq 14.5 \ kHz$.
 \par
 Referenční analogové napájení AD převodníku obsahuje operační zesilovač v zapojení napěťového sledovače, protože není impedančně oddělená. Operační zesilovač je MCP6V91T od firmy Microchip s nízkou teplotně závislou napěťovou nesymetrii $U_{OS \ Drift} = \pm 17  \ \frac{nV}{^\circ C}$
 a také nízkou napěťovou nesymetrii $U_{OS} = 9 \ \mu V$, nízký šum a je optimalizovaný pro použití v prostředí s vysokým elektromagnetickým rušením.
@@ -470,7 +470,7 @@ Maximální možná přenosová rychlost pro tuto frekvenci oscilátoru je $f_s 
 
 \subsubsection{Přesnost a rušení}
 Nejmenší možné snímané napětí ideálního $N = 24$ bit AD převodníku, při referenčním napětí $U_{ref} = 3.3 \ V $ je $ 1 \ LSB = \frac{U_{ref}}{2^{N-1}} \doteq 393.39 \ nV$. N-1 je protože rozsah snímaného napětí je $\pm U_{ref}$ a největší bit je rezervován pro znaménko.
-Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí jaká přenosová rychlost bude mít nejlepší počet efektivních bitů. Přenosová rychlost udává počet vzorků odeslané po přenosové lince nadřazenému systému, signalizovaném výstupním digitálním pinem AD převodníku $\overline{IRQ}$.
+Efektivní počet bitů (ENOB) závisí na interní konfiguraci registrů MCP3561 a od toho se také odvíjí, jaká přenosová rychlost bude mít nejlepší počet efektivních bitů. Přenosová rychlost udává počet vzorků odeslané po přenosové lince nadřazenému systému, signalizovaném výstupním digitálním pinem AD převodníku $\overline{IRQ}$.
 Rovnice po výpočet přenosové rychlosti:
 \begin{equation}
     f_s = DRCLK = \frac{DMCLK}{OSR} =\frac{f_{CLK}}{4 \times OSR \times PRESCALE}
@@ -532,7 +532,7 @@ Jako přidané datové úložiště je vybráno NOR FLASH paměť MX25R3235FM2IH
 \begin{figure}[H]
     \label{fig:flash_memory}
     \caption{Schéma zapojení paměti flash Macronix MX25R3235FM2IH0}
-    \includegraphics[width=1\textwidth]{pictures/flash_memory.jpg}
+    \includegraphics[width=0.8\textwidth]{pictures/flash_memory.jpg}
 \end{figure}
 Paměť je rozdělena do 64 kB bloků, které jsou poté rozděleny do bloků po 32 kB a ty do 4 kB sektorů. Do paměti je nejmenší možný zápis po 256 B stránkách. Přenosová perioda příchozích 24 bit dat z AD převodníku je $t_s = 208 \ \mu s$ a doba pro zápis celé stránky je $t_{PW} = 850 \ \mu s$. 256 B příchozích z AD převodníku je za $t_p = 256 \times \frac{t_s}{3} \doteq 17.7 \ ms$.
 Použitá paměť umožní uložit data s dostatečnou prodlevou před příchozí další 256 B z AD převodníku MCP3561.
@@ -600,7 +600,7 @@ Ztrátový výkon bude při proudovém doběru $I = 2 \ A$
     W_{loss} = I^2 R \approx (2)^2 (0.052) =  0.208 \ W
 \end{align*}
 
-Na schéma (\ref{fig:power_input}) je připojena mezi $U_G$ a $U_S$ Zenerova dioda, která zamezí maximální napětí, pro ochranu tranzistoru. Pokud napájecí zdroj bude mít větší napětí něž maximální povolené napětí na $U_{GS}$, zenerova dioda upne $U_{GS}$ na její maximální napětí.
+Mezi $U_G$ a $U_S$ je připojena Zenerova dioda, která zamezí maximální napětí, pro ochranu tranzistoru. Pokud napájecí zdroj bude mít větší napětí něž maximální povolené napětí na $U_{GS}$, zenerova dioda upne $U_{GS}$ na její maximální napětí.
 \par
 Pro maximální zamezení rušivých jevů a zlepšení EMC jsou připojeny paralelně dva blokovací kondenzátory.
 \subsection*{Regulátor napětí}
