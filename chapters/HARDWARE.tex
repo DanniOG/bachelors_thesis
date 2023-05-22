@@ -55,7 +55,7 @@ Snížení frekvence externích taktovacích hodin omezíme vysoko frekvenčníh
 
 \pagebreak
 \subsection{Napěťová reference pro analogové periferie mikroprocesoru} \label{section:vref}
-Pro dosáhnutí nejpřesnějšího měření, je třeba, aby analogová část byla co nejméně zarušena. Díky vysokým kmitočtům digitální části MCU může zarušit analogové periférie a proto jsou v MCU digitální a analogové obvody oddělené.
+Pro dosáhnutí nejpřesnějšího měření, je třeba, aby analogová část byla co nejméně zarušena. Díky vysokým kmitočtům digitální části MCU může, zarušit analogové periférie a proto jsou v MCU digitální a analogové obvody oddělené.
 Jako referenční napětí je použito zapojení na obrázku (\ref{fig:stm32_vref}).
 
 \begin{figure}[H]
@@ -186,7 +186,7 @@ Převodní charakteristika výstupního napětí $U_{o}$ na tlak $P \ kPa$
 \end{figure}
 
 \subsection{Diferenční sensor tlaku} \label{section:diff_pressure_sen}
-Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Porovnává tlak mezí první a druhou (referenční) větví systému. Po natlakování pneumatického systému až na $300 \ mmHg$ uzavírací ventil oddělí systém na dvě větve. Rozdíl tlaků ve větvi může být $300 \ mmHg$ neboli $40 \ kPa$. \par
+Diferenční sensor tlaku slouží na snímání malých tlakových pulzací. Porovnává tlak mezi první a druhou (referenční) větví systému. Po natlakování pneumatického systému až na $300 \ mmHg$ uzavírací ventil oddělí systém na dvě větve. Rozdíl tlaků ve větvi může být $300 \ mmHg$ neboli $40 \ kPa$. \par
 Diferenční sensor tlaku byl zvolen Amphenol ELVH-L02D-HRRD-C-NAA4. Je to analogový sensor tlaku určený na snímání velmi nízkých tlaků.
 \begin{figure}[H]
     \centering
@@ -273,12 +273,12 @@ Pro tento účel je použit ventil CONJOIN CJAV08-2B05A1. Je to řízený napět
 \end{figure}
 
 Pro řízení ventilu z výstupního pinu MCU je použitý NMOS tranzistor BSS138. BSS138 má spínací práh napětí $U_{GS} = 3.3 \ V$ což je přímo výstupní napětí z GPIO a maximální proud přes drain je $I_D = 0.22 \ A$.
-Rezistor na gate tranzistoru zajisti známé napětí, pokud bude vstup na gate plovoucí, tím se zamezí neznámé chovaní tranzistoru.
+Rezistor na gate tranzistoru zajistí známé napětí, pokud bude vstup na gate plovoucí, tím se zamezí neznámé chovaní tranzistoru.
 
 \subsection{Regulační ventil}
-Regulační ventily slouží k regulaci tlaku v systému při měření a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každé větvi pneumatického systému. Během měření je možno si zvolit jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvích podle potřeby měření. \par
+Regulační ventily slouží k regulaci tlaku v systému při měření a také jako vypouštěcí ventily pro vrácení pneumatického systému na atmosférický tlak. Ventily jsou umístěné na každé větvi pneumatického systému. Během měření je možno si zvolit, jak moc vysoký průtok vzduchu je možný, tím můžeme regulovat tlak v obou větvích podle potřeby měření. \par
 
-Použité regulační ventily jsou JQF4-6A/DC6V. Je to normálně otevřený lineární solenoid ventil a maximálním povoleným tlakem $350 \ mmHg$, řízený napětím $U = 6 \ V$ a s proudovým odběrem $I = 107 \ mA$.\par
+Použité regulační ventily jsou JQF4-6A/DC6V. Je to normálně otevřený lineární ventil typu solenoid s maximálním povoleným tlakem $350 \ mmHg$, řízený napětím $U = 6 \ V$ a s proudovým odběrem $I = 107 \ mA$.\par
 
 \begin{figure}[H]
     \includegraphics[width=1\linewidth]{pictures/var_valves.jpg}
@@ -286,7 +286,7 @@ Použité regulační ventily jsou JQF4-6A/DC6V. Je to normálně otevřený lin
     \label{fig:variable_valve_driver}
 \end{figure}
 
-Napájecí napětí o hodnotě $5 \ V$ bylo zvoleno, po provedení testů, které ukázaly, že zvolené napájecí napětí vyhovuje požadavkům a únik tlaku při plném uzavření nijak neovlivňuje měření a přidáním $6 \ V$ napájení by se zvýšila komplexita návrhu systému.
+Napájecí napětí o hodnotě $5 \ V$ bylo zvoleno po provedení testů, které ukázaly, že zvolené napájecí napětí vyhovuje požadavkům a únik tlaku při plném uzavření nijak neovlivňuje měření a přidáním $6 \ V$ napájení by se zvýšila komplexita návrhu systému.
 
 \subsubsection{Zdroj proudu}
 Regulační ventily jsou řízené napěťově řízeným proudovým zdrojem (\ref{fig:variable_valve_driver}).\par
